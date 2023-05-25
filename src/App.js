@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Header from "./components/Header";
+import Authentication from "./components/Authentication";
+import HomeDetail from "./features/HomeDetail/pages";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -26,11 +28,13 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Authentication />
         <Header />
         <Routes>
           <Route path="/todo-list" element={<TodoFeature />} />
           <Route path="/products" element={<ProductFeature />} />
           <Route path="/members" element={<MemberFeature />} />
+          <Route path="/" element={<HomeDetail />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/post-list/:postId" element={<NavigateToPost />} />
           <Route path="*" element={NotFound} />

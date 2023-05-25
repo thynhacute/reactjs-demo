@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./style.scss";
+import "./styles.scss";
 import { Link, NavLink } from "react-router-dom";
 import logoImage from "../../assets/images/logo.png";
 import searchIcon from "../../assets/images/search.png";
@@ -33,7 +33,7 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            <Link to="/contact">Liên hệ</Link>
+            <Link to="/contacts">Liên hệ</Link>
           </li>
           <li className="search-menu">
             <div className="search-bar">
