@@ -8,6 +8,7 @@ import cartIcon from "../../assets/images/cart.png";
 import dropIcon from "../../assets/images/dropdown.png";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 Header.propTypes = {};
 
@@ -64,39 +65,38 @@ function Header() {
             <Link to="/contacts">Liên hệ</Link>
           </li>
           {user?.displayName ? (
-            <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
-              <li className="username">
-                <p>{user?.displayName}</p>
-              </li>
-              <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
-                <img
-                  src={dropIcon}
-                  alt="Drop"
-                  className="drop-icon"
-                  onClick={handleToggleMenu}
-                />
-                {isMenuOpen && (
-                  <ul className="menu-list">
-                    {menuItems.map((item, index) => (
-                      <li key={index}>
-                        {typeof item === "string" ? (
-                          <Link
-                            to={`/${item.toLowerCase().replace(/\s/g, "-")}`}
-                          >
-                            {item}
-                          </Link>
-                        ) : (
-                          <Link to={item.path}>{item.label}</Link>
-                        )}
+            <Link className="no-underline">
+              <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
+                <li className="username">
+                  <p>{user?.displayName}</p>
+                  <IoMdArrowDropdown />
+                </li>
+                <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
+                  {isMenuOpen && (
+                    <ul className="menu-list">
+                      {menuItems.map((item, index) => (
+                        <li key={index} className="item-droplist">
+                          {typeof item === "string" ? (
+                            <Link
+                              to={`/${item.toLowerCase().replace(/\s/g, "-")}`}
+                            >
+                              {item}
+                            </Link>
+                          ) : (
+                            <Link to={item.path}>{item.label}</Link>
+                          )}
+                        </li>
+                      ))}
+                      <li>
+                        <button className="login" onClick={handleSignOut}>
+                          Đăng xuất
+                        </button>
                       </li>
-                    ))}
-                    <li>
-                      <button onClick={handleSignOut}>Đăng xuất</button>
-                    </li>
-                  </ul>
-                )}
-              </li>
-            </div>
+                    </ul>
+                  )}
+                </li>
+              </div>
+            </Link>
           ) : (
             <nav className="search-cart-wrapper">
               <li className="search-menu">
@@ -116,11 +116,6 @@ function Header() {
                     </button>
                   </form>
                 </div>
-              </li>
-              <li className="cart">
-                <Link to="/cart" className="cart">
-                  <img src={cartIcon} alt="Cart" className="cart-icon" />
-                </Link>
               </li>
             </nav>
           )}
