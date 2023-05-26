@@ -18,6 +18,7 @@ import LoginFeature from "./components/Login";
 import { AuthContextProvider } from "./context/AuthContext";
 import Protected from "./components/Authentication/protected";
 import Account from "./components/Account";
+import WalletFeature from "./components/Wallet";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -39,6 +40,8 @@ function App() {
             <Route path="/todo-list" element={<TodoFeature />} />
             <Route path="/products" element={<ProductFeature />} />
             <Route path="/members" element={<MemberFeature />} />
+            <Route path="/wallet" element={<WalletFeature />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/" element={<HomeDetail />} />
             <Route path="/login" element={<LoginFeature />} />
             <Route path="/home" element={<Navigate to="/" replace />} />

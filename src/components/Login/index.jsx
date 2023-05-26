@@ -28,25 +28,24 @@ function LoginFeature() {
     <header className="custom-login">
       <div className="hehe">
         <nav>
-          <p className="login-title">ĐĂNG NHẬP</p>
-          <ul className="detail-login">
-            <li className="google-login">
-              <button onClick={handleGoogleSignIn} className="login-item">
+          <div className="detail-login">
+            <div className="google-login">
+              <button onClick={handleGoogleSignIn} className="login-google">
                 <img src={googleIcon} alt="Google" className="google-icon" />
                 Google
               </button>
-            </li>
-            <li className="facebook-login">
-              <Link to="/login" className="login-item">
+            </div>
+            <div className="facebook-login">
+              <button className="login-facebook">
                 <img
                   src={facebookIcon}
                   alt="Facebook"
                   className="facebook-icon"
                 />
                 Facebook
-              </Link>
-            </li>
-          </ul>
+              </button>
+            </div>
+          </div>
         </nav>
       </div>
     </header>

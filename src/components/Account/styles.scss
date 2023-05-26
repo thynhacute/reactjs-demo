@@ -1,0 +1,81 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
+    src: url(../../assets/fonts/Montserrat-Regular.ttf);
+    src: url(../../assets/fonts/Montserrat-Medium.ttf);
+  }
+.custom-account{
+    margin-top: 50px;
+    background-image: url(../../assets/images/account-page.png);
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+  }
+.profile-detail{
+    width: 1050px;
+    height: 542px;
+    background: #FFFFFF;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin: 100px 240px 30px 240px;
+}
+.title-profile{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+.space-account{
+    padding: 10px;
+}
+.avatar{
+    width: 150px;
+    border-radius: 50%;
+    display: flex;
+    margin-left: 130px;
+}
+.shop-name{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: -140px 0px 30px 120px;
+    color: #4D5EE8;
+}
+.bio-title, .address-title{
+    display: flex;
+    margin-left: 405px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: Medium;
+    font-size: 15px;
+}
+.biography{
+    width: 520px;
+    height: 132px;
+    background: #F5F5F5;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 10px 50px 20px 330px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+}
+
+.address{
+    width: 520px;
+    height: 60px;
+    background: #F5F5F5;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 10px 50px 20px 330px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+}
+button.save-btn{
+    border-radius: 100px;
+    border: none;
+    background: #FFFCF2;
+}
+.save-profile-icon{
+    width: 180px;
+    margin-bottom: 50px;
+}

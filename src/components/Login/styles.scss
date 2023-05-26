@@ -41,15 +41,14 @@
   .google-login,
   .facebook-login {
     margin-left: 10px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     transform: matrix(1, 0, 0, 1, 0, 0);
     margin-top: 160px;
-    width: 180px;
-    height: 60px;
-    background: #ffffff;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    width: 250px;
+    height: 80px;
+    background: none;
   }
+  
   
   .facebook-login {
     margin-left: 20px;
@@ -58,7 +57,7 @@
     text-decoration: none;
   }
   
-  .login-item {
+  .login-google, .login-facebook {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,6 +69,15 @@
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
     font-size: 16px;
+    
+  }
+  .login-google{
+    margin-left: 165px;
+    margin-top: 55px;
+  }
+  .login-facebook{
+    margin-left: -100px;
+    margin-top: 160px;
   }
   
   .google-icon,
