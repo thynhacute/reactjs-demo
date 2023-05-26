@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./styles.scss";
 import { Link, NavLink } from "react-router-dom";
 import logoImage from "../../assets/images/logo.png";
 import searchIcon from "../../assets/images/search.png";
 import cartIcon from "../../assets/images/cart.png";
+import dropIcon from "../../assets/images/dropdown.png";
+import { UserAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 Header.propTypes = {};
 
 function Header() {
+  const { user, logOut } = UserAuth();
+  const navigate = useNavigate();
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuItems = [
+    { label: "Chỉnh sửa hồ sơ", path: "/account" },
+    { label: "Nạp xu", path: "/wallet" },
+    { label: "Sản phẩm của tôi", path: "/my-product" },
+  ];
+
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuWrapperClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header className="custom-header">
       <nav>
@@ -17,10 +45,10 @@ function Header() {
           <li className="logo">
             <img src={logoImage} alt="Logo" />
           </li>
-          <li className="home-navbar">
-            <Link to="/" className="home-menu">
+          <li>
+            <NavLink to="/" className="home-menu">
               Trang chủ
-            </Link>
+            </NavLink>
           </li>
           <li>
             <NavLink to="/products" activeClassName="active-members">
@@ -35,27 +63,67 @@ function Header() {
           <li>
             <Link to="/contacts">Liên hệ</Link>
           </li>
-          <li className="search-menu">
-            <div className="search-bar">
-              <form>
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm"
-                  className="search-input"
+          {user?.displayName ? (
+            <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
+              <li className="username">
+                <p>{user?.displayName}</p>
+              </li>
+              <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
+                <img
+                  src={dropIcon}
+                  alt="Drop"
+                  className="drop-icon"
+                  onClick={handleToggleMenu}
                 />
-                <button type="button">
-                  <img src={searchIcon} alt="Search" className="search-icon" />
-                </button>
-              </form>
+                {isMenuOpen && (
+                  <ul className="menu-list">
+                    {menuItems.map((item, index) => (
+                      <li key={index}>
+                        {typeof item === "string" ? (
+                          <Link
+                            to={`/${item.toLowerCase().replace(/\s/g, "-")}`}
+                          >
+                            {item}
+                          </Link>
+                        ) : (
+                          <Link to={item.path}>{item.label}</Link>
+                        )}
+                      </li>
+                    ))}
+                    <li>
+                      <button onClick={handleSignOut}>Đăng xuất</button>
+                    </li>
+                  </ul>
+                )}
+              </li>
             </div>
-          </li>
-          <li>
-            <li className="cart">
-              <Link to="/cart" className="cart">
-                <img src={cartIcon} alt="Cart" className="cart-icon" />
-              </Link>
-            </li>
-          </li>
+          ) : (
+            <nav className="search-cart-wrapper">
+              <li className="search-menu">
+                <div className="search-bar">
+                  <form>
+                    <input
+                      type="text"
+                      placeholder="Tìm kiếm"
+                      className="search-input"
+                    />
+                    <button type="button">
+                      <img
+                        src={searchIcon}
+                        alt="Search"
+                        className="search-icon"
+                      />
+                    </button>
+                  </form>
+                </div>
+              </li>
+              <li className="cart">
+                <Link to="/cart" className="cart">
+                  <img src={cartIcon} alt="Cart" className="cart-icon" />
+                </Link>
+              </li>
+            </nav>
+          )}
         </ul>
       </nav>
     </header>

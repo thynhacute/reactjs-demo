@@ -15,6 +15,9 @@ import Header from "./components/Header";
 import Authentication from "./components/Authentication";
 import HomeDetail from "./features/HomeDetail/pages";
 import LoginFeature from "./components/Login";
+import { AuthContextProvider } from "./context/AuthContext";
+import Protected from "./components/Authentication/protected";
+import Account from "./components/Account";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -27,23 +30,33 @@ function NavigateToPost() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Authentication />
-        <Header />
-        <Routes>
-          <Route path="/todo-list" element={<TodoFeature />} />
-          <Route path="/products" element={<ProductFeature />} />
-          <Route path="/members" element={<MemberFeature />} />
-          <Route path="/" element={<HomeDetail />} />
-          <Route path="/login" element={<LoginFeature />} />
-          <Route path="/home" element={<Navigate to="/" replace />} />
-          <Route path="/post-list/:postId" element={<NavigateToPost />} />
-          <Route path="*" element={NotFound} />
-        </Routes>
-        Footer
-      </div>
-    </BrowserRouter>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Authentication />
+          <Header />
+          <Routes>
+            <Route path="/todo-list" element={<TodoFeature />} />
+            <Route path="/products" element={<ProductFeature />} />
+            <Route path="/members" element={<MemberFeature />} />
+            <Route path="/" element={<HomeDetail />} />
+            <Route path="/login" element={<LoginFeature />} />
+            <Route path="/home" element={<Navigate to="/" replace />} />
+            <Route path="/post-list/:postId" element={<NavigateToPost />} />
+            <Route path="*" element={NotFound} />
+            <Route
+              path="/account"
+              element={
+                <Protected>
+                  <Account />
+                </Protected>
+              }
+            />
+          </Routes>
+          Footer
+        </div>
+      </BrowserRouter>
+    </AuthContextProvider>
   );
 }
 
