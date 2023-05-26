@@ -14,6 +14,7 @@ import NotFound from "./components/NotFound";
 import Header from "./components/Header";
 import Authentication from "./components/Authentication";
 import HomeDetail from "./features/HomeDetail/pages";
+import LoginFeature from "./components/Login";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -35,6 +36,7 @@ function App() {
           <Route path="/products" element={<ProductFeature />} />
           <Route path="/members" element={<MemberFeature />} />
           <Route path="/" element={<HomeDetail />} />
+          <Route path="/login" element={<LoginFeature />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/post-list/:postId" element={<NavigateToPost />} />
           <Route path="*" element={NotFound} />
