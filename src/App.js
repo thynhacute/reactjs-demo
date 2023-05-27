@@ -20,6 +20,8 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Protected from "./components/Authentication/protected";
 import Account from "./components/Account";
 import WalletFeature from "./components/Wallet";
+import ArticleFeature from "./features/Article/pages";
+import ProductArticle from "./components/ProductArticle";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -40,6 +42,7 @@ function App() {
           <Routes>
             <Route path="/todo-list" element={<TodoFeature />} />
             <Route path="/products" element={<ProductFeature />} />
+            <Route path="/my-product" element={<ArticleFeature />} />
             <Route path="/members" element={<MemberFeature />} />
             <Route path="/wallet" element={<WalletFeature />} />
             <Route path="/account" element={<Account />} />
@@ -56,6 +59,7 @@ function App() {
                 </Protected>
               }
             />
+            <Route path="/add-product" element={<ProductArticle />} />
           </Routes>
           <Footer />
         </div>
