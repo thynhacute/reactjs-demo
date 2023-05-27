@@ -88,9 +88,11 @@ function Header() {
                         </li>
                       ))}
                       <li>
-                        <button className="login" onClick={handleSignOut}>
-                          Đăng xuất
-                        </button>
+                        <NavLink to="/home" activeClassName="logout-user">
+                          <button className="login" onClick={handleSignOut}>
+                            Đăng xuất
+                          </button>
+                        </NavLink>
                       </li>
                     </ul>
                   )}
