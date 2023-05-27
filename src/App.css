@@ -58,6 +58,7 @@
 }
 .all-detail{
   width: 1499px;
+  margin-bottom: 30px;
 }
 .contain-detail{
   background-image: url("./assets/images/background-welcome.png");

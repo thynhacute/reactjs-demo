@@ -1,0 +1,43 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
+    src: url(../../assets/fonts/Montserrat-Regular.ttf);
+    src: url(../../assets/fonts/Montserrat-Medium.ttf);
+  }
+.custom-footer{
+    background: linear-gradient(270deg, #7FFC9A 0%, #DCFB7B 100%);
+}
+.logo-img-footer{
+    display: flex;
+    padding-top: 60px;
+    margin-left: 300px;
+}
+.logo-img-footer img{
+    width: 250px;
+    margin-bottom: -90px;
+}
+.footer-li{
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 60px;
+    padding-top: 80px;
+    margin-right: 330px;
+    margin-top: -150px;
+}
+.footer-li ul li {
+    list-style-type: none;
+    display: flex;
+  }
+.footer-li ul li a {
+    text-decoration: none;
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+.item-icon-footer{
+    font-size: 30px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }

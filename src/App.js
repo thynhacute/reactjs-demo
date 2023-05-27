@@ -13,6 +13,7 @@ import {
 import NotFound from "./components/NotFound";
 import Header from "./components/Header";
 import Authentication from "./components/Authentication";
+import Footer from "./components/Footer";
 import HomeDetail from "./features/HomeDetail/pages";
 import LoginFeature from "./components/Login";
 import { AuthContextProvider } from "./context/AuthContext";
@@ -56,7 +57,7 @@ function App() {
               }
             />
           </Routes>
-          Footer
+          <Footer />
         </div>
       </BrowserRouter>
     </AuthContextProvider>
