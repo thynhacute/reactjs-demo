@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import facebookIcon from "../../assets/images/facebook-logo.png";
 import googleIcon from "../../assets/images/google-logo.png";
 import { UserAuth } from "../../context/AuthContext";
-import { onAuthStateChanged } from "firebase/auth";
+import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import { auth } from "../../firebase";
 
 LoginFeature.propTypes = {};
 
@@ -24,6 +25,16 @@ function LoginFeature() {
     }
   }, [user]);
 
+  const signInWithFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((re) => {
+        console.log(re);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
     <header className="custom-login">
       <div className="hehe">
@@ -36,7 +47,7 @@ function LoginFeature() {
               </button>
             </div>
             <div className="facebook-login">
-              <button className="login-facebook">
+              <button onClick={signInWithFacebook} className="login-facebook">
                 <img
                   src={facebookIcon}
                   alt="Facebook"
