@@ -1,43 +1,66 @@
 @font-face {
-    font-family: Montserrat;
-    src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
-    src: url(../../assets/fonts/Montserrat-Regular.ttf);
-    src: url(../../assets/fonts/Montserrat-Medium.ttf);
-  }
-.custom-footer{
-    background: linear-gradient(270deg, #7FFC9A 0%, #DCFB7B 100%);
+  font-family: Montserrat;
+  src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
+  src: url(../../assets/fonts/Montserrat-Regular.ttf);
+  src: url(../../assets/fonts/Montserrat-Medium.ttf);
 }
-.logo-img-footer{
-    display: flex;
-    padding-top: 60px;
-    margin-left: 300px;
+
+.custom-footer {
+  background-image: url(../../assets/images/footer.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px; /* Thêm padding để không bị ánh sáng phần nền */
 }
-.logo-img-footer img{
-    width: 250px;
-    margin-bottom: -90px;
+
+.logo-container {
+  display: flex;
+  align-items: center;
 }
-.footer-li{
-    display: flex;
-    justify-content: flex-end;
-    padding-bottom: 60px;
-    padding-top: 80px;
-    margin-right: 330px;
-    margin-top: -150px;
+
+.list-container {
+  display: flex;
+  align-items: center;
 }
+
+.image-logo-footer {
+  width: 170px;
+  margin-left: 80px;
+}
+
+.footer-li {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 20px;
+}
+
+.footer-li ul {
+  list-style: none;
+  display: flex;
+  margin: 20px 150px 20px 0px;
+}
+
 .footer-li ul li {
-    list-style-type: none;
-    display: flex;
-  }
+  margin: 0px 20px 0px 70px;
+}
+
 .footer-li ul li a {
-    text-decoration: none;
-    color: black;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    margin-top: 10px;
-  }
-.item-icon-footer{
-    font-size: 30px;
-    margin-right: 10px;
-    margin-top: 10px;
-  }
+  text-decoration: none;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.item-icon-footer {
+  font-size: 30px;
+  margin-bottom: -8px;
+  margin-right: 20px;
+}
+.tiktok-icon{
+  width: 27px;
+}
