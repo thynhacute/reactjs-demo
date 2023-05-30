@@ -42,7 +42,6 @@ function Header() {
   return (
     <header className="custom-header">
       <nav>
-        <p></p>
         <ul className="menu-navbar">
           <li className="logo">
             <img src={logoImage} alt="Logo" />
@@ -65,26 +64,7 @@ function Header() {
           <li>
             <Link to="/contacts">Liên hệ</Link>
           </li>
-          <li>
-            <li className="search-menu">
-              <div className="search-bar">
-                <form>
-                  <input
-                    type="text"
-                    placeholder="Tìm kiếm"
-                    className="search-input"
-                  />
-                  <button type="button">
-                    <img
-                      src={searchIcon}
-                      alt="Search"
-                      className="search-icon"
-                    />
-                  </button>
-                </form>
-              </div>
-            </li>
-          </li>
+
           {user?.displayName ? (
             <li>
               <Link className="no-underline">
@@ -125,15 +105,33 @@ function Header() {
               </Link>
             </li>
           ) : (
-            <li>
-              <NavLink to="/login" activeClassName="login-user">
-                <div className="search-cart-wrapper">
-                  <HiPencilSquare />
-                  <p className="post-product">Đăng tin</p>
-                </div>
-              </NavLink>
-            </li>
+            <li className="space-header">&nbsp;</li>
           )}
+        </ul>
+
+        <ul className="menu-navbar align-center">
+          <li className="search-menu">
+            <div className="search-bar">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm"
+                  className="search-input"
+                />
+                <button type="button">
+                  <img src={searchIcon} alt="Search" className="search-icon" />
+                </button>
+              </form>
+            </div>
+          </li>
+          <li>
+            <NavLink to="/login" activeClassName="login-user">
+              <div className="search-cart-wrapper">
+                <HiPencilSquare />
+                <p className="post-product">Đăng tin</p>
+              </div>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>

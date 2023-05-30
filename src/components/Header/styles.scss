@@ -53,9 +53,13 @@ nav li a {
 }
 
 .menu-navbar {
-  margin-bottom: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+}
+.list-menu-navbar{
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -85,7 +89,7 @@ nav li a {
 .search-cart-wrapper {
   display: flex;
   align-items: center;
-  margin-right: 80px;
+  margin-left: 100px;
 }
 
 .no-underline {
@@ -94,14 +98,24 @@ nav li a {
 
 .username {
   margin-top: -25px;
-  margin-left: 10px;
+  margin-right: -110px;
+  margin-left: 50px;
   color: #4D5EE8;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   display: flex;
   align-items: center;
 }
-
+.space-header {
+  margin-top: -25px;
+  margin-right: 85px;
+  margin-left: 100px;
+  color: #4D5EE8;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
 .menu-right {
   justify-content: flex-end;
 }
@@ -145,8 +159,9 @@ form {
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: none;
-  margin-left: 50px;
+  margin-left: 300px;
   margin-top: -60px;
+  background-color: #FFFCF2;
 }
 
 .search-bar {
@@ -155,7 +170,7 @@ form {
 }
 
 .search-bar input {
-  width: 150px;
+  width: 700px;
   margin-right: 10px;
 }
 
@@ -169,11 +184,14 @@ form {
 .search-input {
   width: 150px;
   margin-right: 10px;
-  background-color: #fffcf2;
+  background-color: #FFFCF2;
   border: none;
-  color: #fff;
+  color: #050037;
   border-radius: 10px;
   margin-left: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
 }
 
 .search-input::placeholder {
@@ -181,7 +199,7 @@ form {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 100;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .search-icon {
@@ -193,24 +211,6 @@ form {
   height: 27px;
 }
 
-.cart {
-  display: flex;
-  align-items: center;
-  margin: 0 80px 0 0;
-}
-
-.cart-count {
-  background-color: #ff0000;
-  color: #fff;
-  border-radius: 50%;
-  margin-left: 5px;
-}
-
-.cart-icon {
-  width: 27px;
-  height: 27px;
-}
-
 .drop-icon {
   margin-bottom: -30px;
 }
@@ -218,7 +218,7 @@ form {
 .menu-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   position: absolute;
   top: 100%;
   left: 0;
