@@ -54,6 +54,22 @@ function ProductFeature(props) {
       price: "1.000.000.000",
       des: "nhỏ nào xinh z",
     },
+    {
+      id: 7,
+      name: "Sweetie Hana Bae",
+      thumbnailUrl:
+        "https://scontent.fsgn19-1.fna.fbcdn.net/v/t39.30808-6/333034642_687063076527190_970726494461231683_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=ZkV3Mj3orKkAX_oW4tN&_nc_ht=scontent.fsgn19-1.fna&oh=00_AfB8bEQuhdSBDgmnJ2_gWOU2DZPlzqmh9fo_x4dyeTlivw&oe=647ADCB1",
+      price: "1.000.000.000",
+      des: "xứng đáng 10 ngiu",
+    },
+    {
+      id: 8,
+      name: "Ngo Hoang Nha Thy",
+      thumbnailUrl:
+        "https://scontent.fsgn19-1.fna.fbcdn.net/v/t39.30808-6/310545903_1615606238892389_2774507676909795036_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=CMJUrt5ftOoAX8tnjXR&_nc_ht=scontent.fsgn19-1.fna&oh=00_AfBS5RqtPIgiU0Z45vjLssGO0foxvHcnMnapz4QvxwM3ig&oe=647B2A98",
+      price: "1.000.000.000",
+      des: "nhỏ nào xinh z",
+    },
   ];
   return (
     <div>
