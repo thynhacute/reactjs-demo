@@ -40,101 +40,103 @@ function Header() {
   };
 
   return (
-    <header className="custom-header">
-      <nav>
-        <ul className="menu-navbar">
-          <li className="logo">
-            <img src={logoImage} alt="Logo" />
-          </li>
-          <li>
-            <NavLink to="/" className="home-menu">
-              Trang chủ
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/products" activeClassName="active-members">
-              Sản phẩm
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/members" activeClassName="active-albums">
-              Giới thiệu
-            </NavLink>
-          </li>
-          <li>
-            <Link to="/contacts">Liên hệ</Link>
-          </li>
-
-          {user?.displayName ? (
-            <li>
-              <Link className="no-underline">
-                <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
-                  <li className="username">
-                    <p>{user?.displayName}</p>
-                    <IoMdArrowDropdown />
-                  </li>
-                  <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
-                    {isMenuOpen && (
-                      <ul className="menu-list">
-                        {menuItems.map((item, index) => (
-                          <li key={index} className="item-droplist">
-                            {typeof item === "string" ? (
-                              <Link
-                                to={`/${item
-                                  .toLowerCase()
-                                  .replace(/\s/g, "-")}`}
-                              >
-                                {item}
-                              </Link>
-                            ) : (
-                              <Link to={item.path}>{item.label}</Link>
-                            )}
-                          </li>
-                        ))}
-                        <li>
-                          <NavLink to="/home" activeClassName="logout-user">
-                            <button className="login" onClick={handleSignOut}>
-                              Đăng xuất
-                            </button>
-                          </NavLink>
-                        </li>
-                      </ul>
-                    )}
-                  </li>
-                </div>
-              </Link>
+    <div class="custom-header-container">
+      <header className="custom-header">
+        <nav>
+          <ul className="menu-navbar">
+            <li className="logo">
+              <img src={logoImage} alt="Logo" />
             </li>
-          ) : (
-            <li className="space-header">&nbsp;</li>
-          )}
-        </ul>
+            <li>
+              <NavLink to="/" className="home-menu">
+                Trang chủ
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/products" activeClassName="active-members">
+                Sản phẩm
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/members" activeClassName="active-albums">
+                Giới thiệu
+              </NavLink>
+            </li>
+            <li>
+              <Link to="/contacts">Liên hệ</Link>
+            </li>
 
-        <ul className="menu-navbar align-center">
-          <li className="search-menu">
-            <div className="search-bar">
-              <form>
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm"
-                  className="search-input"
-                />
-                <button type="button">
-                  <img src={searchIcon} alt="Search" className="search-icon" />
-                </button>
-              </form>
-            </div>
-          </li>
-          <li>
-            <NavLink to="/login" activeClassName="login-user">
-              <div className="search-cart-wrapper">
-                <HiPencilSquare />
-                <p className="post-product">Đăng tin</p>
+            {user?.displayName ? (
+              <li>
+                <Link className="no-underline">
+                  <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
+                    <li className="username">
+                      <p>{user?.displayName}</p>
+                      <IoMdArrowDropdown />
+                    </li>
+                    <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
+                      {isMenuOpen && (
+                        <ul className="menu-list">
+                          {menuItems.map((item, index) => (
+                            <li key={index} className="item-droplist">
+                              {typeof item === "string" ? (
+                                <Link
+                                  to={`/${item
+                                    .toLowerCase()
+                                    .replace(/\s/g, "-")}`}
+                                >
+                                  {item}
+                                </Link>
+                              ) : (
+                                <Link to={item.path}>{item.label}</Link>
+                              )}
+                            </li>
+                          ))}
+                          <li>
+                            <NavLink to="/home" activeClassName="logout-user">
+                              <button className="login" onClick={handleSignOut}>
+                                Đăng xuất
+                              </button>
+                            </NavLink>
+                          </li>
+                        </ul>
+                      )}
+                    </li>
+                  </div>
+                </Link>
+              </li>
+            ) : (
+              <li className="space-header">&nbsp;</li>
+            )}
+          </ul>
+
+          <ul className="menu-navbar align-center">
+            <li className="search-menu">
+              <div className="search-bar">
+                <form>
+                  <input
+                    type="text"
+                    placeholder="Tìm kiếm"
+                    className="search-input"
+                  />
+                  <button type="button">
+                    <img src={searchIcon} alt="Search" className="search-icon" />
+                  </button>
+                </form>
               </div>
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
+            </li>
+            <li>
+              <NavLink to="/login" activeClassName="login-user">
+                <div className="search-cart-wrapper">
+                  <HiPencilSquare />
+                  <p className="post-product">Đăng tin</p>
+                </div>
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
   );
 }
 

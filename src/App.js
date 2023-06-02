@@ -22,6 +22,7 @@ import Account from "./components/Account";
 import WalletFeature from "./components/Wallet";
 import ArticleFeature from "./features/Article/pages";
 import ProductArticle from "./components/ProductArticle";
+import Contact from "./components/Contact";
 import MemberTeam from "./components/Member";
 
 function NavigateToPost() {
@@ -47,9 +48,11 @@ function App() {
             <Route path="/wallet" element={<WalletFeature />} />
             <Route path="/members" element={<MemberTeam />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/contacts" element={<Contact />} />
             <Route path="/" element={<HomeDetail />} />
             <Route path="/login" element={<LoginFeature />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
+
             <Route path="/post-list/:postId" element={<NavigateToPost />} />
             <Route path="*" element={NotFound} />
             <Route
