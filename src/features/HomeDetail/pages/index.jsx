@@ -6,7 +6,7 @@ import welcomeImage from "../../../assets/images/welcome.png";
 import moreInfo from "../../../assets/images/more-infor.png";
 import nextImage from "../../../assets/images/next.png";
 import preImage from "../../../assets/images/previous.png";
-
+import "./styles.scss";
 import "../../../App.css";
 import { Link } from "react-router-dom";
 
@@ -90,7 +90,7 @@ function HomeDetail(props) {
   return (
     <div className="all-detail">
       <div className="contain-detail">
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
           <div style={{ flex: "1", display: "flex", flexDirection: "column" }}>
             <img src={logoWelcome} alt="LogoWelcome" className="logo-welcome" />
             <p className="fisrt-content">
@@ -115,7 +115,7 @@ function HomeDetail(props) {
       <p className="caring-product">CÓ THỂ BẠN QUAN TÂM</p>
       <div
         className="hot-products-container"
-        style={{ justifyContent: "center" }}
+        style={{ justifyContent: "center", display: "flex", flexWrap: "wrap" }}
       >
         <button onClick={handlePrevious} className="btn-pre">
           <img src={preImage} alt="Previous" className="pre-button" />

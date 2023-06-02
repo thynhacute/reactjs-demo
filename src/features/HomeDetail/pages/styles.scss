@@ -1,0 +1,159 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../../../assets/fonts/Montserrat-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Montserrat';
+    src: url(../../../assets/fonts/Montserrat-Bold.ttf);
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Montserrat';
+    src: url(../../../assets/fonts/Montserrat-Black.ttf);
+    font-weight: 900;
+    font-style: normal;
+  }
+  @media screen and (max-width: 1023px) {
+      .logo-welcome{
+        display: none;
+      }
+      .fisrt-content{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 70px;
+      }
+      .second-content{
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .more-info{
+        width: 250px;
+        margin-bottom: 20px;
+      }
+      .welcome-img{
+        width: 400px;
+      }
+      .caring-product{
+        display: none;
+      }
+      .hotProduct{
+        display: none;
+      }
+      .hot-products-container button{
+        display: none;
+      }
+  }
+  @media (min-width: 1024px) {
+.all-detail{
+    width: 1499px;
+    margin-bottom: 30px;
+  }
+  .contain-detail{
+    background-image: url("../../../assets/images/background-welcome.png");
+    background-size: 1499px auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  .logo-welcome{
+    width: 250px;
+    margin: 150px 0px 10px 200px;
+    
+  }
+  .fisrt-content{
+    margin: 0px 0px 0px 225px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 27px;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    width: 350px;
+  }
+  .second-content{
+    margin: 0px 0px 20px 225px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 27px;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    width: 320px;
+  }
+  .more-info{
+    margin: 30px 300px 0px 210px;
+    width: 200px;
+  }
+  .welcome-img{
+    width: 700px;
+    margin: 100px 0px 250px -250px;
+  }
+  .caring-product {
+    margin: 0px 10px 10px 10px;
+    padding: 10px;
+    display: inline-block;
+    background-color: lavender;
+    width: 350px;
+    height: 35px;
+    background: #8690FC;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 40px;
+  }
+  .hot-products-container {
+    display: flex;
+    align-items: center;
+  }
+  .btn-next{
+    border-radius: 50%;
+    border: none;
+    width: 80px;
+    height: 80px;
+    background-color: #FFFCF2;
+  }
+  .next-button{
+    width: 80px;
+    margin-left: -10px;
+    transition: opacity 0.1s ease-in-out;
+  }
+  .btn-pre{
+    border-radius: 50%;
+    border: none;
+    width: 80px;
+    height: 80px;
+    background-color: #FFFCF2;
+  }
+  .pre-button{
+    width: 80px;
+    margin-right: -10px;
+    transition: opacity 0.1s ease-in-out;
+  }
+}
+  
+  
+  
+  
+  

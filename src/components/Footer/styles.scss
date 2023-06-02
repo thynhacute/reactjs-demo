@@ -4,7 +4,51 @@
   src: url(../../assets/fonts/Montserrat-Regular.ttf);
   src: url(../../assets/fonts/Montserrat-Medium.ttf);
 }
+@media (max-width: 1024px) {
+  .custom-footer {
+    background: linear-gradient(180deg, #7BFAD6 0%, #DCFB7B 100%);
+  }
+  .list-container {
+    display: flex;
+    justify-content: center;
+  }
+  .image-logo-footer {
+    width: 170px;
+  }
+  .footer-li {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-li ul {
+    list-style: none;
+    padding-inline-start: 0px;
+  }
+  .footer-li ul li{
+    margin-top: 5px;
+  }
+  
+  .footer-li ul li a {
+    text-decoration: none;
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  
+  .item-icon-footer {
+    font-size: 23px;
+    margin-bottom: -8px;
+    margin-right: 5px;
+  }
+  .tiktok-icon{
+    width: 20px;
+    margin-bottom: -4px;
+  }
+}
 
+@media (min-width: 1025px) {
 .custom-footer {
   background-image: url(../../assets/images/footer.png);
   background-size: cover;
@@ -13,7 +57,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px; /* Thêm padding để không bị ánh sáng phần nền */
+  padding: 20px;
 }
 
 .logo-container {
@@ -63,4 +107,5 @@
 }
 .tiktok-icon{
   width: 27px;
+}
 }

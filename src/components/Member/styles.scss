@@ -3,9 +3,9 @@
     src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
     src: url(../../assets/fonts/Montserrat-Regular.ttf);
   }
+  
   .header-member{
     background-image: url(../../assets/images/account-page.png);
-    // background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -17,6 +17,7 @@
     justify-content: center;
     align-items: center;
     min-height: 60.5vh;
+    flex-wrap: wrap;
 }
 .mkt-member-team{
     margin-top: 90px;
@@ -194,3 +195,4 @@
   .link-facebook{
     text-decoration: none;
   }
+// }
