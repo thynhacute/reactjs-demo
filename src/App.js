@@ -22,6 +22,7 @@ import Account from "./components/Account";
 import WalletFeature from "./components/Wallet";
 import ArticleFeature from "./features/Article/pages";
 import ProductArticle from "./components/ProductArticle";
+import MemberTeam from "./components/Member";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -43,8 +44,8 @@ function App() {
             <Route path="/todo-list" element={<TodoFeature />} />
             <Route path="/products" element={<ProductFeature />} />
             <Route path="/my-product" element={<ArticleFeature />} />
-            <Route path="/members" element={<MemberFeature />} />
             <Route path="/wallet" element={<WalletFeature />} />
+            <Route path="/members" element={<MemberTeam />} />
             <Route path="/account" element={<Account />} />
             <Route path="/" element={<HomeDetail />} />
             <Route path="/login" element={<LoginFeature />} />

@@ -1,11 +1,33 @@
+@font-face {
+  font-family: Montserrat;
+  src: url(../../../../assets/fonts/Montserrat-SemiBold.ttf);
+  src: url(../../../../assets/fonts/Montserrat-Regular.ttf);
+  src: url(../../../../assets/fonts/Montserrat-Medium.ttf);
+}
 .product {
   &__thumbnail {
     & > img {
       border-radius: 0.5rem;
-      width: 190px;
+      width: 140px;
+      margin-top: 5px;
     }
   }
   &__name {
     font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    font-weight: Medium;
+    font-size: 17px;
+    color: #ff2c72;
+    margin-top: 10px;
+  }
+  &__price{
+    display: flex;
+    justify-content: flex-end;
+    font-family: "Montserrat", sans-serif;
+    font-weight: Medium;
+    font-size: 16px;
+    color: #4D5EE8;
+    margin-right: 10px;
+    margin-top: -10px;
   }
 }

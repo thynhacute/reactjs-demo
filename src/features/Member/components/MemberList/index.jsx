@@ -9,11 +9,15 @@ MemberList.propTypes = {
 
 function MemberList({ memberList }) {
   return (
-    <ul className="member-list">
+    <ul>
       {memberList.map((member) => (
-        <li key={member.id}>
-          <Member member={member} />
-        </li>
+        <div className="member-list">
+          <div className="lines">
+            <li key={member.id}>
+              <Member member={member} />
+            </li>
+          </div>
+        </div>
       ))}
     </ul>
   );

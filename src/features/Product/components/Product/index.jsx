@@ -13,6 +13,8 @@ function Product({ product }) {
         <img src={product.thumbnailUrl} alt={product.name} />
       </div>
       <p className="product__name">{product.name}</p>
+      {/* <p className="product__des">{product.des}</p> */}
+      <p className="product__price">{product.price}</p>
     </div>
   );
 }
