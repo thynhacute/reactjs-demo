@@ -1,0 +1,64 @@
+@font-face {
+  font-family: Montserrat;
+  src: url(../../../../assets/fonts/Montserrat-SemiBold.ttf);
+  src: url(../../../../assets/fonts/Montserrat-Regular.ttf);
+  src: url(../../../../assets/fonts/Montserrat-Medium.ttf);
+  src: url(../../../../assets/fonts/Montserrat-Light.ttf);
+  src: url(../../../../assets/fonts/Montserrat-Italic.ttf);
+}
+.custom-banking-page {
+  background-image: url(../../../../assets/images/account-page.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.custom-banking-page .detail-banking li{
+  list-style-type: none;
+  margin-top: 50px;
+  text-align: start;
+}
+ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.title-banking-page{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 40px;
+  color: #4d5ee8;
+}
+.content-banking-page{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.qrbanking-img{
+  width: 300px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.info-stk-banking{
+    width: 300px;
+}
+.content-banking-qr{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+.ex-content-banking {
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  margin-top: 5px;
+}
+.contact-banking{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.detail-banking li ul{
+    flex-wrap: wrap;
+}
+.detail-banking li ul li{
+}
+

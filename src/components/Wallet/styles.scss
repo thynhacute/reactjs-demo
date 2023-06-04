@@ -2,29 +2,79 @@
   font-family: Montserrat;
   src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
   src: url(../../assets/fonts/Montserrat-Regular.ttf);
+  src: url(../../assets/fonts/Montserrat-Medium.ttf);
 }
 header {
   background-color: #fffcf2;
 }
 
 .custom-wallet {
-  background-image: url(../../assets/images/wallet-page.png);
+  background-image: url(../../assets/images/account-page.png);
   background-size: cover; /* Sử dụng cover để đảm bảo ảnh nền tràn đầy */
   background-position: center; /* Căn giữa ảnh nền */
   background-repeat: no-repeat;
 }
 .space-wallet{
-    padding-top: 300px;
-    padding-bottom: 300px;
-    margin-top: 70px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+}
+.choose-option{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: #4d5ee8;
+}
+.remove-deco{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-inline-start: 0px;
+}
+.remove-deco li{
+  list-style-type: none;
+}
+.item-option-coin{
+  margin: 10px;
+  background: rgba(201, 205, 255, 0.4);
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 280px;
+  height: 280px;
+}
+.nav-link-deposit{
+  text-decoration: none;
+  display: flex;
+    justify-content: center;
 }
 button.deposit-btn{
     border-radius: 100px;
     border: none;
     background: #FFFCF2;
 }
-.deposit-coin-icon{
-    width: 300px;
-    margin-bottom: 70px;
-    margin-bottom: 20px;
+.momo-img{
+  width: 180px;
+  margin: 30px 30px 0px 30px;
+}
+.vnpay-img{
+  width: 220px;
+  padding: 60px 0px 50px 0px;
+  margin: 30px 20px 0px 20px;
+}
+.zalopay-img{
+  width: 250px;
+  margin: 5px 0px -25px 0px;
+}
+.bank-img{
+  width: 200px;
+  padding: 60px 0px 60px 0px;
+  margin-top: 30px;
+}
+.item-option-coin ul li p{
+  font-weight: Medium;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.item-option-coin ul{
+  padding-inline-start: 0px;
 }

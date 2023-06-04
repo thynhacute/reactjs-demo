@@ -24,6 +24,10 @@ import ArticleFeature from "./features/Article/pages";
 import ProductArticle from "./components/ProductArticle";
 import Contact from "./components/Contact";
 import MemberTeam from "./components/Member";
+import MomoFeature from "./components/Wallet/WalletOption/Momo";
+import VNPayFeature from "./components/Wallet/WalletOption/VNPay";
+import ZaloPayFeature from "./components/Wallet/WalletOption/ZaloPay";
+import BankingFeature from "./components/Wallet/WalletOption/Banking";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -46,6 +50,10 @@ function App() {
             <Route path="/products" element={<ProductFeature />} />
             <Route path="/my-product" element={<ArticleFeature />} />
             <Route path="/wallet" element={<WalletFeature />} />
+            <Route path="wallet/momo" element={<MomoFeature />} />
+            <Route path="wallet/vnpay" element={<VNPayFeature />} />
+            <Route path="wallet/zalopay" element={<ZaloPayFeature />} />
+            <Route path="wallet/banking" element={<BankingFeature />} />
             <Route path="/members" element={<MemberTeam />} />
             <Route path="/account" element={<Account />} />
             <Route path="/contacts" element={<Contact />} />

@@ -18,6 +18,12 @@
   font-weight: 900;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Montserrat';
+  src: url(../src/assets/fonts/Montserrat-Medium.ttf);
+  font-weight: 500;
+  font-style: normal;
+}
 .App {
   text-align: center;
 }
