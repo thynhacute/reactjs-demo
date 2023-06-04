@@ -68,12 +68,12 @@ function MemberTeam(props) {
             </div>
             <div className="content">
               <div className="details">
-                <h2>
+                <h2 style={{ marginBottom: "-10px" }}>
                   Đoàn Hoà Nhã
                   <br />
                   <span>Marketing</span>
                 </h2>
-                <div className="data">
+                <div className="data" style={{ marginBottom: "10px" }}>
                   <h3>
                     Truyền thông đa phương tiện
                     <br />

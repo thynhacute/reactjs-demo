@@ -30,6 +30,9 @@ const ZaloPayFeature = () => {
             <br />
             <div className="ex-content-zalopay">
               Ví dụ: nhathy07@gmail.com ZaloPay 100.000VND
+              <br />
+              <br />
+              Giá trị quy đổi: 10.000VND = 10 Xu
             </div>
             <br />
             <div className="contact-zalopay">

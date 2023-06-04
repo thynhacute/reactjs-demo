@@ -12,15 +12,10 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-.custom-vnpay-page .detail-vnpay li{
+@media (max-width: 1024px) {
+  .custom-vnpay-page .detail-vnpay li{
   list-style-type: none;
   margin-top: 50px;
-  text-align: start;
-}
-ul {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 .title-vnpay-page{
   font-family: "Montserrat", sans-serif;
@@ -52,5 +47,48 @@ ul {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   margin-top: 10px;
+  margin-bottom: 50px;
+}}
+@media (min-width: 1025px) {
+.custom-vnpay-page .detail-vnpay li{
+  list-style-type: none;
+  margin-top: 50px;
+  text-align: start;
 }
-
+.title-vnpay-page{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 40px;
+  color: #4d5ee8;
+}
+.content-vnpay-page{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.qrvnpay-img{
+  width: 300px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.content-vnpay-qr{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+.detail-vnpay {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.ex-content-vnpay {
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  margin-top: 5px;
+}
+.contact-vnpay{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  margin-top: 10px;
+}
+}

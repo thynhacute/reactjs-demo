@@ -12,12 +12,56 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+@media (max-width: 1024px) {
+  .custom-momo-page .detail-momo li{
+  list-style-type: none;
+  margin-top: 50px;
+  text-align: start;
+}
+.detail-momo {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.title-momo-page{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 40px;
+  color: #4d5ee8;
+}
+.content-momo-page{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.qrmomo-img{
+  width: 300px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.content-momo-qr{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+.ex-content-momo {
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  margin-top: 5px;
+}
+.contact-momo{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}}
+@media (min-width: 1025px) {
 .custom-momo-page .detail-momo li{
   list-style-type: none;
   margin-top: 50px;
   text-align: start;
 }
-ul {
+.detail-momo {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -53,4 +97,4 @@ ul {
   font-weight: 500;
   margin-top: 10px;
 }
-
+}

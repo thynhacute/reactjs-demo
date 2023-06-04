@@ -26,6 +26,9 @@ const VNPayFeature = () => {
             <br />
             <div className="ex-content-vnpay">
               Ví dụ: nhathy07@gmail.com VNPay 100.000VND
+              <br />
+              <br />
+              Giá trị quy đổi: 10.000VND = 10 Xu
             </div>
             <br />
             <div className="contact-vnpay">

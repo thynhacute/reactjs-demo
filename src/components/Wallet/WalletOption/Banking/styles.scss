@@ -12,15 +12,52 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+@media (max-width: 1024px) {
+    .custom-banking-page .detail-banking li{
+        list-style-type: none;
+        margin-top: 50px;
+      }
+      .title-banking-page{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        margin-top: 20px;
+        font-size: 40px;
+        color: #4d5ee8;
+      }
+      .content-banking-page{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+      }
+      .qrbanking-img{
+        width: 300px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+      }
+      .info-stk-banking{
+          width: 300px;
+      }
+      .content-banking-qr{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+      }
+      .ex-content-banking {
+        font-style: italic;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        margin-top: 5px;
+      }
+      .contact-banking{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-bottom: 50px;
+      }
+}
+@media (min-width: 1025px) {
 .custom-banking-page .detail-banking li{
   list-style-type: none;
   margin-top: 50px;
   text-align: start;
-}
-ul {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 .title-banking-page{
   font-family: "Montserrat", sans-serif;
@@ -55,10 +92,11 @@ ul {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   margin-top: 10px;
+  
 }
-.detail-banking li ul{
+.detail-banking {
+    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
+  }
 }
-.detail-banking li ul li{
-}
-

@@ -14,7 +14,7 @@ function Product({ product }) {
       </div>
       <p className="product__name">{product.name}</p>
       {/* <p className="product__des">{product.des}</p> */}
-      <p className="product__price">{product.price}</p>
+      <p className="product__price">{product.price} VND</p>
     </div>
   );
 }

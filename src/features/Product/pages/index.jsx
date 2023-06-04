@@ -73,7 +73,6 @@ function ProductFeature(props) {
   ];
   return (
     <div>
-      <h2>Pass Hoang Nha Thy cute xinkdep</h2>
       <ProductList productList={productList} />
     </div>
   );

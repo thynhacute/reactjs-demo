@@ -12,15 +12,50 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+@media (max-width: 1024px) {
+    .custom-zalopay-page .detail-zalopay li{
+        list-style-type: none;
+        margin-top: 50px;
+        text-align: start;
+      }
+      .title-zalopay-page{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        margin-top: 20px;
+        font-size: 40px;
+        color: #4d5ee8;
+      }
+      .content-zalopay-page{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+      }
+      .qrzalopay-img{
+        width: 300px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+      }
+      .content-zalopay-qr{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+      }
+      .ex-content-zalopay {
+        font-style: italic;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        margin-top: 5px;
+      }
+      .contact-zalopay{
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-bottom: 50px;
+      }
+}
+@media (min-width: 1025px) {
 .custom-zalopay-page .detail-zalopay li{
   list-style-type: none;
   margin-top: 50px;
   text-align: start;
-}
-ul {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 .title-zalopay-page{
   font-family: "Montserrat", sans-serif;
@@ -29,6 +64,11 @@ ul {
   font-size: 40px;
   color: #4d5ee8;
 }
+.detail-zalopay {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 .content-zalopay-page{
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
@@ -53,4 +93,4 @@ ul {
   font-weight: 500;
   margin-top: 10px;
 }
-
+}

@@ -16,7 +16,7 @@ const BankingFeature = () => {
       <div className="title-banking-page">Banking</div>
       <div className="content-banking-page">Quét mã thanh toán dưới đây</div>
       <ul className="detail-banking">
-        <li>
+        <li className="banking-hehe">
           <div className="img-qr-banking">
             <img
               src={imgQrBanking}
@@ -38,6 +38,9 @@ const BankingFeature = () => {
             <br />
             <div className="ex-content-banking">
               Ví dụ: nhathy07@gmail.com Banking 100.000VND
+              <br />
+              <br />
+              Giá trị quy đổi: 10.000VND = 10 Xu
             </div>
             <br />
             <div className="contact-banking">

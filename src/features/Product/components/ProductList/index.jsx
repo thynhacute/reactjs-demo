@@ -79,6 +79,22 @@ function ProductList({ productList }) {
 
   return (
     <div className="product-list-wrapper">
+      <div>
+        <div className="filter-btn">
+          <button className="arrange-fiter">
+            <div className="filter-icon">
+              <TbZoomMoney />
+            </div>
+            Giá
+          </button>
+          <button className="arrange-fiter">
+            <div className="filter-icon">
+              <ImLocation2 />
+            </div>
+            Vị trí
+          </button>
+        </div>
+      </div>
       <div className="sidebar">
         <div className="button-list-wrapper">
           <DragDropContext onDragEnd={handleDragEnd}>
@@ -141,20 +157,6 @@ function ProductList({ productList }) {
         <button>1</button>
         <button>2</button>
         <button>3</button>
-      </div>
-      <div className="filter-btn">
-        <button className="arrange-fiter">
-          <div className="filter-icon">
-            <TbZoomMoney />
-          </div>
-          Giá
-        </button>
-        <button className="arrange-fiter">
-          <div className="filter-icon">
-            <ImLocation2 />
-          </div>
-          Vị trí
-        </button>
       </div>
     </div>
   );
