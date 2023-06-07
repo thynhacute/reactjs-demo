@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import HotProductList from "../components/DetailList/index";
 import logoWelcome from "../../../assets/images/logo-welcome.png";
@@ -9,10 +9,15 @@ import preImage from "../../../assets/images/previous.png";
 import "./styles.scss";
 import "../../../App.css";
 import { Link } from "react-router-dom";
+import { UserAuth } from "../../../context/AuthContext";
+import axios from "axios";
+import token from "../../../../src/components/Login/token.json"
 
 HomeDetail.propTypes = {};
 
 function HomeDetail(props) {
+
+
   const hotProductList = [
     {
       id: 1,

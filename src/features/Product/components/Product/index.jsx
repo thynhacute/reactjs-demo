@@ -10,7 +10,8 @@ function Product({ product }) {
   return (
     <div className="product">
       <div className="product__thumbnail">
-        <img src={product.thumbnailUrl} alt={product.name} />
+        {product?.imageUrls?.map((productImg) => (<img src={productImg} alt={product.name} />))}
+
       </div>
       <p className="product__name">{product.name}</p>
       {/* <p className="product__des">{product.des}</p> */}

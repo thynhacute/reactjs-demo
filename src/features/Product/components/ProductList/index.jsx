@@ -8,6 +8,10 @@ import nextImage from "../../../../assets/images/next.png";
 import preImage from "../../../../assets/images/previous.png";
 import { TbZoomMoney } from "react-icons/tb";
 import { ImLocation2 } from "react-icons/im";
+import axios from "axios";
+import { UserAuth } from "../../../../context/AuthContext";
+
+import token from "../../../../components/Login/token.json"
 
 ProductList.propTypes = {
   productList: PropTypes.array.isRequired,
@@ -27,41 +31,58 @@ function ProductList({ productList }) {
     "Xinh đẹp",
     "Nghệ thuật",
   ]);
-  const [products, setProducts] = useState([]);
+
+  const {category, setCategory,products, setProducts } = UserAuth()
+  // console.log('2',products)
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
+  // console.log(products)
+
   useEffect(() => {
-    // Hàm gọi API để lấy dữ liệu sản phẩm với phân trang
-    const fetchProducts = async () => {
+    const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          `https://your-api-url/products?page=${currentPage}&pageSize=${pageSize}`
-        );
-        const data = await response.json();
-        setProducts(data.results);
-        setTotalPages(data.totalPages);
+        const response = await axios.get('https://2hand.monoinfinity.net/api/v1.0/admin/product',
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token?.token}`,
+            },
+          });
+          // console.log(response)
+        const data = response?.data?.data;
+        setProducts(data);
+
+        const responseCate = await axios.get('https://2hand.monoinfinity.net/api/v1.0/category/all',
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token?.token}`,
+          },
+        });
+      const dataCate = responseCate?.data;
+      setCategory(dataCate);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching users:', error);
       }
     };
-    fetchProducts();
-  }, [currentPage, pageSize]);
 
+    fetchUsers();
+  }, []);
   const handleNextClick = () => {
-    const nextIndex = (startIndex + 1) % productList.length;
+    const nextIndex = (startIndex + 1) % products.length;
     setStartIndex(nextIndex);
   };
 
   const handlePreviousClick = () => {
     const previousIndex =
-      (startIndex - 1 + productList.length) % productList.length;
+      (startIndex - 1 + [products].length) % products.length;
     setStartIndex(previousIndex);
   };
 
   const visibleProducts = [
-    ...productList.slice(startIndex),
-    ...productList.slice(0, startIndex),
+    ...products.slice(startIndex),
+    ...products.slice(0, startIndex),
   ].slice(0, 8);
 
   const handleDragEnd = (result) => {
@@ -103,9 +124,9 @@ function ProductList({ productList }) {
                 <ul
                   className="button-list"
                   ref={provided.innerRef}
-                  {...provided.droppableProps}
+                  {...provided.droppableProps} 
                 >
-                  {buttonOrder.map((buttonName, index) => (
+                  {category.map((buttonName, index) => (
                     <Draggable
                       key={buttonName}
                       draggableId={buttonName}
@@ -121,7 +142,7 @@ function ProductList({ productList }) {
                             <button
                               className={snapshot.isDragging ? "dragging" : ""}
                             >
-                              {buttonName}
+                              {buttonName?.name}
                             </button>
                           </div>
                         </li>

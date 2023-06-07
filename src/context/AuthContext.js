@@ -19,6 +19,9 @@ export const AuthContextProvider = ({ children }) => {
     signOut(auth);
   };
 
+//add state category
+const [category ,setCategory]= useState([])
+const [products, setProducts] = useState([])
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -29,7 +32,7 @@ export const AuthContextProvider = ({ children }) => {
     };
   }, []);
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
+    <AuthContext.Provider value={{ googleSignIn, logOut, user, category ,setCategory ,products, setProducts}}>
       {children}
     </AuthContext.Provider>
   );

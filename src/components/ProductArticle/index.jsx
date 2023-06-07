@@ -24,7 +24,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-
+import token from "../../components/Login/token.json"
 // adress
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -69,7 +69,11 @@ BootstrapDialogTitle.propTypes = {
 const ProductArticle = () => {
   //adress
   const [open, setOpen] = React.useState(false);
+//add form post server
+  const { category, setCategory } = UserAuth()
+  const [ categoryForm , setCategoryForm]=  useState("")
 
+//
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -93,6 +97,15 @@ const ProductArticle = () => {
         );
         const data = response.data;
         setCities(data);
+        const responseCate = await axios.get('https://2hand.monoinfinity.net/api/v1.0/category/all',
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token?.token}`,
+          },
+        });
+      const dataCate = responseCate?.data;
+      setCategory(dataCate);
       } catch (error) {
         console.error("Error fetching cities:", error);
       }
@@ -148,6 +161,7 @@ const ProductArticle = () => {
   };
   //upoload image
   const [images, setImages] = useState([]);
+
   const inputRef = useRef(null);
 
   const handleImageUpload = (event) => {
@@ -286,17 +300,24 @@ const ProductArticle = () => {
                 <div className="text-left-btn" > Loại sản phẩm:</div>
                 <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
                   <Select
-                    value={age}
-                    onChange={handleChange}
+                    value={categoryForm}
+                    onChange={(e) => setCategoryForm(e.target.value)}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                   >
                     <MenuItem value="">
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={1}>Đồ nữ</MenuItem>
-                    <MenuItem value={2}>Đồ nam</MenuItem>
-                    <MenuItem value={3}>Cả nam và nữ</MenuItem>
+                    {category.map(
+                      (
+                        categorys,
+                        index // Thêm tham số index vào hàm map
+                      ) => (
+                        <MenuItem key={index} value={categorys?.id}>
+                          {categorys?.name}
+                        </MenuItem>
+                      )
+                    )}
                   </Select>
                 </FormControl>
               </div>
