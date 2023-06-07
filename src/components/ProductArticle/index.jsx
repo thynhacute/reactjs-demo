@@ -6,13 +6,13 @@ import titleAddProductIcon from "../../assets/images/title-add-product.png";
 import { BsCamera } from "react-icons/bs";
 import saveProductIcon from "../../assets/images/save-product.png";
 import { NavLink } from "react-router-dom";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Box, TextField, Typography } from '@mui/material';
-import Textarea from '@mui/joy/Textarea';
-import { TextareaAutosize } from '@mui/material';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Box, TextField, Typography } from "@mui/material";
+import Textarea from "@mui/joy/Textarea";
+import { TextareaAutosize } from "@mui/material";
 import { AiFillCloseCircle } from "react-icons/ai";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
@@ -24,17 +24,16 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-import token from "../../components/Login/token.json"
+import token from "../../components/Login/token.json";
 // adress
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   "& .MuiDialogActions-root": {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
-
 function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
 
@@ -49,7 +48,7 @@ function BootstrapDialogTitle(props) {
             position: "absolute",
             right: 8,
             top: 8,
-            color: (theme) => theme.palette.grey[500]
+            color: (theme) => theme.palette.grey[500],
           }}
         >
           <CloseIcon />
@@ -61,19 +60,24 @@ function BootstrapDialogTitle(props) {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
-
-
 
 const ProductArticle = () => {
   //adress
   const [open, setOpen] = React.useState(false);
-//add form post server
-  const { category, setCategory } = UserAuth()
-  const [ categoryForm , setCategoryForm]=  useState("")
+  //add form post server
+  const { category, setCategory } = UserAuth();
 
-//
+  //post form
+  const [nameProduct, setNameProduct] = useState("")
+  const [priceProduct, setPriceProduct] = useState("")
+  const [descriptionProduct, setDescriptonProduct] = useState("")
+  const [addressProduct, setAddressProduct] = useState("")
+  const [quantityProduct, setQuantityProduct] = useState("")
+  const [categoryForm, setCategoryForm] = useState("");
+  const [dataProductBack, setDataProductBack] = useState([])
+  //
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -97,15 +101,17 @@ const ProductArticle = () => {
         );
         const data = response.data;
         setCities(data);
-        const responseCate = await axios.get('https://2hand.monoinfinity.net/api/v1.0/category/all',
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token?.token}`,
-          },
-        });
-      const dataCate = responseCate?.data;
-      setCategory(dataCate);
+        const responseCate = await axios.get(
+          "https://2hand.monoinfinity.net/api/v1.0/category/all",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token?.token}`,
+            },
+          }
+        );
+        const dataCate = responseCate?.data;
+        setCategory(dataCate);
       } catch (error) {
         console.error("Error fetching cities:", error);
       }
@@ -150,7 +156,7 @@ const ProductArticle = () => {
     console.log("Địa chỉ cụ thể:", specificAddress);
 
     const newResult = `${specificAddress}, ${selectedWard}, ${selectedDistrict}, ${selectedCity}`;
-    setResult(newResult);
+    setAddressProduct(newResult);
 
     handleClose();
   };
@@ -197,19 +203,66 @@ const ProductArticle = () => {
 
   //
   const handleInputChange = (event) => {
-    const input = event.target.value.replace(/[^0-9]/g, ''); // Loại bỏ các ký tự không phải số
+    const input = event.target.value.replace(/[^0-9]/g, ""); // Loại bỏ các ký tự không phải số
     event.target.value = input;
   };
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState("");
   const handleChange = (event) => {
     setAge(event.target.value);
   };
 
-  const [inputValue, setInputValue] = useState("");
+  // const [inputValue, setInputValue] = useState("");
+  const img = "https://contents.mediadecathlon.com/p1854944/e52b8315208638c6de58cb4f4c8268f2/p1854944.jpg"
 
+  const handleSubmitProduct = async (event) => {
+    event.preventDefault();
+    if (!token) {
+      console.log("No access token found.");
+      return;
+    }
+    var formData = new FormData();
+    formData.append("name", nameProduct);
+    formData.append("price", priceProduct);
+    formData.append("description", descriptionProduct);
+    formData.append("address", addressProduct);
+    formData.append("imageUrls", img);
+    formData.append("quantity", quantityProduct);
+    formData.append("categoryId", categoryForm);
+
+
+    axios
+      .post("https://2hand.monoinfinity.net/api/v1.0/product", formData, {
+        headers: {
+          Authorization: `Bearer ${token?.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response?.data);
+        const product = response?.data
+        if (product) {
+          setDataProductBack(product)
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+const formUntil ={
+  color:' none !important',
+  display: 'block',
+  padding: '0',
+  border: '0',
+  'border-radius': '0',
+ ' box-shadow': '0',
+  'margin-left': '0',
+  'margin-top': '0',
+  'background-color': '#fffcf2'
+}
   return (
     <header className="custom-add-product">
-      <div>
+      {/* <form > */}
+      <form onSubmit={handleSubmitProduct} style={formUntil} >
         <div className="add-product-detail">
           <div className="title-add-product">
             <div className="name-add-product">
@@ -224,18 +277,20 @@ const ProductArticle = () => {
           <div className="container">
             <div className="left">
               <div>
-                <div className="text-left-btn" > Tiêu đề tin đăng:</div>
-                <Box className="customBox"
-                >
-                  <TextField fullWidth
+                <div className="text-left-btn"> Tiêu đề tin đăng:</div>
+                <Box className="customBox">
+                  <TextField
+                    fullWidth
                     size="small"
                     id="fullWidth"
                     className="customTextField"
+                    value={nameProduct}
+                    onChange={(e) => setNameProduct(e.target.value)}
                   />
                 </Box>
               </div>
               <div className="descriptionContainer">
-                <div className="text-left-btn" > Mô tả sản phẩm:</div>
+                <div className="text-left-btn"> Mô tả sản phẩm:</div>
 
                 <textarea
                   className="text-area-btn"
@@ -248,11 +303,12 @@ const ProductArticle = () => {
 - Chấp nhận thanh toán/ vận chuyển qua Chợ Tốt
 - Chính sách bảo hành, bảo trì, đổi trả hàng hóa/sản phẩm
 - Địa chỉ giao nhận, đổi trả hàng hóa/sản phẩm"
-                  onChange={handleChange}
+                  value={descriptionProduct}
+                  onChange={(e) => setDescriptonProduct(e.target.value)}
                 />
               </div>
               <div className="imageContainer">
-                <div className="text-left-btn" >Thêm hình ảnh:</div>
+                <div className="text-left-btn">Thêm hình ảnh:</div>
                 <div className="minorText">Tối thiểu 1 ảnh:</div>
               </div>
               {/* <div className="space-input-img">
@@ -281,29 +337,36 @@ const ProductArticle = () => {
                   accept="image/*"
                   multiple
                   onChange={handleImageUpload}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                   disabled={isUploadDisabled} // Disable the input when the maximum number of images is reached
                 />
                 <div className="image-preview">
                   {images.map((image, index) => (
-                    <div key={index} className="image-item" >
+                    <div key={index} className="image-item">
                       <img src={image.imageUrl} alt={`Preview ${index}`} />
-                      <button className="delete-button" onClick={() => handleImageRemove(index)}><AiFillCloseCircle /></button>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleImageRemove(index)}
+                      >
+                        <AiFillCloseCircle />
+                      </button>
                     </div>
                   ))}
                 </div>
               </div>
-
             </div>
             <div className="right">
               <div>
-                <div className="text-left-btn" > Loại sản phẩm:</div>
-                <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
+                <div className="text-left-btn"> Loại sản phẩm:</div>
+                <FormControl
+                  sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                  size="small"
+                >
                   <Select
                     value={categoryForm}
                     onChange={(e) => setCategoryForm(e.target.value)}
                     displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
+                    inputProps={{ "aria-label": "Without label" }}
                   >
                     <MenuItem value="">
                       <em></em>
@@ -321,45 +384,50 @@ const ProductArticle = () => {
                   </Select>
                 </FormControl>
               </div>
-              <div>
-                <div className="text-left-btn" > Tình trạng:</div>
-                <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
-                  <Select
-                    value={age}
-                    onChange={handleChange}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
+                {/* <div>
+                  <div className="text-left-btn"> Tình trạng:</div>
+                  <FormControl
+                    sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                    size="small"
                   >
-                    <MenuItem value="">
-                      <em></em>
-                    </MenuItem>
-                    <MenuItem value={4}>Mới</MenuItem>
-                    <MenuItem value={5}>Đã sử dụng</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
+                    <Select
+                      value={age}
+                      onChange={handleChange}
+                      displayEmpty
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      <MenuItem value="">
+                        <em></em>
+                      </MenuItem>
+                      <MenuItem value={4}>Mới</MenuItem>
+                      <MenuItem value={5}>Đã sử dụng</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div> */}
               <div>
-                <div className="text-left-btn" > Giá bán:</div>
+                <div className="text-left-btn"> Giá bán:</div>
                 <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
-                  <TextField fullWidth id="outlined-number" type="number" />
+                  <TextField fullWidth id="outlined-number" type="number" value={priceProduct} onChange={(e) => setPriceProduct(e.target.value)} />
                 </Box>
               </div>
               <div>
-                <div className="text-left-btn" >Số điện thoại :</div>
+                {/* <div className="text-left-btn">Số điện thoại :</div> */}
+                <div className="text-left-btn">Số lượng sản phẩm: </div>
                 <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
                   <TextField
                     fullWidth
                     id="outlined-number"
-                    type="text"
+                    type="number"
                     inputProps={{
-                      pattern: '[0-9]*',
+                      pattern: "[0-9]*",
                     }}
-                    onChange={handleInputChange}
+                    value={quantityProduct}
+                    onChange={(e) => setQuantityProduct(e.target.value)}
                   />
                 </Box>
               </div>
               <div>
-                <div className="text-left-btn" > Địa chỉ:</div>
+                <div className="text-left-btn"> Địa chỉ:</div>
                 {/* <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
                   <Select
                     displayEmpty
@@ -369,15 +437,14 @@ const ProductArticle = () => {
                 </FormControl> */}
                 <Box
                   onClick={handleClickOpen}
-
                   sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}
                 >
-                  <TextField fullWidth
+                  <TextField
+                    fullWidth
                     size="small"
                     id="address"
                     className="customTextField"
-                    value={result}
-
+                    value={addressProduct}
                   />
                 </Box>
                 <BootstrapDialog
@@ -453,7 +520,9 @@ const ProductArticle = () => {
                         sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
                         size="small"
                       >
-                        <InputLabel id="ward-select-label">Chọn phường xã</InputLabel>
+                        <InputLabel id="ward-select-label">
+                          Chọn phường xã
+                        </InputLabel>
                         <Select
                           className="form-select form-select-sm"
                           aria-label=".form-select-sm"
@@ -474,13 +543,9 @@ const ProductArticle = () => {
                       </FormControl>
                     </Typography>
                     <Typography>
-                      <Box
-                        className="customBox"
-                        noValidate
-                        autoComplete="off"
-
-                      >
-                        <TextField fullWidth
+                      <Box className="customBox" noValidate autoComplete="off">
+                        <TextField
+                          fullWidth
                           id="specific-address"
                           label="Địa chỉ cụ thể"
                           variant="outlined"
@@ -502,17 +567,18 @@ const ProductArticle = () => {
         </div>
         <div>
           <button className="save-product-btn" type="submit">
-            <NavLink to="/home" activeClassName="active-product">
-              <img
-                src={saveProductIcon}
-                alt="SaveProductCoin"
-                className="save-product-icon"
-              />
-            </NavLink>
+            {/* <NavLink to="/add-product" activeClassName="active-product"> */}
+            <img
+              src={saveProductIcon}
+              alt="SaveProductCoin"
+              className="save-product-icon"
+            />
+            {/* </NavLink> */}
           </button>
         </div>
-      </div>
-    </header>
+      </form>
+    {/* </form> */}
+    </header >
   );
 };
 

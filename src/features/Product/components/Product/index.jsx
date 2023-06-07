@@ -9,8 +9,8 @@ Product.propTypes = {
 function Product({ product }) {
   return (
     <div className="product">
-      <div className="product__thumbnail">
-        {product?.imageUrls?.map((productImg) => (<img src={productImg} alt={product.name} />))}
+      <div className="product__thumbnail" >
+       <img src={product?.imageUrl} alt={product?.name} />
 
       </div>
       <p className="product__name">{product.name}</p>

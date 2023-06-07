@@ -22,6 +22,7 @@ export const AuthContextProvider = ({ children }) => {
 //add state category
 const [category ,setCategory]= useState([])
 const [products, setProducts] = useState([])
+const [productMe , setProductMe] = useState([])
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -32,7 +33,7 @@ const [products, setProducts] = useState([])
     };
   }, []);
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user, category ,setCategory ,products, setProducts}}>
+    <AuthContext.Provider value={{ googleSignIn, logOut, user, category ,setCategory ,products, setProducts , productMe, setProductMe}}>
       {children}
     </AuthContext.Provider>
   );
