@@ -32,43 +32,13 @@ function ProductList({ productList }) {
     "Nghệ thuật",
   ]);
 
-  const {category, setCategory,products, setProducts } = UserAuth()
+  const {category,products } = UserAuth()
   // console.log('2',products)
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
   // console.log(products)
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('https://2hand.monoinfinity.net/api/v1.0/admin/product',
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token?.token}`,
-            },
-          });
-          // console.log(response)
-        const data = response?.data?.data;
-        setProducts(data);
-
-        const responseCate = await axios.get('https://2hand.monoinfinity.net/api/v1.0/category/all',
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token?.token}`,
-          },
-        });
-      const dataCate = responseCate?.data;
-      setCategory(dataCate);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
   const handleNextClick = () => {
     const nextIndex = (startIndex + 1) % products.length;
     setStartIndex(nextIndex);

@@ -76,6 +76,7 @@ const ProductArticle = () => {
   const [addressProduct, setAddressProduct] = useState("")
   const [quantityProduct, setQuantityProduct] = useState("")
   const [categoryForm, setCategoryForm] = useState("");
+  console.log(categoryForm)
   const [dataProductBack, setDataProductBack] = useState([])
   //
   const handleClickOpen = () => {
@@ -93,32 +94,6 @@ const ProductArticle = () => {
   const [specificAddress, setSpecificAddress] = useState("");
   const [result, setResult] = useState("");
 
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get(
-          "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
-        );
-        const data = response.data;
-        setCities(data);
-        const responseCate = await axios.get(
-          "https://2hand.monoinfinity.net/api/v1.0/category/all",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token?.token}`,
-            },
-          }
-        );
-        const dataCate = responseCate?.data;
-        setCategory(dataCate);
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-      }
-    };
-
-    fetchCities();
-  }, []);
 
   const handleCityChange = (event) => {
     const cityId = event.target.value;
@@ -167,7 +142,7 @@ const ProductArticle = () => {
   };
   //upoload image
   const [images, setImages] = useState([]);
-
+// console.log(images)
   const inputRef = useRef(null);
 
   const handleImageUpload = (event) => {
@@ -212,8 +187,10 @@ const ProductArticle = () => {
   };
 
   // const [inputValue, setInputValue] = useState("");
-  const img = "https://contents.mediadecathlon.com/p1854944/e52b8315208638c6de58cb4f4c8268f2/p1854944.jpg"
-
+  const originalArray = "https://contents.mediadecathlon.com/p1854944/e52b8315208638c6de58cb4f4c8268f2/p1854944.jpg";
+  const jsonArray = JSON.stringify(originalArray.split(","));
+  const newArray = JSON.parse(jsonArray);
+  console.log(newArray)
   const handleSubmitProduct = async (event) => {
     event.preventDefault();
     if (!token) {
@@ -225,7 +202,7 @@ const ProductArticle = () => {
     formData.append("price", priceProduct);
     formData.append("description", descriptionProduct);
     formData.append("address", addressProduct);
-    formData.append("imageUrls", img);
+    formData.append("imageUrls", newArray);
     formData.append("quantity", quantityProduct);
     formData.append("categoryId", categoryForm);
 

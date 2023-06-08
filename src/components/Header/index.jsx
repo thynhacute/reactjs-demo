@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { Link, NavLink } from "react-router-dom";
 import logoImage from "../../assets/images/logo.png";
@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { HiPencilSquare } from "react-icons/hi2";
 import { HiMenu } from "react-icons/hi";
-
 Header.propTypes = {};
 
 function Header() {
@@ -24,6 +23,7 @@ function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuResOpen, setIsMenuResOpen] = useState(false);
+
   const menuItems = [
     { label: "Chỉnh sửa hồ sơ", path: "/account" },
     { label: "Nạp xu", path: "/wallet" },
