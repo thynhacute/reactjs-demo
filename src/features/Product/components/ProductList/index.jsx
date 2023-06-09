@@ -108,9 +108,6 @@ function ProductList({ productList }) {
     }
   }, [index]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-
-
   return (
     <div className="product-list-wrapper">
       <div>
@@ -246,11 +243,11 @@ function ProductList({ productList }) {
             <img src={preImage} alt="Previous" className="previous-button" />
           </button>
         </div>
-        <div className="page-btn">
+        {/* <div className="page-btn">
           <button>1</button>
           <button>2</button>
           <button>3</button>
-        </div>
+        </div> */}
         <div className="button-container">
           <button className="btn-next-to" onClick={handleNextClick}>
             <img src={nextImage} alt="Next" className="next-to-button" />
