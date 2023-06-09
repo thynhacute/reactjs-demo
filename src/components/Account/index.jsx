@@ -13,10 +13,22 @@ const Account = () => {
       console.log(error);
     }
   };
-  const [inputValue, setInputValue] = useState("");
+
+  const [biographyValue, setBiographyValue] = useState("");
+  const [addressValue, setAddressValue] = useState("");
+
+  const handleBiographyChange = (e) => {
+    setBiographyValue(e.target.value);
+  };
+
+  const handleAddressChange = (e) => {
+    setAddressValue(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Input Value:", inputValue);
+    console.log("Biography Value:", biographyValue);
+    console.log("Address Value:", addressValue);
   };
   return (
     <header className="custom-account">
@@ -38,10 +50,10 @@ const Account = () => {
               <div>
                 <textarea
                   className="biography"
-                  id="inputField"
-                  value={inputValue}
+                  id="inputFieldBio"
+                  value={biographyValue}
                   placeholder="Tui là K18, vì đú trend nên dứt hết đống đồ về nhà, mà mặc mới 1 lần cái hok muốn mặc nữa pùn ghia"
-                  onChange={(e) => setInputValue(e.target.value)}
+                  onChange={handleBiographyChange}
                 ></textarea>
               </div>
             </div>
@@ -52,11 +64,10 @@ const Account = () => {
             <div className="address-content">
               <textarea
                 className="address"
-                id="inputField"
-                value={inputValue}
-                placeholder="S201. Vinhomes Grand Park. Nguyễn Xiển. Phường Long Thạnh Mỹ. Quận 9. Tp Hồ Chí Minh.
-                Trường Đại Học FPT"
-                onChange={(e) => setInputValue(e.target.value)}
+                id="inputFieldAddress"
+                value={addressValue}
+                placeholder="S201. Vinhomes Grand Park. Nguyễn Xiển. Phường Long Thạnh Mỹ. Quận 9. Tp Hồ Chí Minh. Trường Đại Học FPT"
+                onChange={handleAddressChange}
               ></textarea>
             </div>
           </div>
