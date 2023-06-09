@@ -1,0 +1,252 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
+    src: url(../../assets/fonts/Montserrat-Regular.ttf);
+    src: url(../../assets/fonts/Montserrat-Medium.ttf);
+  }
+header {
+  background-color: #fffcf2;
+}
+@media only screen and (max-width: 480px) {
+    .custom-signup {
+        height: 500px;
+      }
+      .form-signup{
+          display: flex;
+          justify-content: center;
+      }
+      .label-input-signup{
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+      }
+      .signup-app{
+          margin-top: 100px;
+      }
+      .input-signup-email{
+          box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 10px;
+          width: 200px;
+          height: 30px;
+          font-family: "Montserrat", sans-serif;
+          font-weight: 300;
+          margin-left: 102px;
+          margin-bottom: 15px;
+          border: none;
+      }
+      .input-signup-name{
+          box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 10px;
+          width: 200px;
+          height: 30px;
+          font-family: "Montserrat", sans-serif;
+          font-weight: 300;
+          margin-left: 99px;
+          margin-bottom: 15px;
+          border: none;
+      }
+      .input-signup-password{
+          box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 10px;
+          width: 200px;
+          height: 30px;
+          font-family: "Montserrat", sans-serif;
+          font-weight: 500;
+          margin-left: 70px;
+          margin-bottom: 15px;
+          border: none;
+      }
+      .input-signup-confirm{
+          box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 10px;
+          width: 200px;
+          height: 30px;
+          font-family: "Montserrat", sans-serif;
+          font-weight: 500;
+          margin-bottom: 15px;
+          border: none;
+      }
+      .label-font-signup{
+          font-family: "Montserrat", sans-serif;
+          font-weight: 500;
+          font-size: 16px;
+          margin-bottom: 15px;
+      }
+      .message-match-pass{
+          font-family: "Montserrat", sans-serif;
+          font-weight: 300;
+          position: absolute;
+      }
+      .btn-signup-submit{
+          border: none;
+          background: white;
+          margin-top: 70px;
+      }
+      .signup-icon{
+          width: 200px;
+      }
+}
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .custom-signup {
+    height: 650px;
+  }
+  .form-signup{
+      display: flex;
+      justify-content: center;
+  }
+  .label-input-signup{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+  }
+  .signup-app{
+      margin-top: 200px;
+  }
+  .input-signup-email{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 300;
+      margin-left: 102px;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .input-signup-name{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 300;
+      margin-left: 99px;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .input-signup-password{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      margin-left: 70px;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .input-signup-confirm{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .label-font-signup{
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 15px;
+  }
+  .message-match-pass{
+      font-family: "Montserrat", sans-serif;
+      font-weight: 300;
+      position: absolute;
+  }
+  .btn-signup-submit{
+      border: none;
+      background: white;
+      margin-top: 70px;
+  }
+  .signup-icon{
+      width: 200px;
+  }
+}
+@media only screen and (min-width: 1025px) {
+.custom-signup {
+    margin-top: 50px;
+    background-image: url(../../assets/images/signup-page.png);
+    background-size: cover; /* Sử dụng cover để đảm bảo ảnh nền tràn đầy */
+    background-position: center; /* Căn giữa ảnh nền */
+    background-repeat: no-repeat;
+    height: 650px;
+  }
+  .form-signup{
+      display: flex;
+      justify-content: flex-end;
+  }
+  .label-input-signup{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+  }
+  .signup-app{
+      margin-top: 200px;
+      margin-right: 245px;
+  }
+  .input-signup-email{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 300;
+      margin-left: 102px;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .input-signup-name{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 300;
+      margin-left: 99px;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .input-signup-password{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      margin-left: 70px;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .input-signup-confirm{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      width: 300px;
+      height: 30px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      margin-bottom: 15px;
+      border: none;
+  }
+  .label-font-signup{
+      font-family: "Montserrat", sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 15px;
+  }
+  .message-match-pass{
+      font-family: "Montserrat", sans-serif;
+      font-weight: 300;
+      position: absolute;
+  }
+  .btn-signup-submit{
+      border: none;
+      background: white;
+      margin-top: 70px;
+  }
+  .signup-icon{
+      width: 200px;
+  }
+}

@@ -20,7 +20,7 @@ function Header() {
       console.log(error);
     }
   };
-
+  const userProfile = JSON.parse(localStorage.getItem('user_profile'));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuResOpen, setIsMenuResOpen] = useState(false);
 
@@ -63,12 +63,12 @@ function Header() {
           <li>
             <Link to="/contacts">Liên hệ</Link>
           </li>
-          {user?.displayName ? (
+          {userProfile?.name ? (
             <li>
               <Link className="no-underline">
                 <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
                   <li className="username">
-                    <p>{user?.displayName}</p>
+                    <p>{userProfile?.name}</p>
                     <IoMdArrowDropdown />
                   </li>
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
@@ -109,7 +109,7 @@ function Header() {
         <ul className="menu-navbar align-center">
           <li className="search-menu">
             <div className="search-bar">
-              <form>
+              <form className="search-form">
                 <input
                   type="text"
                   placeholder="Tìm kiếm"

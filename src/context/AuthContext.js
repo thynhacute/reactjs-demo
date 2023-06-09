@@ -24,6 +24,8 @@ export const AuthContextProvider = ({ children }) => {
   const [category, setCategory] = useState([])
   const [products, setProducts] = useState([])
   const [productMe, setProductMe] = useState([])
+  const [isPendingUpdated, setIsPendingUpdated] = useState(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -57,6 +59,26 @@ export const AuthContextProvider = ({ children }) => {
 
         setProducts(data);
         setCategory(dataCate);
+        const accessToken = JSON.parse(localStorage.getItem('access_token'));
+        if (accessToken) {
+          const responseProfile = await axios.get(
+            "https://2hand.monoinfinity.net/api/v1.0/users/me",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken?.token}`,
+              },
+            }
+          );
+
+          localStorage.setItem(
+            "user_profile",
+            JSON.stringify(responseProfile?.data)
+          );
+        } else {
+          console.log("Access token not found")
+        }
+
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -67,10 +89,10 @@ export const AuthContextProvider = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [isPendingUpdated]);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user, category, setCategory, products, setProducts, productMe, setProductMe }}>
+    <AuthContext.Provider value={{ googleSignIn, logOut, user, category, setCategory, products, setProducts, productMe, setProductMe, setIsPendingUpdated, isPendingUpdated, }}>
       {children}
     </AuthContext.Provider>
   );

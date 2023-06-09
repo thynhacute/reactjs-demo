@@ -77,7 +77,6 @@ const ProductArticle = () => {
   const [quantityProduct, setQuantityProduct] = useState([]);
   const [categoryForm, setCategoryForm] = useState([]);
   const [dataImgProduct, setDataImgProduct] = useState([]);
-  console.log(dataImgProduct)
   const [dataProductBack, setDataProductBack] = useState([]);
   //
   const handleClickOpen = () => {
@@ -93,7 +92,6 @@ const ProductArticle = () => {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedWard, setSelectedWard] = useState("");
   const [specificAddress, setSpecificAddress] = useState("");
-  const [result, setResult] = useState("");
 
   const handleCityChange = (event) => {
     const cityId = event.target.value;
@@ -191,7 +189,6 @@ const ProductArticle = () => {
   };
   const handleSubmitImgProduct = async (event) => {
     event.preventDefault(); // Prevent default form submission
-    console.log(selectedFile);
     const formData = new FormData();
     formData.append("files", selectedFile);
     axios
@@ -270,10 +267,10 @@ const ProductArticle = () => {
     <header className="custom-add-product">
       {/* <form > */}
       <div>
-        <form onSubmit={handleSubmitImgProduct}>
-          <input type="file" onChange={handleFileChange} />
-          <button onClick={handleSubmitImgProduct}>Upload</button>
-        </form>
+        {/* <form onSubmit={handleSubmitImgProduct}> */}
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleSubmitImgProduct}>Upload</button>
+        {/* </form> */}
       </div>
       <form onSubmit={handleSubmitProduct} style={formUntil}>
         <div className="add-product-detail">

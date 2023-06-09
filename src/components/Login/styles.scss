@@ -1,97 +1,258 @@
 @font-face {
-    font-family: Montserrat;
-    src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
-    src: url(../../assets/fonts/Montserrat-Regular.ttf);
-  }
-  header {
-    background-color: #FFFCF2;
-  }
-  
-  .custom-login {
-    margin-top: 50px;
-    background-image: url(../../assets/images/login-page.png);
-    background-size: cover; /* Sử dụng cover để đảm bảo ảnh nền tràn đầy */
-    background-position: center; /* Căn giữa ảnh nền */
-    background-repeat: no-repeat;
-  }
-  
-  
-  .login-title {
-    text-align: right;
-    margin: 0px 480px 0px 0px;
-    padding-top: 100px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-  }
-  
-  .hehe {
-    height: 600px;
-  }
-  
-  
-  .detail-login {
+  font-family: Montserrat;
+  src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
+  src: url(../../assets/fonts/Montserrat-Regular.ttf);
+  src: url(../../assets/fonts/Montserrat-Medium.ttf);
+}
+header {
+  background-color: #fffcf2;
+}
+@media only screen and (max-width: 480px) {
+  .login-app {
+    margin-top: 100px;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
     align-items: center;
-    margin-right: 230px;
+    justify-content: center;
   }
-  
-  .google-login,
-  .facebook-login {
-    margin-left: 10px;
+  .form-login {
+    display: flex;
+    justify-content: center;
+  }
+  .input-login-password {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    transform: matrix(1, 0, 0, 1, 0, 0);
-    margin-top: 160px;
-    width: 250px;
-    height: 80px;
-    background: none;
+    width: 300px;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border: none;
   }
   
-  
-  .facebook-login {
-    margin-left: 20px;
+  .input-login-email {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 300px;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    margin-bottom: 15px;
+    border: none;
   }
-  .no-underline {
-    text-decoration: none;
+  .btn-signin-submit{
+    border: none;
+    background: white;
+    margin-top: 30px;
   }
-  
-  .login-google, .login-facebook {
+  .or-detail-icon{
+    margin-top: 50px;
+  }
+  .detail-login {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+  .login-app {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-login {
+    display: flex;
+    justify-content: center;
+  }
+  .input-login-password {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    border: none;
-    background-color: white;
+    width: 350px;
+    height: 40px;
     font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    
-  }
-  .login-google{
-    margin-left: 165px;
-    margin-top: 55px;
-  }
-  .login-facebook{
-    margin-left: -100px;
-    margin-top: 160px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border: none;
   }
   
-  .google-icon,
-  .facebook-icon {
-    width: 50px;
-    margin-right: 10px;
+  .input-login-email {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 350px;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    margin-bottom: 15px;
+    border: none;
   }
-  .wrap-form-field {
-    margin-bottom: 10px;
-    text-align: left;
- }
-
- .wrap-form-field .form-group {
-    margin: 0;
+  .btn-signin-submit{
+    border: none;
+    background: white;
+    margin-top: 30px;
+  }
+  .or-detail-icon{
+    margin-top: 50px;
+  }
+  .detail-login {
     display: flex;
+    justify-content: center;
     align-items: center;
- }
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .custom-login {
+  margin-top: 50px;
+  background-image: url(../../assets/images/login-page.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.login-app {
+  margin-top: 180px;
+  margin-right: 245px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.form-login {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 65px;
+}
+
+.input-login-password {
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 350px;
+  height: 40px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  margin-left: 70px;
+  margin-bottom: 15px;
+  border: none;
+}
+
+.input-login-email {
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 350px;
+  height: 40px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  margin-left: 102px;
+  margin-bottom: 15px;
+  border: none;
+}
+.btn-signin-submit{
+  border: none;
+  background: white;
+  margin-top: 30px;
+  margin-right: 70px;
+}
+.or-detail-icon{
+  margin: 20px 0px 0px 550px;
+}
+.detail-login {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 230px;
+}
+}
+
+
+.label-input-login {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btn-login-submit {
+  border: none;
+  background: white;
+  margin-top: 70px;
+}
+
+.login-icon {
+  width: 200px;
+}
+
+.signin-icon{
+  width: 200px;
+}
+
+.label-font-login {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+
+.login-title {
+  text-align: right;
+  margin: 0px 480px 0px 0px;
+  padding-top: 100px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+
+.hehe {
+  height: 600px;
+}
+
+
+
+.google-login,
+.facebook-login {
+  margin-left: 10px;
+  border-radius: 10px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  width: 250px;
+  height: 80px;
+  background: none;
+}
+
+.facebook-login {
+  margin-left: 20px;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+.login-google,
+.login-facebook {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.login-google {
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.login-facebook {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.google-icon,
+.facebook-icon {
+  width: 50px;
+  margin-right: 10px;
+}
