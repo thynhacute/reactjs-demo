@@ -10,9 +10,9 @@ import { ImLocation2 } from "react-icons/im";
 import { UserAuth } from "../../../../context/AuthContext";
 import Colors from "../Product/Colors";
 import DetailsThumb from "../Product/DetailsThumb";
-import ModalClose from '@mui/joy/ModalClose';
-import Modal from '@mui/joy/Modal';
-import { styled, } from "@mui/material";
+import ModalClose from "@mui/joy/ModalClose";
+import Modal from "@mui/joy/Modal";
+import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -39,7 +39,7 @@ function ProductList({ productList }) {
     "Nghệ thuật",
   ]);
 
-  const { category, products } = UserAuth()
+  const { category, products } = UserAuth();
   // console.log('2',products)
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -93,7 +93,7 @@ function ProductList({ productList }) {
     }
   }, [index]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  console.log(selectedProduct)
+  console.log(selectedProduct);
   return (
     <div className="product-list-wrapper">
       <div>
@@ -156,7 +156,11 @@ function ProductList({ productList }) {
 
       <div className="product-list">
         {visibleProducts.map((product) => (
-          <li className="product-item-list" key={product.id} onClick={() => setSelectedProduct(product)}>
+          <li
+            className="product-item-list"
+            key={product.id}
+            onClick={() => setSelectedProduct(product)}
+          >
             <Product product={product} />
           </li>
         ))}
@@ -165,12 +169,20 @@ function ProductList({ productList }) {
           <StyledModal
             open={!!selectedProduct}
             onClose={() => setSelectedProduct(null)}
-            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
             <Box
-              style={{ position: "relative", "boxShadow": "rgba(0, 0, 0, 0.35) 0px 5px 15px ", "border":"none" }}
+              style={{
+                position: "relative",
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px ",
+                border: "none",
+              }}
               width={1200}
               minHeight={475}
               maxHeight={700}
@@ -203,12 +215,20 @@ function ProductList({ productList }) {
                   <div className="box-product">
                     <div className="row-product">
                       <h2>{selectedProduct?.name}</h2>
-                      <span>vnđ{selectedProduct?.price}</span>
                     </div>
                     {/* <Colors colors={selectedProduct?.colors} /> */}
-                    <p>{selectedProduct?.category?.name}</p>
-                    <p>{selectedProduct?.description}</p>
-                    <DetailsThumb images={selectedProduct?.imageUrls} tab={handleTab} myRef={myRef} />
+                    <span className="span-price">
+                      {selectedProduct?.price.toLocaleString()} VND
+                    </span>
+                    <p className="p-cate-name">
+                      {selectedProduct?.category?.name}
+                    </p>
+                    <p className="p-cate-des">{selectedProduct?.description}</p>
+                    <DetailsThumb
+                      images={selectedProduct?.imageUrls}
+                      tab={handleTab}
+                      myRef={myRef}
+                    />
                     <button className="cart">Contact seller</button>
                   </div>
                 </div>
@@ -223,11 +243,11 @@ function ProductList({ productList }) {
             <img src={preImage} alt="Previous" className="previous-button" />
           </button>
         </div>
-        <div className="page-btn">
+        {/* <div className="page-btn">
           <button>1</button>
           <button>2</button>
           <button>3</button>
-        </div>
+        </div> */}
         <div className="button-container">
           <button className="btn-next-to" onClick={handleNextClick}>
             <img src={nextImage} alt="Next" className="next-to-button" />

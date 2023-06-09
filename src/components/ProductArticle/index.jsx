@@ -243,8 +243,17 @@ const ProductArticle = () => {
       {/* <form > */}
       <div>
         <form onSubmit={handleSubmitImgProduct}>
-          <input type="file" onChange={handleFileChange} />
-          <button onClick={handleSubmitImgProduct}>Upload</button>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className="choose-file-btn"
+          />
+          <button
+            className="upload-product-ar-btn"
+            onClick={handleSubmitImgProduct}
+          >
+            Click here to Submit Image
+          </button>
         </form>
       </div>
       <form onSubmit={handleSubmitProduct} style={formUntil}>
@@ -271,6 +280,8 @@ const ProductArticle = () => {
                     className="customTextField"
                     value={nameProduct}
                     onChange={(e) => setNameProduct(e.target.value)}
+                    inputProps={{ maxLength: 20 }}
+                    placeholder="Giới hạn 20 kí tự"
                   />
                 </Box>
               </div>
@@ -314,9 +325,7 @@ const ProductArticle = () => {
                           style={{ maxWidth: 153 }}
                         />
                         {showDeleteButtons && (
-                          <button onClick={() => handleDelete(index)}>
-                            x
-                          </button>
+                          <button onClick={() => handleDelete(index)}>x</button>
                         )}
                       </div>
                     ))}
