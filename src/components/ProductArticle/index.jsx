@@ -24,6 +24,8 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
+import Dropzone from "react-dropzone";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 
 // adress
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -140,58 +142,30 @@ const ProductArticle = () => {
     setSpecificAddress(address);
   };
   //upoload image
-  const [images, setImages] = useState([]);
-  const inputRef = useRef(null);
 
-  const handleImageUpload = (event) => {
-    const fileList = event.target.files;
-    const newImages = [];
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  console.log(selectedFiles);
+  const [showDeleteButtons, setShowDeleteButtons] = useState(false);
+  const handleFileChange = (files) => {
+    setSelectedFiles([...selectedFiles, ...files]);
+    setShowDeleteButtons(true);
+  };
 
-    // Loop through the selected files
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-      const imageUrl = URL.createObjectURL(file);
+  const handleDelete = (index) => {
+    const updatedFiles = [...selectedFiles];
+    updatedFiles.splice(index, 1);
+    setSelectedFiles(updatedFiles);
 
-      // Check if the maximum number of images is reached
-      if (images.length + newImages.length < 7) {
-        // Add the file and its URL to the images array
-        newImages.push({ file, imageUrl });
-      }
+    if (updatedFiles.length === 0) {
+      setShowDeleteButtons(false);
     }
-
-    // Update the state with the new images
-    setImages([...images, ...newImages]);
-  };
-  const handleImageRemove = (index) => {
-    const updatedImages = [...images];
-    updatedImages.splice(index, 1);
-    setImages(updatedImages);
-  };
-
-  const isUploadDisabled = images.length >= 6; // Check if the maximum number of images is reached
-
-  const handleUploadClick = () => {
-    inputRef.current.click(); // Trigger the input file click event
-  };
-
-  //
-  const handleInputChange = (event) => {
-    const input = event.target.value.replace(/[^0-9]/g, ""); // Loại bỏ các ký tự không phải số
-    event.target.value = input;
-  };
-  const [age, setAge] = React.useState("");
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  const [selectedFile, setSelectedFile] = useState([]);
-
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
   };
   const handleSubmitImgProduct = async (event) => {
     event.preventDefault(); // Prevent default form submission
     const formData = new FormData();
-    formData.append("files", selectedFile);
+    for (let i = 0; i < selectedFiles.length; i++) {
+      formData.append("files", selectedFiles[i]);
+    }
     axios
       .post(
         "https://2hand.monoinfinity.net/api/v1.0/file/upload-multi",
@@ -321,35 +295,33 @@ const ProductArticle = () => {
               <div className="imageContainer">
                 <div className="text-left-btn">Thêm hình ảnh:</div>
                 <div className="minorText">Tối thiểu 1 ảnh:</div>
-              </div>
-              <div className="image-upload">
-                <div className="upload-square" onClick={handleUploadClick}>
-                  <div className="upload-placeholder">
-                    <BsCamera />
-                  </div>
-                </div>
-                <input
-                  ref={inputRef}
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleImageUpload}
-                  style={{ display: "none" }}
-                  disabled={isUploadDisabled} // Disable the input when the maximum number of images is reached
-                />
-                <div className="image-preview">
-                  {images.map((image, index) => (
-                    <div key={index} className="image-item">
-                      <img src={image.imageUrl} alt={`Preview ${index}`} />
-                      <button
-                        className="delete-button"
-                        onClick={() => handleImageRemove(index)}
-                      >
-                        <AiFillCloseCircle />
-                      </button>
+                <Dropzone onDrop={handleFileChange} accept="image/*">
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <ImageOutlinedIcon />{" "}
                     </div>
-                  ))}
-                </div>
+                  )}
+                </Dropzone>
+                {selectedFiles.length > 0 && (
+                  <div>
+                    {selectedFiles.map((file, index) => (
+                      <div key={index}>
+                        <img
+                          className="rounded-3 shadow"
+                          src={URL.createObjectURL(file)}
+                          alt="preview"
+                          style={{ maxWidth: 153 }}
+                        />
+                        {showDeleteButtons && (
+                          <button onClick={() => handleDelete(index)}>
+                            x
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             <div className="right">

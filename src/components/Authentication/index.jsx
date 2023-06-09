@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 Authentication.propTypes = {};
 
 function Authentication() {
-  const { user, logOut } = UserAuth();
+  const { user, logOut, userProfile } = UserAuth();
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
@@ -18,7 +18,7 @@ function Authentication() {
   };
   return (
     <header className="custom-authen">
-      {user?.displayName ? (
+      {userProfile?.name ? (
         <p></p>
       ) : (
         <nav>

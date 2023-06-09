@@ -43,7 +43,9 @@ function Header() {
       <nav>
         <ul className="menu-navbar">
           <li className="logo">
-            <img src={logoImage} alt="Logo" />
+            <NavLink to="/" className="home-menu">
+              <img src={logoImage} alt="Logo" />
+            </NavLink>
           </li>
           <li>
             <NavLink to="/" className="home-menu">
