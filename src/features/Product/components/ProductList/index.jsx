@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./styles.scss";
 import Product from "../Product";
-import { Link } from "react-router-dom";
 import nextImage from "../../../../assets/images/next.png";
 import preImage from "../../../../assets/images/previous.png";
 import { TbZoomMoney } from "react-icons/tb";
 import { ImLocation2 } from "react-icons/im";
+import { UserAuth } from "../../../../context/AuthContext";
+import Colors from "../Product/Colors";
+import DetailsThumb from "../Product/DetailsThumb";
+import ModalClose from '@mui/joy/ModalClose';
+import Modal from '@mui/joy/Modal';
+import { styled, } from "@mui/material";
+import Box from "@mui/material/Box";
+import { ImFilter } from "react-icons/im";
+const StyledModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
 
 ProductList.propTypes = {
   productList: PropTypes.array.isRequired,
@@ -27,42 +39,43 @@ function ProductList({ productList }) {
     "Xinh đẹp",
     "Nghệ thuật",
   ]);
-  const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
-  useEffect(() => {
-    // Hàm gọi API để lấy dữ liệu sản phẩm với phân trang
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          `https://your-api-url/products?page=${currentPage}&pageSize=${pageSize}`
-        );
-        const data = await response.json();
-        setProducts(data.results);
-        setTotalPages(data.totalPages);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
-  }, [currentPage, pageSize]);
 
+  const { category, products } = UserAuth()
+  const [filterCategory, setFilterCategory] = useState([])
+  const [allProduct, setAllProduct] = useState([])
   const handleNextClick = () => {
-    const nextIndex = (startIndex + 1) % productList.length;
+    const nextIndex = (startIndex + 1) % products.length;
     setStartIndex(nextIndex);
   };
 
   const handlePreviousClick = () => {
     const previousIndex =
-      (startIndex - 1 + productList.length) % productList.length;
+      (startIndex - 1 + [products].length) % products.length;
     setStartIndex(previousIndex);
   };
 
+  const [filterCategoryId, setFilterCategoryId] = useState(""); // Thêm state filterCategoryId để lưu ID của bộ lọc
+
   const visibleProducts = [
-    ...productList.slice(startIndex),
-    ...productList.slice(0, startIndex),
+    ...(filterCategoryId !== "" && filterCategoryId !== "all" ? filterCategory : products).slice(startIndex),
+    ...(filterCategoryId !== "" && filterCategoryId !== "all" ? filterCategory : products).slice(0, startIndex),
   ].slice(0, 8);
+
+  const handleButtonClick = (id) => {
+    setFilterCategoryId(id); // Lưu ID của bộ lọc vào state filterCategoryId
+    if (id === "") {
+      setFilterCategory([]);
+    } else {
+      const filteredProducts = products.filter((product) => product.category.id === id);
+      setFilterCategory(filteredProducts);
+    }
+  };
+
+  const handleButtonAll = () => {
+    setFilterCategoryId("all"); // Đặt ID của bộ lọc thành "all" để chỉ định hiển thị tất cả sản phẩm
+    setFilterCategory([]); // Đặt filterCategory thành mảng rỗng để hiển thị tất cả sản phẩm
+  };
+
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -76,12 +89,33 @@ function ProductList({ productList }) {
 
     setButtonOrder(reorderedButtons);
   };
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+  const myRef = useRef(null);
+
+  const handleTab = (index) => {
+    setIndex(index);
+    const images = myRef.current.children;
+    for (let i = 0; i < images.length; i++) {
+      images[i].className = images[i].className.replace("active", "");
+    }
+    images[index].className = "active";
+  };
+
+  useEffect(() => {
+    if (myRef.current) {
+      myRef.current.children[index].className = "active";
+    }
+  }, [index]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+
 
   return (
     <div className="product-list-wrapper">
       <div>
         <div className="filter-btn">
-          <button className="arrange-fiter">
+          <button className="arrange-fiter" >
             <div className="filter-icon">
               <TbZoomMoney />
             </div>
@@ -92,6 +126,12 @@ function ProductList({ productList }) {
               <ImLocation2 />
             </div>
             Vị trí
+          </button>
+          <button className="arrange-fiter" onClick={handleButtonAll}>
+            <div className="filter-icon">
+              <ImFilter />
+            </div>
+            Tất cả
           </button>
         </div>
       </div>
@@ -105,7 +145,7 @@ function ProductList({ productList }) {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {buttonOrder.map((buttonName, index) => (
+                  {category.map((buttonName, index) => (
                     <Draggable
                       key={buttonName}
                       draggableId={buttonName}
@@ -120,9 +160,9 @@ function ProductList({ productList }) {
                         >
                           <div className="btn-item-drop">
                             <button
-                              className={snapshot.isDragging ? "dragging" : ""}
+                              className={snapshot.isDragging ? "dragging" : ""} onClick={() => handleButtonClick(buttonName?.id)}
                             >
-                              {buttonName}
+                              {buttonName?.name}
                             </button>
                           </div>
                         </li>
@@ -139,10 +179,66 @@ function ProductList({ productList }) {
 
       <div className="product-list">
         {visibleProducts.map((product) => (
-          <li className="product-item-list" key={product.id}>
+          <li className="product-item-list" key={product.id} onClick={() => setSelectedProduct(product)}>
             <Product product={product} />
           </li>
         ))}
+
+        {selectedProduct && (
+          <StyledModal
+            open={!!selectedProduct}
+            onClose={() => setSelectedProduct(null)}
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              style={{ position: "relative", "boxShadow": "rgba(0, 0, 0, 0.35) 0px 5px 15px ", "border": "none" }}
+              width={1200}
+              minHeight={475}
+              maxHeight={700}
+              bgcolor="white"
+              p={3}
+              borderRadius={3}
+              sx={{
+                "::-webkit-scrollbar": {
+                  display: "none",
+                },
+              }}
+            >
+              {/* <ModalClose
+                variant="outlined"
+                sx={{
+                  top: 'calc(-1/4 * var(--IconButton-size))',
+                  right: 'calc(-1/4 * var(--IconButton-size))',
+                  boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
+                  borderRadius: '50%',
+                  bgcolor: 'background.body',
+                }}
+              /> */}
+              <div className="app-product">
+                <div className="details-product" key={selectedProduct?.id}>
+                  <div className="big-img">
+                    <img src={selectedProduct?.imageUrls[index]} alt="" />
+                    {/* <img  src={selectedProduct?.imageUrl}/> */}
+                  </div>
+
+                  <div className="box-product">
+                    <div className="row-product">
+                      <h2>{selectedProduct?.name}</h2>
+                      <span>vnđ{selectedProduct?.price}</span>
+                    </div>
+                    {/* <Colors colors={selectedProduct?.colors} /> */}
+                    <p>{selectedProduct?.category?.name}</p>
+                    <p>{selectedProduct?.description}</p>
+                    <DetailsThumb images={selectedProduct?.imageUrls} tab={handleTab} myRef={myRef} />
+                    <button className="cart">Contact seller</button>
+                  </div>
+                </div>
+              </div>
+            </Box>
+          </StyledModal>
+        )}
       </div>
       <div className="custom-next-pre-btn">
         <div className="button-container">

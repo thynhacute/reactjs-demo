@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { Link, NavLink } from "react-router-dom";
 import logoImage from "../../assets/images/logo.png";
@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { HiPencilSquare } from "react-icons/hi2";
 import { HiMenu } from "react-icons/hi";
-
 Header.propTypes = {};
 
 function Header() {
-  const { user, logOut } = UserAuth();
+  const { user, logOut, userProfile, priceUser } = UserAuth();
+  console.log(priceUser)
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
@@ -21,9 +21,9 @@ function Header() {
       console.log(error);
     }
   };
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuResOpen, setIsMenuResOpen] = useState(false);
+
   const menuItems = [
     { label: "Chỉnh sửa hồ sơ", path: "/account" },
     { label: "Nạp xu", path: "/wallet" },
@@ -43,7 +43,9 @@ function Header() {
       <nav>
         <ul className="menu-navbar">
           <li className="logo">
-            <img src={logoImage} alt="Logo" />
+            <NavLink to="/" className="home-menu">
+              <img src={logoImage} alt="Logo" />
+            </NavLink>
           </li>
           <li>
             <NavLink to="/" className="home-menu">
@@ -63,12 +65,12 @@ function Header() {
           <li>
             <Link to="/contacts">Liên hệ</Link>
           </li>
-          {user?.displayName ? (
+          {userProfile?.name ? (
             <li>
               <Link className="no-underline">
                 <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
                   <li className="username">
-                    <p>{user?.displayName}</p>
+                    <p>{userProfile?.name}</p>
                     <IoMdArrowDropdown />
                   </li>
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
@@ -125,7 +127,7 @@ function Header() {
             <NavLink to="/login" activeClassName="login-user">
               <div className="search-cart-wrapper">
                 <HiPencilSquare />
-                <p className="post-product">Đăng tin</p>
+                <p className="post-product"></p>
               </div>
             </NavLink>
           </li>

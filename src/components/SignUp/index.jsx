@@ -4,15 +4,20 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth } from "../../firebase";
 import "./styles.scss";
 import signUpIcon from "../../assets/images/signup-btn.png";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserAuth } from "../../context/AuthContext";
 
 SignUpFeature.propTypes = {};
 
 function SignUpFeature(props) {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
-
+  const navigate = useNavigate();
+  const {setIsPendingUpdated} = UserAuth()
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
@@ -25,29 +30,42 @@ function SignUpFeature(props) {
     setPasswordMatch(password === newConfirmPassword);
   };
 
-  const signUp = () => {
-    if (passwordMatch) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-          alert(
-            "Successfully created an account! Come to Login Page to Sign In"
+  const signUp = (event) => {
+    event.preventDefault();
+    const payload = {
+      "email": email,
+      "name": name,
+      "password": password,
+      "confirmPassword": confirmPassword
+    };
+    axios
+      .post(
+        "https://2hand.monoinfinity.net/api/v1.0/auth/register",
+        payload,
+      )
+      .then((userCredential) => {
+        console.log(userCredential)
+        if ((userCredential.status = 201)) {
+          localStorage.setItem(
+            "access_token",
+            JSON.stringify(userCredential.data)
           );
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          alert(errorCode);
-        });
-    } else {
-      alert("Passwords do not match");
-    }
+          setIsPendingUpdated((prev) => !prev);
+          navigate("/login")
+        } else {
+          alert("Signup fail")
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        alert(errorCode);
+      });
   };
 
   return (
     <div>
       <header className="custom-signup">
-        <form className="form-signup">
+        <form className="form-signup" onSubmit={signUp}>
           <div className="signup-mail-pass">
             <div className="signup-app">
               <div className="label-input-signup">
@@ -77,6 +95,7 @@ function SignUpFeature(props) {
                   className="name-mail-pass input-signup-name"
                   placeholder="Enter your Name"
                   style={{ paddingLeft: "10px" }}
+                  onChange={(e) =>setName(e.target.value)}
                 />
               </div>
               <div className="label-input-signup">
@@ -119,7 +138,7 @@ function SignUpFeature(props) {
                   Passwords do not match!
                 </p>
               )}
-              <button onClick={signUp} className="btn-signup-submit">
+              <button type="submit" className="btn-signup-submit">
                 <img src={signUpIcon} alt="SignupBtn" className="signup-icon" />
               </button>
             </div>

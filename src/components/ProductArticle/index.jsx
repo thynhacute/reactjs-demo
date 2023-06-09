@@ -5,18 +5,15 @@ import { useState, useRef, useEffect } from "react";
 import titleAddProductIcon from "../../assets/images/title-add-product.png";
 import { BsCamera } from "react-icons/bs";
 import saveProductIcon from "../../assets/images/save-product.png";
-import { NavLink } from "react-router-dom";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Box, TextField, Typography } from '@mui/material';
-import Textarea from '@mui/joy/Textarea';
-import { TextareaAutosize } from '@mui/material';
-import { AiFillCloseCircle } from "react-icons/ai";
+import { NavLink, useNavigate } from "react-router-dom";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Box, TextField, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -24,20 +21,39 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-
+import Dropzone from "react-dropzone";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import { styled } from '@mui/joy/styles';
+import Sheet from '@mui/joy/Sheet';
+import Grid from '@mui/joy/Grid';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import SubtitlesOutlinedIcon from '@mui/icons-material/SubtitlesOutlined';
+import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+const Item = styled(Sheet)(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === 'dark' ? theme.palette.background.level1 : '#fff',
+  ...theme.typography.body2,
+  // padding: theme.spacing(1),
+  textAlign: 'center',
+  borderRadius: 4,
+  color: theme.vars.palette.text.secondary,
+}));
 // adress
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   "& .MuiDialogActions-root": {
-    padding: theme.spacing(1)
-  }
+    padding: theme.spacing(1),
+  },
 }));
-
 function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
-
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
@@ -49,7 +65,7 @@ function BootstrapDialogTitle(props) {
             position: "absolute",
             right: 8,
             top: 8,
-            color: (theme) => theme.palette.grey[500]
+            color: (theme) => theme.palette.grey[500],
           }}
         >
           <CloseIcon />
@@ -61,15 +77,27 @@ function BootstrapDialogTitle(props) {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
-
-
 
 const ProductArticle = () => {
   //adress
   const [open, setOpen] = React.useState(false);
+  //add form post server
+  const { category, setCategory, setIsPendingUpdated } = UserAuth();
+  const navigate = useNavigate();
+  //post form
+  const [nameProduct, setNameProduct] = useState([]);
+  const [priceProduct, setPriceProduct] = useState("");
+  const [descriptionProduct, setDescriptonProduct] = useState([]);
+  const [addressProduct, setAddressProduct] = useState([]);
+  const [quantityProduct, setQuantityProduct] = useState([]);
+  const [categoryForm, setCategoryForm] = useState([]);
+  const [dataImgProduct, setDataImgProduct] = useState([]);
+  const [dataProductBack, setDataProductBack] = useState([]);
+  const token = JSON.parse(localStorage.getItem("access_token"));
 
+  //
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -83,23 +111,6 @@ const ProductArticle = () => {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedWard, setSelectedWard] = useState("");
   const [specificAddress, setSpecificAddress] = useState("");
-  const [result, setResult] = useState("");
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get(
-          "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
-        );
-        const data = response.data;
-        setCities(data);
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-      }
-    };
-
-    fetchCities();
-  }, []);
 
   const handleCityChange = (event) => {
     const cityId = event.target.value;
@@ -137,7 +148,7 @@ const ProductArticle = () => {
     console.log("Địa chỉ cụ thể:", specificAddress);
 
     const newResult = `${specificAddress}, ${selectedWard}, ${selectedDistrict}, ${selectedCity}`;
-    setResult(newResult);
+    setAddressProduct(newResult);
 
     handleClose();
   };
@@ -147,55 +158,123 @@ const ProductArticle = () => {
     setSpecificAddress(address);
   };
   //upoload image
-  const [images, setImages] = useState([]);
-  const inputRef = useRef(null);
 
-  const handleImageUpload = (event) => {
-    const fileList = event.target.files;
-    const newImages = [];
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [showDeleteButtons, setShowDeleteButtons] = useState(false);
+  const handleFileChange = (files) => {
+    if (selectedFiles.length + files.length > 6) {
+      alert("Bạn chỉ được chọn tối đa 6 ảnh.");
+      return;
+    }
+    setSelectedFiles([...selectedFiles, ...files]);
+    setShowDeleteButtons(true);
+  };
 
-    // Loop through the selected files
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-      const imageUrl = URL.createObjectURL(file);
 
-      // Check if the maximum number of images is reached
-      if (images.length + newImages.length < 7) {
-        // Add the file and its URL to the images array
-        newImages.push({ file, imageUrl });
-      }
+  const handleDelete = (index) => {
+    const updatedFiles = [...selectedFiles];
+    updatedFiles.splice(index, 1);
+    setSelectedFiles(updatedFiles);
+
+    if (updatedFiles.length === 0) {
+      setShowDeleteButtons(false);
+    }
+  };
+  const handleSubmitFormProduct = async (event) => {
+    event.preventDefault();
+
+    if (!token) {
+      console.log("No access token found.");
+      return;
     }
 
-    // Update the state with the new images
-    setImages([...images, ...newImages]);
-  };
-  const handleImageRemove = (index) => {
-    const updatedImages = [...images];
-    updatedImages.splice(index, 1);
-    setImages(updatedImages);
+    const uploadImages = async () => {
+      console.log(selectedFiles)
+      const formData = new FormData();
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append("files", selectedFiles[i]);
+      }
+
+      try {
+        const response = await axios.post(
+          "https://2hand.monoinfinity.net/api/v1.0/file/upload-multi",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token?.token}`,
+              "Content-Type":
+                "multipart/form-data; boundary=<calculated when request is sent>",
+            },
+          }
+        );
+        console.log(response?.data);
+        const product = response?.data;
+        if (product) {
+          setDataImgProduct(product);
+        }
+        return product;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    };
+
+    const submitProduct = async (imageUrls) => {
+      const payload = {
+        price: priceProduct,
+        address: addressProduct,
+        name: nameProduct,
+        description: descriptionProduct,
+        quantity: quantityProduct,
+        categoryId: categoryForm,
+        imageUrls: imageUrls,
+      };
+
+      try {
+        const response = await axios.post(
+          "https://2hand.monoinfinity.net/api/v1.0/product",
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${token?.token}`,
+            },
+          }
+        );
+
+        if (response?.status === 201) {
+          setDataProductBack(response?.data);
+          setIsPendingUpdated((prev) => !prev);
+          navigate("/products");
+        } else {
+          alert("login fail");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    try {
+      const imageUrls = await uploadImages();
+      await submitProduct(imageUrls);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const isUploadDisabled = images.length >= 6; // Check if the maximum number of images is reached
-
-  const handleUploadClick = () => {
-    inputRef.current.click(); // Trigger the input file click event
+  const formUntil = {
+    color: " none !important",
+    display: "block",
+    padding: "0",
+    border: "0",
+    "border-radius": "0",
+    " box-shadow": "0",
+    "margin-left": "0",
+    "margin-top": "0",
+    "background-color": "#FFFCF2",
   };
-
-  //
-  const handleInputChange = (event) => {
-    const input = event.target.value.replace(/[^0-9]/g, ''); // Loại bỏ các ký tự không phải số
-    event.target.value = input;
-  };
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
-  const [inputValue, setInputValue] = useState("");
-
   return (
     <header className="custom-add-product">
-      <div>
+      <form onSubmit={handleSubmitFormProduct} style={formUntil}>
         <div className="add-product-detail">
           <div className="title-add-product">
             <div className="name-add-product">
@@ -206,22 +285,23 @@ const ProductArticle = () => {
               />
             </div>
           </div>
-
           <div className="container">
             <div className="left">
               <div>
-                <div className="text-left-btn" > Tiêu đề tin đăng:</div>
-                <Box className="customBox"
-                >
-                  <TextField fullWidth
+                <div className="text-left-btn "><SubtitlesOutlinedIcon className="icon-product-form" /> Tiêu đề tin đăng:</div>
+                <Box className="customBox">
+                  <TextField
+                    fullWidth
                     size="small"
                     id="fullWidth"
                     className="customTextField"
+                    value={nameProduct}
+                    onChange={(e) => setNameProduct(e.target.value)}
                   />
                 </Box>
               </div>
               <div className="descriptionContainer">
-                <div className="text-left-btn" > Mô tả sản phẩm:</div>
+                <div className="text-left-btn"> <SummarizeOutlinedIcon className="icon-product-form" /> Mô tả sản phẩm:</div>
 
                 <textarea
                   className="text-area-btn"
@@ -234,129 +314,134 @@ const ProductArticle = () => {
 - Chấp nhận thanh toán/ vận chuyển qua Chợ Tốt
 - Chính sách bảo hành, bảo trì, đổi trả hàng hóa/sản phẩm
 - Địa chỉ giao nhận, đổi trả hàng hóa/sản phẩm"
-                  onChange={handleChange}
+                  value={descriptionProduct}
+                  onChange={(e) => setDescriptonProduct(e.target.value)}
                 />
               </div>
               <div className="imageContainer">
-                <div className="text-left-btn" >Thêm hình ảnh:</div>
-                <div className="minorText">Tối thiểu 1 ảnh:</div>
-              </div>
-              {/* <div className="space-input-img">
-                <label htmlFor="image" className="file-upload">
-                  <div className="upload-icon">
-                    <BsCamera />
+                <div className="container-post-img">
+                  <div className="container-post-img__text">
+                    <div className="text-left-btn"><ImageOutlinedIcon className="icon-product-form" /> Thêm hình ảnh:</div>
+                    <div className="minorText">Tối thiểu 1 ảnh:</div>
                   </div>
-                </label>
-                <input
-                  className="display-choose-img"
-                  type="file"
-                  id="image"
-                  name="image"
-                  accept="image/*"
-                />
-              </div> */}
-              <div className="image-upload">
-                <div className="upload-square" onClick={handleUploadClick}>
-                  <div className="upload-placeholder">
-                    <BsCamera />
-                  </div>
+                  <Dropzone onDrop={handleFileChange} accept="image/*">
+                    {({ getRootProps, getInputProps }) => (
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        {selectedFiles.length > 0 && (<AddCircleOutlineIcon />)}
+                        {selectedFiles.length === 0 && (
+                          <button
+                            className="upload-product-ar-btn"
+                          // onClick={handleSubmitImgProduct}
+                          >
+                            Click here to Submit Image
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </Dropzone>
                 </div>
-                <input
-                  ref={inputRef}
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleImageUpload}
-                  style={{ display: 'none' }}
-                  disabled={isUploadDisabled} // Disable the input when the maximum number of images is reached
-                />
-                <div className="image-preview">
-                  {images.map((image, index) => (
-                    <div key={index} className="image-item" >
-                      <img src={image.imageUrl} alt={`Preview ${index}`} />
-                      <button className="delete-button" onClick={() => handleImageRemove(index)}><AiFillCloseCircle /></button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                {selectedFiles.length > 0 && (
+                  <Grid
+                    container
+                    // rowSpacing={1}
+                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                  // sx={{ width: '100%' }}
+                  >
+                    {selectedFiles.map((file, index) => (
+                      <Grid xs={4}>
+                        <Item>
+                          <div key={index} className="image-container">
+                            <img
+                              className="rounded-3 shadow"
+                              src={URL.createObjectURL(file)}
+                              alt="preview"
+                              style={{ width: 120, height: 100, objectFit: "cover", borderRadius: 8 }}
+                            />
+                            {showDeleteButtons && (
+                              <HighlightOffIcon
+                                className="delete-icon"
+                                onClick={() => handleDelete(index)}
+                              />
+                            )}
+                          </div>
+                        </Item>
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
 
+
+              </div>
             </div>
             <div className="right">
               <div>
-                <div className="text-left-btn" > Loại sản phẩm:</div>
-                <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
+                <div className="text-left-btn text-left-btn-right"><CategoryOutlinedIcon className="icon-product-form" /> Loại sản phẩm:</div>
+                <FormControl
+                  sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                  size="small"
+                >
                   <Select
-                    value={age}
-                    onChange={handleChange}
+                    value={categoryForm}
+                    onChange={(e) => setCategoryForm(e.target.value)}
                     displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
+                    inputProps={{ "aria-label": "Without label" }}
                   >
                     <MenuItem value="">
                       <em></em>
                     </MenuItem>
-                    <MenuItem value={1}>Đồ nữ</MenuItem>
-                    <MenuItem value={2}>Đồ nam</MenuItem>
-                    <MenuItem value={3}>Cả nam và nữ</MenuItem>
+                    {category.map(
+                      (
+                        categorys,
+                        index // Thêm tham số index vào hàm map
+                      ) => (
+                        <MenuItem key={index} value={categorys?.id}>
+                          {categorys?.name}
+                        </MenuItem>
+                      )
+                    )}
                   </Select>
                 </FormControl>
               </div>
               <div>
-                <div className="text-left-btn" > Tình trạng:</div>
-                <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
-                  <Select
-                    value={age}
-                    onChange={handleChange}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
-                  >
-                    <MenuItem value="">
-                      <em></em>
-                    </MenuItem>
-                    <MenuItem value={4}>Mới</MenuItem>
-                    <MenuItem value={5}>Đã sử dụng</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-              <div>
-                <div className="text-left-btn" > Giá bán:</div>
-                <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
-                  <TextField fullWidth id="outlined-number" type="number" />
-                </Box>
-              </div>
-              <div>
-                <div className="text-left-btn" >Số điện thoại :</div>
+                <div className="text-left-btn text-left-btn-right"><MonetizationOnOutlinedIcon className="icon-product-form" /> Giá bán:</div>
                 <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
                   <TextField
                     fullWidth
                     id="outlined-number"
-                    type="text"
-                    inputProps={{
-                      pattern: '[0-9]*',
-                    }}
-                    onChange={handleInputChange}
+                    type="number"
+                    value={priceProduct}
+                    onChange={(e) => setPriceProduct(e.target.value)}
                   />
                 </Box>
               </div>
               <div>
-                <div className="text-left-btn" > Địa chỉ:</div>
-                {/* <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
-                  <Select
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
-                  >
-                  </Select>
-                </FormControl> */}
+                <div className="text-left-btn text-left-btn-right"><ConfirmationNumberOutlinedIcon className="icon-product-form" /> Số lượng sản phẩm: </div>
+                <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
+                  <TextField
+                    fullWidth
+                    id="outlined-number"
+                    type="number"
+                    inputProps={{
+                      pattern: "[0-9]*",
+                    }}
+                    value={quantityProduct}
+                    onChange={(e) => setQuantityProduct(e.target.value)}
+                  />
+                </Box>
+              </div>
+              <div>
+                <div className="text-left-btn text-left-btn-right"><HomeOutlinedIcon className="icon-product-form" /> Địa chỉ:</div>
                 <Box
                   onClick={handleClickOpen}
-
                   sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}
                 >
-                  <TextField fullWidth
+                  <TextField
+                    fullWidth
                     size="small"
                     id="address"
                     className="customTextField"
-                    value={result}
-
+                    value={addressProduct}
                   />
                 </Box>
                 <BootstrapDialog
@@ -432,7 +517,9 @@ const ProductArticle = () => {
                         sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
                         size="small"
                       >
-                        <InputLabel id="ward-select-label">Chọn phường xã</InputLabel>
+                        <InputLabel id="ward-select-label">
+                          Chọn phường xã
+                        </InputLabel>
                         <Select
                           className="form-select form-select-sm"
                           aria-label=".form-select-sm"
@@ -453,13 +540,9 @@ const ProductArticle = () => {
                       </FormControl>
                     </Typography>
                     <Typography>
-                      <Box
-                        className="customBox"
-                        noValidate
-                        autoComplete="off"
-
-                      >
-                        <TextField fullWidth
+                      <Box className="customBox" noValidate autoComplete="off">
+                        <TextField
+                          fullWidth
                           id="specific-address"
                           label="Địa chỉ cụ thể"
                           variant="outlined"
@@ -481,16 +564,17 @@ const ProductArticle = () => {
         </div>
         <div>
           <button className="save-product-btn" type="submit">
-            <NavLink to="/home" activeClassName="active-product">
-              <img
-                src={saveProductIcon}
-                alt="SaveProductCoin"
-                className="save-product-icon"
-              />
-            </NavLink>
+            {/* <NavLink to="/add-product" activeClassName="active-product"> */}
+            <img
+              src={saveProductIcon}
+              alt="SaveProductCoin"
+              className="save-product-icon"
+            />
+            {/* </NavLink> */}
           </button>
         </div>
-      </div>
+      </form>
+      {/* </form> */}
     </header>
   );
 };

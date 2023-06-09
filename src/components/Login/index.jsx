@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./styles.scss";
 import { Link, useNavigate } from "react-router-dom";
 import facebookIcon from "../../assets/images/facebook-logo.png";
@@ -9,6 +9,7 @@ import { auth } from "../../firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import signInIcon from "../../assets/images/signin-btn.png";
 import orIcon from "../../assets/images/or-detail.png";
+import axios from "axios";
 
 LoginFeature.propTypes = {};
 
@@ -16,14 +17,31 @@ function LoginFeature() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const { setIsPendingUpdated } = UserAuth()
 
-  const signIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
+  const signIn = (event) => {
+    // signInWithEmailAndPassword(auth, email, password)
+    event.preventDefault();
+    const payload = {
+      "email": email,
+      "password": password
+    };
+    axios
+      .post(
+        "https://2hand.monoinfinity.net/api/v1.0/auth/login",
+        payload,
+      )
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        alert("Sign In successfully!");
+        if ((userCredential.status = 201)) {
+          localStorage.setItem(
+            "access_token",
+            JSON.stringify(userCredential.data)
+          );
+          setIsPendingUpdated((prev) => !prev);
+          navigate("/")
+        } else {
+          alert("login fail")
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -57,11 +75,14 @@ function LoginFeature() {
         console.log(err.message);
       });
   };
-
+  if (localStorage.getItem("access_token")) {
+    // Chuyển hướng đến trang "/login-success"
+    navigate('/login-success');
+  }
   return (
     <header className="custom-login">
       <div className="hehe">
-        <form action="" className="form-login">
+        <form action="" className="form-login" onSubmit={signIn}>
           <div className="login-mail-pass">
             <div className="login-app">
               <input
@@ -78,7 +99,7 @@ function LoginFeature() {
                 className="input-login-password"
                 style={{ paddingLeft: "10px" }}
               />
-              <button onClick={signIn} className="btn-signin-submit">
+              <button type="submit" className="btn-signin-submit">
                 <img src={signInIcon} alt="SignInBtn" className="signin-icon" />
               </button>
             </div>

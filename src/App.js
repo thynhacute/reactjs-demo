@@ -29,6 +29,7 @@ import MomoFeature from "./components/Wallet/WalletOption/Momo";
 import VNPayFeature from "./components/Wallet/WalletOption/VNPay";
 import ZaloPayFeature from "./components/Wallet/WalletOption/ZaloPay";
 import BankingFeature from "./components/Wallet/WalletOption/Banking";
+import LoginSuccess from "./components/Login/LoginSuccess";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -63,6 +64,9 @@ function App() {
             <Route path="/signup" element={<SignUpFeature />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
 
+            {/* add login success */}
+            <Route path="/login-success" element={<LoginSuccess />} />
+            
             <Route path="/post-list/:postId" element={<NavigateToPost />} />
             <Route path="*" element={NotFound} />
             <Route
