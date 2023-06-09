@@ -52,7 +52,11 @@ function LoginFeature() {
   const auth = getAuth();
   const { googleSignIn, user } = UserAuth();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (user != null) {
+      navigate("/home");
+    }
+  }, [user]);
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
