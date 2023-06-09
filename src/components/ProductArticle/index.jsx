@@ -70,14 +70,15 @@ const ProductArticle = () => {
   const { category, setCategory } = UserAuth();
 
   //post form
-  const [nameProduct, setNameProduct] = useState("")
-  const [priceProduct, setPriceProduct] = useState("")
-  const [descriptionProduct, setDescriptonProduct] = useState("")
-  const [addressProduct, setAddressProduct] = useState("")
-  const [quantityProduct, setQuantityProduct] = useState("")
-  const [categoryForm, setCategoryForm] = useState("");
-  console.log(categoryForm)
-  const [dataProductBack, setDataProductBack] = useState([])
+  const [nameProduct, setNameProduct] = useState([]);
+  const [priceProduct, setPriceProduct] = useState("");
+  const [descriptionProduct, setDescriptonProduct] = useState([]);
+  const [addressProduct, setAddressProduct] = useState([]);
+  const [quantityProduct, setQuantityProduct] = useState([]);
+  const [categoryForm, setCategoryForm] = useState([]);
+  const [dataImgProduct, setDataImgProduct] = useState([]);
+  console.log(dataImgProduct)
+  const [dataProductBack, setDataProductBack] = useState([]);
   //
   const handleClickOpen = () => {
     setOpen(true);
@@ -93,7 +94,6 @@ const ProductArticle = () => {
   const [selectedWard, setSelectedWard] = useState("");
   const [specificAddress, setSpecificAddress] = useState("");
   const [result, setResult] = useState("");
-
 
   const handleCityChange = (event) => {
     const cityId = event.target.value;
@@ -142,7 +142,6 @@ const ProductArticle = () => {
   };
   //upoload image
   const [images, setImages] = useState([]);
-// console.log(images)
   const inputRef = useRef(null);
 
   const handleImageUpload = (event) => {
@@ -185,61 +184,98 @@ const ProductArticle = () => {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+  const [selectedFile, setSelectedFile] = useState([]);
 
-  // const [inputValue, setInputValue] = useState("");
-  const originalArray = "https://contents.mediadecathlon.com/p1854944/e52b8315208638c6de58cb4f4c8268f2/p1854944.jpg";
-  const jsonArray = JSON.stringify(originalArray.split(","));
-  const newArray = JSON.parse(jsonArray);
-  console.log(newArray)
-  const handleSubmitProduct = async (event) => {
-    event.preventDefault();
-    if (!token) {
-      console.log("No access token found.");
-      return;
-    }
-    var formData = new FormData();
-    formData.append("name", nameProduct);
-    formData.append("price", priceProduct);
-    formData.append("description", descriptionProduct);
-    formData.append("address", addressProduct);
-    formData.append("imageUrls", newArray);
-    formData.append("quantity", quantityProduct);
-    formData.append("categoryId", categoryForm);
-
-
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleSubmitImgProduct = async (event) => {
+    event.preventDefault(); // Prevent default form submission
+    console.log(selectedFile);
+    const formData = new FormData();
+    formData.append("files", selectedFile);
     axios
-      .post("https://2hand.monoinfinity.net/api/v1.0/product", formData, {
-        headers: {
-          Authorization: `Bearer ${token?.token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post(
+        "https://2hand.monoinfinity.net/api/v1.0/file/upload-multi",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token?.token}`,
+            "Content-Type":
+              "multipart/form-data; boundary=<calculated when request is sent>",
+          },
+        }
+      )
       .then((response) => {
         console.log(response?.data);
-        const product = response?.data
+        const product = response?.data;
         if (product) {
-          setDataProductBack(product)
+          setDataImgProduct(product);
         }
       })
       .catch((error) => {
         console.error(error);
       });
   };
-const formUntil ={
-  color:' none !important',
-  display: 'block',
-  padding: '0',
-  border: '0',
-  'border-radius': '0',
- ' box-shadow': '0',
-  'margin-left': '0',
-  'margin-top': '0',
-  'background-color': '#fffcf2'
-}
+
+  const handleSubmitProduct = async (event) => {
+    event.preventDefault();
+    if (!token) {
+      console.log("No access token found.");
+      return;
+    }
+    const payload = {
+      price: priceProduct,
+      address: addressProduct,
+      name: nameProduct,
+      description: descriptionProduct,
+      quantity: quantityProduct,
+      categoryId: categoryForm,
+      imageUrls: dataImgProduct,
+    };
+    axios
+      .post(
+        "https://2hand.monoinfinity.net/api/v1.0/product",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token?.token}`,
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response?.data);
+        const product = response?.data;
+        if (product) {
+          setDataProductBack(product);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const formUntil = {
+    color: " none !important",
+    display: "block",
+    padding: "0",
+    border: "0",
+    "border-radius": "0",
+    " box-shadow": "0",
+    "margin-left": "0",
+    "margin-top": "0",
+    "background-color": "#FFFCF2",
+  };
   return (
     <header className="custom-add-product">
       {/* <form > */}
-      <form onSubmit={handleSubmitProduct} style={formUntil} >
+      <div>
+        <form onSubmit={handleSubmitImgProduct}>
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleSubmitImgProduct}>Upload</button>
+        </form>
+      </div>
+      <form onSubmit={handleSubmitProduct} style={formUntil}>
         <div className="add-product-detail">
           <div className="title-add-product">
             <div className="name-add-product">
@@ -288,20 +324,6 @@ const formUntil ={
                 <div className="text-left-btn">Thêm hình ảnh:</div>
                 <div className="minorText">Tối thiểu 1 ảnh:</div>
               </div>
-              {/* <div className="space-input-img">
-                <label htmlFor="image" className="file-upload">
-                  <div className="upload-icon">
-                    <BsCamera />
-                  </div>
-                </label>
-                <input
-                  className="display-choose-img"
-                  type="file"
-                  id="image"
-                  name="image"
-                  accept="image/*"
-                />
-              </div> */}
               <div className="image-upload">
                 <div className="upload-square" onClick={handleUploadClick}>
                   <div className="upload-placeholder">
@@ -361,34 +383,19 @@ const formUntil ={
                   </Select>
                 </FormControl>
               </div>
-                {/* <div>
-                  <div className="text-left-btn"> Tình trạng:</div>
-                  <FormControl
-                    sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
-                    size="small"
-                  >
-                    <Select
-                      value={age}
-                      onChange={handleChange}
-                      displayEmpty
-                      inputProps={{ "aria-label": "Without label" }}
-                    >
-                      <MenuItem value="">
-                        <em></em>
-                      </MenuItem>
-                      <MenuItem value={4}>Mới</MenuItem>
-                      <MenuItem value={5}>Đã sử dụng</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div> */}
               <div>
                 <div className="text-left-btn"> Giá bán:</div>
                 <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
-                  <TextField fullWidth id="outlined-number" type="number" value={priceProduct} onChange={(e) => setPriceProduct(e.target.value)} />
+                  <TextField
+                    fullWidth
+                    id="outlined-number"
+                    type="number"
+                    value={priceProduct}
+                    onChange={(e) => setPriceProduct(e.target.value)}
+                  />
                 </Box>
               </div>
               <div>
-                {/* <div className="text-left-btn">Số điện thoại :</div> */}
                 <div className="text-left-btn">Số lượng sản phẩm: </div>
                 <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
                   <TextField
@@ -405,13 +412,6 @@ const formUntil ={
               </div>
               <div>
                 <div className="text-left-btn"> Địa chỉ:</div>
-                {/* <FormControl sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }} size="small">
-                  <Select
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
-                  >
-                  </Select>
-                </FormControl> */}
                 <Box
                   onClick={handleClickOpen}
                   sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}
@@ -554,8 +554,8 @@ const formUntil ={
           </button>
         </div>
       </form>
-    {/* </form> */}
-    </header >
+      {/* </form> */}
+    </header>
   );
 };
 

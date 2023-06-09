@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./styles.scss";
 import Product from "../Product";
-import { Link } from "react-router-dom";
 import nextImage from "../../../../assets/images/next.png";
 import preImage from "../../../../assets/images/previous.png";
 import { TbZoomMoney } from "react-icons/tb";
 import { ImLocation2 } from "react-icons/im";
-import axios from "axios";
 import { UserAuth } from "../../../../context/AuthContext";
-
-import token from "../../../../components/Login/token.json"
+import Colors from "../Product/Colors";
+import DetailsThumb from "../Product/DetailsThumb";
+import ModalClose from '@mui/joy/ModalClose';
+import Modal from '@mui/joy/Modal';
+import { styled, } from "@mui/material";
+import Box from "@mui/material/Box";
+const StyledModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
 
 ProductList.propTypes = {
   productList: PropTypes.array.isRequired,
@@ -32,7 +39,7 @@ function ProductList({ productList }) {
     "Nghệ thuật",
   ]);
 
-  const {category,products } = UserAuth()
+  const { category, products } = UserAuth()
   // console.log('2',products)
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -67,7 +74,26 @@ function ProductList({ productList }) {
 
     setButtonOrder(reorderedButtons);
   };
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+  const myRef = useRef(null);
 
+  const handleTab = (index) => {
+    setIndex(index);
+    const images = myRef.current.children;
+    for (let i = 0; i < images.length; i++) {
+      images[i].className = images[i].className.replace("active", "");
+    }
+    images[index].className = "active";
+  };
+
+  useEffect(() => {
+    if (myRef.current) {
+      myRef.current.children[index].className = "active";
+    }
+  }, [index]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  console.log(selectedProduct)
   return (
     <div className="product-list-wrapper">
       <div>
@@ -94,7 +120,7 @@ function ProductList({ productList }) {
                 <ul
                   className="button-list"
                   ref={provided.innerRef}
-                  {...provided.droppableProps} 
+                  {...provided.droppableProps}
                 >
                   {category.map((buttonName, index) => (
                     <Draggable
@@ -129,10 +155,66 @@ function ProductList({ productList }) {
 
       <div className="product-list">
         {visibleProducts.map((product) => (
-          <li className="product-item-list" key={product.id}>
+          <li className="product-item-list" key={product.id} onClick={() => setSelectedProduct(product)}>
             <Product product={product} />
           </li>
         ))}
+
+        {selectedProduct && (
+          <StyledModal
+            open={!!selectedProduct}
+            onClose={() => setSelectedProduct(null)}
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              style={{ position: "relative", "boxShadow": "rgba(0, 0, 0, 0.35) 0px 5px 15px ", "border":"none" }}
+              width={1200}
+              minHeight={475}
+              maxHeight={700}
+              bgcolor="white"
+              p={3}
+              borderRadius={3}
+              sx={{
+                "::-webkit-scrollbar": {
+                  display: "none",
+                },
+              }}
+            >
+              {/* <ModalClose
+                variant="outlined"
+                sx={{
+                  top: 'calc(-1/4 * var(--IconButton-size))',
+                  right: 'calc(-1/4 * var(--IconButton-size))',
+                  boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
+                  borderRadius: '50%',
+                  bgcolor: 'background.body',
+                }}
+              /> */}
+              <div className="app-product">
+                <div className="details-product" key={selectedProduct?.id}>
+                  <div className="big-img">
+                    <img src={selectedProduct?.imageUrls[index]} alt="" />
+                    {/* <img  src={selectedProduct?.imageUrl}/> */}
+                  </div>
+
+                  <div className="box-product">
+                    <div className="row-product">
+                      <h2>{selectedProduct?.name}</h2>
+                      <span>vnđ{selectedProduct?.price}</span>
+                    </div>
+                    {/* <Colors colors={selectedProduct?.colors} /> */}
+                    <p>{selectedProduct?.category?.name}</p>
+                    <p>{selectedProduct?.description}</p>
+                    <DetailsThumb images={selectedProduct?.imageUrls} tab={handleTab} myRef={myRef} />
+                    <button className="cart">Contact seller</button>
+                  </div>
+                </div>
+              </div>
+            </Box>
+          </StyledModal>
+        )}
       </div>
       <div className="button-container">
         <button className="btn-previous" onClick={handlePreviousClick}>

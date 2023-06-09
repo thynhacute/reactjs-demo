@@ -4,14 +4,16 @@
   src: url(../../../../assets/fonts/Montserrat-Regular.ttf);
   src: url(../../../../assets/fonts/Montserrat-Medium.ttf);
 }
+
 .product {
   &__thumbnail {
-    & > img {
+    &>img {
       border-radius: 0.5rem;
       width: 140px;
       margin-top: 5px;
     }
   }
+
   &__name {
     font-weight: bold;
     font-family: "Montserrat", sans-serif;
@@ -20,7 +22,8 @@
     color: #ff2c72;
     margin-top: 10px;
   }
-  &__price{
+
+  &__price {
     display: flex;
     justify-content: flex-end;
     font-family: "Montserrat", sans-serif;
@@ -31,3 +34,4 @@
     margin-top: -10px;
   }
 }
+
