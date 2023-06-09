@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase";
 import axios from "axios";
-import token from "../../src/components/Login/token.json"
+import token from "../../src/components/Login/token.json";
 const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
@@ -21,11 +21,12 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   //add state category
-  const [category, setCategory] = useState([])
-  const [products, setProducts] = useState([])
-  const [productMe, setProductMe] = useState([])
+  const [category, setCategory] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [productMe, setProductMe] = useState([]);
   const [isPendingUpdated, setIsPendingUpdated] = useState(null);
-
+  const [userProfile, setUserProfile] = useState([]);
+  const [priceUser, setPriceUser] = useState([])
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -59,7 +60,7 @@ export const AuthContextProvider = ({ children }) => {
 
         setProducts(data);
         setCategory(dataCate);
-        const accessToken = JSON.parse(localStorage.getItem('access_token'));
+        const accessToken = JSON.parse(localStorage.getItem("access_token"));
         if (accessToken) {
           const responseProfile = await axios.get(
             "https://2hand.monoinfinity.net/api/v1.0/users/me",
@@ -70,15 +71,20 @@ export const AuthContextProvider = ({ children }) => {
               },
             }
           );
-
-          localStorage.setItem(
-            "user_profile",
-            JSON.stringify(responseProfile?.data)
+          setUserProfile(responseProfile?.data);
+          const responsePriceUser = await axios.get(
+            "https://2hand.monoinfinity.net/api/v1.0/wallet/me",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken?.token}`,
+              },
+            }
           );
+          setPriceUser(responsePriceUser?.data);
         } else {
-          console.log("Access token not found")
+          console.log("Access token not found");
         }
-
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -92,7 +98,25 @@ export const AuthContextProvider = ({ children }) => {
   }, [isPendingUpdated]);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user, category, setCategory, products, setProducts, productMe, setProductMe, setIsPendingUpdated, isPendingUpdated, }}>
+    <AuthContext.Provider
+      value={{
+        googleSignIn,
+        logOut,
+        user,
+        category,
+        setCategory,
+        products,
+        setProducts,
+        productMe,
+        setProductMe,
+        setIsPendingUpdated,
+        isPendingUpdated,
+        userProfile,
+        setUserProfile,
+        priceUser,
+        setPriceUser
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

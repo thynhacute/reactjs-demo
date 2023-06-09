@@ -11,7 +11,8 @@ import { HiMenu } from "react-icons/hi";
 Header.propTypes = {};
 
 function Header() {
-  const { user, logOut } = UserAuth();
+  const { user, logOut, userProfile, priceUser } = UserAuth();
+  console.log(priceUser)
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
@@ -20,7 +21,6 @@ function Header() {
       console.log(error);
     }
   };
-  const userProfile = JSON.parse(localStorage.getItem('user_profile'));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuResOpen, setIsMenuResOpen] = useState(false);
 
@@ -125,7 +125,7 @@ function Header() {
             <NavLink to="/login" activeClassName="login-user">
               <div className="search-cart-wrapper">
                 <HiPencilSquare />
-                <p className="post-product">Đăng tin</p>
+                <p className="post-product"></p>
               </div>
             </NavLink>
           </li>

@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import titleAddProductIcon from "../../assets/images/title-add-product.png";
 import { BsCamera } from "react-icons/bs";
 import saveProductIcon from "../../assets/images/save-product.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -24,7 +24,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-import token from "../../components/Login/token.json";
+
 // adress
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -36,7 +36,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
-
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
@@ -67,8 +66,8 @@ const ProductArticle = () => {
   //adress
   const [open, setOpen] = React.useState(false);
   //add form post server
-  const { category, setCategory } = UserAuth();
-
+  const { category, setCategory, setIsPendingUpdated } = UserAuth();
+  const navigate = useNavigate();
   //post form
   const [nameProduct, setNameProduct] = useState([]);
   const [priceProduct, setPriceProduct] = useState("");
@@ -78,6 +77,8 @@ const ProductArticle = () => {
   const [categoryForm, setCategoryForm] = useState([]);
   const [dataImgProduct, setDataImgProduct] = useState([]);
   const [dataProductBack, setDataProductBack] = useState([]);
+  const token = JSON.parse(localStorage.getItem("access_token"));
+
   //
   const handleClickOpen = () => {
     setOpen(true);
@@ -231,21 +232,21 @@ const ProductArticle = () => {
       imageUrls: dataImgProduct,
     };
     axios
-      .post(
-        "https://2hand.monoinfinity.net/api/v1.0/product",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token?.token}`,
-            // "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+      .post("https://2hand.monoinfinity.net/api/v1.0/product", payload, {
+        headers: {
+          Authorization: `Bearer ${token?.token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
-        console.log(response?.data);
-        const product = response?.data;
-        if (product) {
-          setDataProductBack(product);
+        // console.log(response);
+        // const product = response?.data;
+        if (response?.status === 201) {
+          setDataProductBack(response?.data);
+          setIsPendingUpdated((prev) => !prev);
+          navigate("/products");
+        } else {
+          alert("login fail");
         }
       })
       .catch((error) => {
@@ -267,10 +268,10 @@ const ProductArticle = () => {
     <header className="custom-add-product">
       {/* <form > */}
       <div>
-        {/* <form onSubmit={handleSubmitImgProduct}> */}
-        <input type="file" onChange={handleFileChange} />
-        <button onClick={handleSubmitImgProduct}>Upload</button>
-        {/* </form> */}
+        <form onSubmit={handleSubmitImgProduct}>
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleSubmitImgProduct}>Upload</button>
+        </form>
       </div>
       <form onSubmit={handleSubmitProduct} style={formUntil}>
         <div className="add-product-detail">

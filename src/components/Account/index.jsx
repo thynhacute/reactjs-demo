@@ -5,7 +5,8 @@ import { useState } from "react";
 import saveProfileIcon from "../../assets/images/save-profile.png";
 
 const Account = () => {
-  const { logOut, user } = UserAuth();
+  const { logOut, user, userProfile } = UserAuth();
+  console.log(userProfile)
   const handleSignOut = async () => {
     try {
       await logOut();
@@ -39,10 +40,10 @@ const Account = () => {
             <h1 className="name-profile">Hồ sơ của tôi</h1>
           </div>
           <div>
-            <img className="avatar" src={user.photoURL} alt="Avatar" />
+            <img className="avatar" src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2020/05/18/16/img-0359.jpg" alt="Avatar" />
           </div>
           <div>
-            <p className="shop-name">CỬA HÀNG CỦA: {user?.displayName}</p>
+            <p className="shop-name">CỬA HÀNG CỦA: {userProfile?.name}</p>
           </div>
           <div>
             <div className="bio-title">Bio:</div>
