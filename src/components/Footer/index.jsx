@@ -3,6 +3,7 @@ import logoImage from "../../assets/images/logo.png";
 import { RiFacebookFill } from "react-icons/ri";
 import { IoLogoTiktok } from "react-icons/io5";
 import { TbMail } from "react-icons/tb";
+import { FaInstagram } from "react-icons/fa";
 Footer.propTypes = {};
 
 function Footer() {
@@ -23,7 +24,7 @@ function Footer() {
               uni2hand
             </a>
           </li>
-          <li>
+          {/* <li>
             <IoLogoTiktok className="item-icon-footer tiktok-icon" />
             <a
               href="https://www.tiktok.com/@uni2handforu"
@@ -31,6 +32,16 @@ function Footer() {
               rel="noopener noreferrer"
             >
               tiktok.vn
+            </a>
+          </li> */}
+          <li>
+            <FaInstagram className="item-icon-footer tiktok-icon" />
+            <a
+              href="https://www.instagram.com/uni2hand_story/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              uni2hand_story
             </a>
           </li>
           <li>

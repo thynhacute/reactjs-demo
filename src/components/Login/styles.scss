@@ -1,35 +1,114 @@
 @font-face {
   font-family: Montserrat;
   src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Montserrat;
   src: url(../../assets/fonts/Montserrat-Regular.ttf);
-  font-weight: 400;
-  font-style: normal;
+  src: url(../../assets/fonts/Montserrat-Medium.ttf);
 }
-
 header {
   background-color: #fffcf2;
 }
-
-.custom-login {
+@media only screen and (max-width: 480px) {
+  .login-app {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-login {
+    display: flex;
+    justify-content: center;
+  }
+  .input-login-password {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 300px;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border: none;
+  }
+  
+  .input-login-email {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 300px;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    margin-bottom: 15px;
+    border: none;
+  }
+  .btn-signin-submit{
+    border: none;
+    background: white;
+    margin-top: 30px;
+  }
+  .or-detail-icon{
+    margin-top: 50px;
+  }
+  .detail-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+  .login-app {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-login {
+    display: flex;
+    justify-content: center;
+  }
+  .input-login-password {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 350px;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border: none;
+  }
+  
+  .input-login-email {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 350px;
+    height: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    margin-bottom: 15px;
+    border: none;
+  }
+  .btn-signin-submit{
+    border: none;
+    background: white;
+    margin-top: 30px;
+  }
+  .or-detail-icon{
+    margin-top: 50px;
+  }
+  .detail-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .custom-login {
   margin-top: 50px;
   background-image: url(../../assets/images/login-page.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
-.form-login {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 65px;
-}
-
 .login-app {
   margin-top: 180px;
   margin-right: 245px;
@@ -37,37 +116,10 @@ header {
   flex-direction: column;
   align-items: flex-end;
 }
-
-.label-input-login {
+.form-login {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.btn-login-submit {
-  border: none;
-  background: white;
-  margin-top: 70px;
-}
-
-.login-icon {
-  width: 200px;
-}
-.btn-signin-submit{
-  border: none;
-  background: white;
-  margin-top: 30px;
-  margin-right: 70px;
-}
-.signin-icon{
-  width: 200px;
-}
-
-.label-font-login {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 15px;
+  justify-content: flex-end;
+  margin-right: 65px;
 }
 
 .input-login-password {
@@ -93,6 +145,51 @@ header {
   margin-bottom: 15px;
   border: none;
 }
+.btn-signin-submit{
+  border: none;
+  background: white;
+  margin-top: 30px;
+  margin-right: 70px;
+}
+.or-detail-icon{
+  margin: 20px 0px 0px 550px;
+}
+.detail-login {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 230px;
+}
+}
+
+
+.label-input-login {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btn-login-submit {
+  border: none;
+  background: white;
+  margin-top: 70px;
+}
+
+.login-icon {
+  width: 200px;
+}
+
+.signin-icon{
+  width: 200px;
+}
+
+.label-font-login {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
 
 .login-title {
   text-align: right;
@@ -102,27 +199,19 @@ header {
   font-weight: 600;
   font-size: 18px;
 }
-.or-detail-icon{
-  margin: 20px 0px 0px 550px;
-}
+
 
 .hehe {
   height: 600px;
 }
 
-.detail-login {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-right: 230px;
-}
+
 
 .google-login,
 .facebook-login {
   margin-left: 10px;
   border-radius: 10px;
   transform: matrix(1, 0, 0, 1, 0, 0);
-  margin-top: 10px;
   width: 250px;
   height: 80px;
   background: none;
@@ -148,7 +237,7 @@ header {
   background-color: white;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -167,3 +256,4 @@ header {
   width: 50px;
   margin-right: 10px;
 }
+

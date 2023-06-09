@@ -113,6 +113,7 @@ function ProductList({ productList }) {
                     >
                       {(provided, snapshot) => (
                         <li
+                          className="category-product-item"
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -143,20 +144,22 @@ function ProductList({ productList }) {
           </li>
         ))}
       </div>
-      <div className="button-container">
-        <button className="btn-previous" onClick={handlePreviousClick}>
-          <img src={preImage} alt="Previous" className="previous-button" />
-        </button>
-      </div>
-      <div className="button-container">
-        <button className="btn-next-to" onClick={handleNextClick}>
-          <img src={nextImage} alt="Next" className="next-to-button" />
-        </button>
-      </div>
-      <div className="page-btn">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
+      <div className="custom-next-pre-btn">
+        <div className="button-container">
+          <button className="btn-previous" onClick={handlePreviousClick}>
+            <img src={preImage} alt="Previous" className="previous-button" />
+          </button>
+        </div>
+        <div className="page-btn">
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+        </div>
+        <div className="button-container">
+          <button className="btn-next-to" onClick={handleNextClick}>
+            <img src={nextImage} alt="Next" className="next-to-button" />
+          </button>
+        </div>
       </div>
     </div>
   );
