@@ -16,6 +16,7 @@ import Authentication from "./components/Authentication";
 import Footer from "./components/Footer";
 import HomeDetail from "./features/HomeDetail/pages";
 import LoginFeature from "./components/Login";
+import SignUpFeature from "./components/SignUp";
 import { AuthContextProvider } from "./context/AuthContext";
 import Protected from "./components/Authentication/protected";
 import Account from "./components/Account";
@@ -59,6 +60,7 @@ function App() {
             <Route path="/contacts" element={<Contact />} />
             <Route path="/" element={<HomeDetail />} />
             <Route path="/login" element={<LoginFeature />} />
+            <Route path="/signup" element={<SignUpFeature />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
 
             <Route path="/post-list/:postId" element={<NavigateToPost />} />

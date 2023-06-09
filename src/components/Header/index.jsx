@@ -109,7 +109,7 @@ function Header() {
         <ul className="menu-navbar align-center">
           <li className="search-menu">
             <div className="search-bar">
-              <form>
+              <form className="search-form">
                 <input
                   type="text"
                   placeholder="Tìm kiếm"
