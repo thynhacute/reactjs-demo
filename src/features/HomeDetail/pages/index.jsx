@@ -112,7 +112,7 @@ function HomeDetail(props) {
           </div>
         </div>
       </div>
-      <p className="caring-product">CÓ THỂ BẠN QUAN TÂM</p>
+      {/* <p className="caring-product">CÓ THỂ BẠN QUAN TÂM</p>
       <div
         className="hot-products-container"
         style={{ justifyContent: "center", display: "flex", flexWrap: "wrap" }}
@@ -124,7 +124,7 @@ function HomeDetail(props) {
         <button onClick={handleNext} className="btn-next">
           <img src={nextImage} alt="Next" className="next-button" />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
