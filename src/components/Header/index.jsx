@@ -12,7 +12,7 @@ Header.propTypes = {};
 
 function Header() {
   const { user, logOut, userProfile, priceUser } = UserAuth();
-  console.log(priceUser)
+  console.log(priceUser);
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
@@ -126,7 +126,7 @@ function Header() {
           <li>
             <NavLink to="/login" activeClassName="login-user">
               <div className="search-cart-wrapper">
-                <HiPencilSquare />
+                {/* <HiPencilSquare /> */}
                 <p className="post-product"></p>
               </div>
             </NavLink>

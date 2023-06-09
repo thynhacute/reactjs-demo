@@ -6,7 +6,7 @@ import saveProfileIcon from "../../assets/images/save-profile.png";
 
 const Account = () => {
   const { logOut, user, userProfile } = UserAuth();
-  console.log(userProfile)
+  console.log(userProfile);
   const handleSignOut = async () => {
     try {
       await logOut();
@@ -40,7 +40,11 @@ const Account = () => {
             <h1 className="name-profile">Hồ sơ của tôi</h1>
           </div>
           <div>
-            <img className="avatar" src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2020/05/18/16/img-0359.jpg" alt="Avatar" />
+            <img
+              className="avatar"
+              src="https://images.squarespace-cdn.com/content/v1/54b7b93ce4b0a3e130d5d232/1519987020970-8IQ7F6Z61LLBCX85A65S/icon.png?format=1000w"
+              alt="Avatar"
+            />
           </div>
           <div>
             <p className="shop-name">CỬA HÀNG CỦA: {userProfile?.name}</p>
