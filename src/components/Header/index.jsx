@@ -130,7 +130,7 @@ function Header() {
           <li>
             <NavLink to="/login" activeClassName="login-user">
               <div className="search-cart-wrapper">
-                <HiPencilSquare />
+                {/* <HiPencilSquare /> */}
                 <p className="post-product"></p>
               </div>
             </NavLink>
