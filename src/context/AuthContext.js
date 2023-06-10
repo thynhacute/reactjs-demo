@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase";
 import axios from "axios";
-import token from "../../src/components/Login/token.json";
 const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
@@ -34,34 +33,8 @@ export const AuthContextProvider = ({ children }) => {
       setUser(currentUser);
       console.log("User", user);
     });
-
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://2hand.monoinfinity.net/api/v1.0/admin/product",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token?.token}`,
-            },
-          }
-        );
-
-        const responseCate = await axios.get(
-          "https://2hand.monoinfinity.net/api/v1.0/category/all",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token?.token}`,
-            },
-          }
-        );
-
-        const data = response?.data?.data;
-        const dataCate = responseCate?.data;
-
-        setProducts(data);
-        setCategory(dataCate);
         const accessToken = JSON.parse(localStorage.getItem("access_token"));
         if (accessToken) {
           const responseProfile = await axios.get(
@@ -84,6 +57,31 @@ export const AuthContextProvider = ({ children }) => {
             }
           );
           setPriceUser(responsePriceUser?.data);
+          const response = await axios.get(
+            "https://2hand.monoinfinity.net/api/v1.0/admin/product",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken?.token}`,
+              },
+            }
+          );
+  
+          const responseCate = await axios.get(
+            "https://2hand.monoinfinity.net/api/v1.0/category/all",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken?.token}`,
+              },
+            }
+          );
+  
+          const data = response?.data?.data;
+          const dataCate = responseCate?.data;
+  
+          setProducts(data);
+          setCategory(dataCate);
         } else {
           console.log("Access token not found");
         }

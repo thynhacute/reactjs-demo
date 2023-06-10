@@ -12,7 +12,11 @@ Header.propTypes = {};
 
 function Header() {
   const { user, logOut, userProfile, priceUser } = UserAuth();
-  console.log(priceUser)
+  let userPrice = priceUser?.balance;
+  if (userPrice !== 0) {
+    userPrice = parseInt(userPrice?.toString().slice(0, -3));
+  }
+  
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
@@ -131,6 +135,7 @@ function Header() {
               </div>
             </NavLink>
           </li>
+          <li><spna>{userPrice}</spna></li>
         </ul>
       </nav>
     </header>
