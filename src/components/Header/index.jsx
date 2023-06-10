@@ -16,7 +16,7 @@ function Header() {
   if (userPrice !== 0) {
     userPrice = parseInt(userPrice?.toString().slice(0, -3));
   }
-  
+
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
@@ -127,15 +127,38 @@ function Header() {
               </form>
             </div>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/login" activeClassName="login-user">
               <div className="search-cart-wrapper">
-                {/* <HiPencilSquare /> */}
+                <HiPencilSquare />
                 <p className="post-product"></p>
               </div>
             </NavLink>
           </li>
-          <li><spna>{userPrice}</spna></li>
+          <li><spna>{userPrice}</spna></li> */}
+          {userPrice ? (
+            <li>
+              <Link className="no-underline">
+                <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
+                  <li className="username">
+                    <p>{userPrice}</p>
+                  </li>
+                  <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
+                    {isMenuOpen && (
+                      <NavLink to="/login" activeClassName="login-user">
+                        <div className="search-cart-wrapper">
+                          <HiPencilSquare />
+                          <p className="post-product"></p>
+                        </div>
+                      </NavLink>
+                    )}
+                  </li>
+                </div>
+              </Link>
+            </li>
+          ) : (
+            <li className="space-header">&nbsp;</li>
+          )}
         </ul>
       </nav>
     </header>
