@@ -43,7 +43,7 @@ function ArticleFeature(props) {
   ];
   const { category, setCategory, setIsPendingUpdated } = UserAuth();
   const [productMe, setProductMe] = useState([])
-  // console.log(productMe)
+  console.log(productMe)
   useEffect(() => {
     const fetchData = async () => {
       try {

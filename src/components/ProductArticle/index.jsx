@@ -105,7 +105,6 @@ const ProductArticle = () => {
     setOpen(false);
   };
   const [cities, setCities] = useState([]);
-  console.log(cities)
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
