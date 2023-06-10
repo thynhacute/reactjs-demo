@@ -105,6 +105,7 @@ const ProductArticle = () => {
     setOpen(false);
   };
   const [cities, setCities] = useState([]);
+  console.log(cities)
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
@@ -112,6 +113,21 @@ const ProductArticle = () => {
   const [selectedWard, setSelectedWard] = useState("");
   const [specificAddress, setSpecificAddress] = useState("");
 
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get(
+          "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
+        );
+        const data = response.data;
+        setCities(data);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    };
+
+    fetchCities();
+  }, []);
   const handleCityChange = (event) => {
     const cityId = event.target.value;
     const selectedCity = cities.find((city) => city.Id === cityId);
