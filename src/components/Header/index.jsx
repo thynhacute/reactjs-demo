@@ -7,7 +7,7 @@ import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { HiPencilSquare } from "react-icons/hi2";
-import { HiMenu } from "react-icons/hi";
+import { BsCoin } from "react-icons/bs";
 Header.propTypes = {};
 
 function Header() {
@@ -97,7 +97,10 @@ function Header() {
                         ))}
                         <li>
                           <NavLink to="/home" activeClassName="logout-user">
-                            <button className="login" onClick={handleSignOut}>
+                            <button
+                              className="login-btn-item"
+                              onClick={handleSignOut}
+                            >
                               Đăng xuất
                             </button>
                           </NavLink>
@@ -141,7 +144,9 @@ function Header() {
               <Link className="no-underline">
                 <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
                   <li className="username">
-                    <p>{userPrice}</p>
+                    <p>
+                      {userPrice} <BsCoin />
+                    </p>
                   </li>
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
                     {isMenuOpen && (
