@@ -32,6 +32,7 @@ function Header() {
     { label: "Chỉnh sửa hồ sơ", path: "/account" },
     { label: "Nạp xu", path: "/wallet" },
     { label: "Sản phẩm của tôi", path: "/my-product" },
+    { label: "Đăng xuất", path: "/home", onClick: handleSignOut },
   ];
 
   const handleToggleMenu = () => {
@@ -84,27 +85,23 @@ function Header() {
                           <li key={index} className="item-droplist">
                             {typeof item === "string" ? (
                               <Link
-                                to={`/${item
-                                  .toLowerCase()
-                                  .replace(/\s/g, "-")}`}
+                                to={`/${item.toLowerCase().replace(/\s/g, "-")}`}
                               >
                                 {item}
                               </Link>
+                            ) : item.label === "Đăng xuất" ? (
+                              <NavLink
+                                to={item.path}
+                                activeClassName="logout-user"
+                                onClick={handleSignOut}
+                              >
+                                {item.label}
+                              </NavLink>
                             ) : (
                               <Link to={item.path}>{item.label}</Link>
                             )}
                           </li>
                         ))}
-                        <li>
-                          <NavLink to="/home" activeClassName="logout-user">
-                            <button
-                              className="login-btn-item"
-                              onClick={handleSignOut}
-                            >
-                              Đăng xuất
-                            </button>
-                          </NavLink>
-                        </li>
                       </ul>
                     )}
                   </li>
