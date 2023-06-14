@@ -75,7 +75,7 @@ function Header() {
               <Link className="no-underline">
                 <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
                   <li className="username">
-                    <p>{userProfile?.name}</p>
+                    <p><BsCoin />{userPrice} {userProfile?.name}</p>
                     <IoMdArrowDropdown />
                   </li>
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
@@ -127,24 +127,18 @@ function Header() {
               </form>
             </div>
           </li>
-          {/* <li>
-            <NavLink to="/login" activeClassName="login-user">
+          <li>
+            <NavLink to="/add-product" >
               <div className="search-cart-wrapper">
-                <HiPencilSquare />
+                <HiPencilSquare /> <p>ĐĂNG TIN</p>
                 <p className="post-product"></p>
               </div>
             </NavLink>
           </li>
-          <li><spna>{userPrice}</spna></li> */}
-          {userPrice ? (
+          {/* {userPrice ? (
             <li>
               <Link className="no-underline">
-                <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
-                  <li className="username">
-                    <p>
-                      {userPrice} <BsCoin />
-                    </p>
-                  </li>
+                <div className="menu-wrapper">
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
                     {isMenuOpen && (
                       <NavLink to="/login" activeClassName="login-user">
@@ -160,7 +154,7 @@ function Header() {
             </li>
           ) : (
             <li className="space-header">&nbsp;</li>
-          )}
+          )} */}
         </ul>
       </nav>
     </header>
