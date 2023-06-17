@@ -6,13 +6,13 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .filter-btn{
+  .filter-btn {
     display: flex;
     justify-content: center;
     margin-top: 40px;
     margin-bottom: 20px;
   }
-  .filter-btn button{
+  .filter-btn button {
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -20,10 +20,10 @@
     background-color: rgb(185, 199, 255);
     font-family: "Montserrat", sans-serif;
   }
-  .btn-item-drop{
+  .btn-item-drop {
     padding: 0px 5px 10px 5px;
   }
-  .btn-item-drop button{
+  .btn-item-drop button {
     padding: 10px;
     width: 280px;
     border-radius: 10px;
@@ -41,12 +41,12 @@
     flex-basis: 20%;
     margin-bottom: 20px;
     list-style-type: none;
-    background: #F0F0F0;
-    border: 0.5px solid #FFD1A7;
+    background: #f0f0f0;
+    border: 0.5px solid #ffd1a7;
     border-radius: 10px;
     height: 250px;
   }
-  .product-item-list{
+  .product-item-list {
     border: solid 1px;
     border-radius: 10px;
     margin: 8px;
@@ -55,12 +55,18 @@
     justify-content: center;
     flex-wrap: wrap;
   }
-  .page-btn{
+  #customized-dialog-title {
+    display: flex;
+    justify-content: center; /* Căn giữa dọc */
+    align-items: center; /* Căn giữa dọc */
+  }
+
+  .page-btn {
     display: flex;
     justify-content: center;
     margin: 30px 0px 30px 0px;
   }
-  .page-btn button{
+  .page-btn button {
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -68,35 +74,35 @@
     background-color: rgb(136, 160, 255);
     font-family: "Montserrat", sans-serif;
   }
-  .custom-next-pre-btn{
+  .custom-next-pre-btn {
     display: flex;
     justify-content: center;
   }
-  .btn-next-to{
+  .btn-next-to {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #FFFCF2;
+    background-color: #fffcf2;
     border: none;
     margin-left: 10px;
   }
-  .btn-previous{
+  .btn-previous {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: none;
-    background-color: #FFFCF2;
+    background-color: #fffcf2;
     margin-left: -100px;
     margin-right: 80px;
   }
 }
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
-  .filter-btn{
+  .filter-btn {
     display: flex;
     justify-content: center;
     margin-top: 40px;
   }
-  .filter-btn button{
+  .filter-btn button {
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -104,10 +110,10 @@
     background-color: rgb(185, 199, 255);
     font-family: "Montserrat", sans-serif;
   }
-  .btn-item-drop{
+  .btn-item-drop {
     padding: 0px 5px 10px 5px;
   }
-  .btn-item-drop button{
+  .btn-item-drop button {
     padding: 10px;
     width: 280px;
     border-radius: 10px;
@@ -115,14 +121,14 @@
     font-weight: Medium;
     font-size: 15px;
   }
-  .product-item-list{
+  .product-item-list {
     border: solid 1px;
     border-radius: 10px;
     margin: 8px;
     filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.25));
     display: flex;
     justify-content: center;
-  flex-wrap: wrap;
+    flex-wrap: wrap;
   }
   .sidebar {
     overflow-y: auto;
@@ -132,12 +138,12 @@
     margin-top: 60px;
     margin-bottom: 60px;
   }
-  .page-btn{
+  .page-btn {
     display: flex;
     justify-content: center;
     margin: 30px 0px 30px 0px;
   }
-  .page-btn button{
+  .page-btn button {
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -150,24 +156,24 @@
     justify-content: center;
     flex-wrap: wrap;
   }
-  .custom-next-pre-btn{
+  .custom-next-pre-btn {
     display: flex;
     justify-content: center;
   }
-  .btn-next-to{
+  .btn-next-to {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #FFFCF2;
+    background-color: #fffcf2;
     border: none;
     margin-left: 10px;
   }
-  .btn-previous{
+  .btn-previous {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: none;
-    background-color: #FFFCF2;
+    background-color: #fffcf2;
     margin-left: -100px;
     margin-right: 80px;
   }
@@ -181,139 +187,138 @@
     flex-basis: 20%;
     margin-bottom: 20px;
     list-style-type: none;
-    background: #F0F0F0;
-    border: 0.5px solid #FFD1A7;
+    background: #f0f0f0;
+    border: 0.5px solid #ffd1a7;
     border-radius: 10px;
     height: 250px;
   }
 }
 @media only screen and (min-width: 1025px) {
-  .span-price{
+  .span-price {
     font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  margin-top: 5px;
-  color: red;
+    font-weight: 500;
+    margin-top: 5px;
+    color: red;
   }
-  .p-cate-name{
+  .p-cate-name {
     font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  color: #4d5ee8;
+    font-weight: 500;
+    color: #4d5ee8;
   }
-  .p-cate-des{
+  .p-cate-des {
     font-family: "Montserrat", sans-serif;
-  font-weight: 400;
+    font-weight: 400;
   }
   .product-list-wrapper {
-  padding-top: 90px;
-  padding-bottom: 100px;
-  display: flex;
-  background-image: url(../../../../assets/images/all-product.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.filter-btn{
-  position: absolute;
-  margin-left: 700px;
-  margin-top: -60px;
-  display: flex;
-  justify-content: center;
-}
-.filter-btn button{
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  margin: 5px;
-  background-color: rgb(185, 199, 255);
-  font-family: "Montserrat", sans-serif;
-}
-.btn-item-drop{
-  padding: 10px 20px 10px 20px;
-}
-.btn-item-drop button{
-  padding: 10px;
-  width: 220px;
-  border-radius: 10px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: Medium;
-  font-size: 15px;
-}
-.product-item-list{
-  border: solid 1px;
-  border-radius: 10px;
-  margin: 8px;
-  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.25));
-}
-.sidebar {
-  overflow-y: auto;
-  max-height: 400px;
-  overflow-x: hidden;
-  width: 500px;
-  padding-right: 20px;
-  margin-left: 135px;
-}
-.page-btn{
-  margin-top: -10px;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: -1310px;
-}
-.page-btn button{
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  margin: 5px;
-  background-color: rgb(136, 160, 255);
-  font-family: "Montserrat", sans-serif;
-}
-.btn-next-to{
-  position: absolute;
-  border-radius: 50%;
-  border: none;
-  width: 40px;
-  height: 40px;
-  background-color: #FFFCF2;
-  margin-top: 525px;
-  margin-left: -1180px;
-}
-.next-to-button{
-  width: 80px;
-  margin-left: -20px;
-  margin-top: -45px;
-  transition: opacity 0.1s ease-in-out;
-}
-.previous-button{
-  width: 80px;
-  margin-left: -15px;
-  transition: opacity 0.1s ease-in-out;
-  margin-top: -10px;
-}
-.btn-previous{
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: none;
-  margin-top: 490px;
-  margin-left: -1350px;
-}
-.product-list {
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 80px;
-}
+    padding-top: 90px;
+    padding-bottom: 100px;
+    display: flex;
+    background-image: url(../../../../assets/images/all-product.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .filter-btn {
+    position: absolute;
+    margin-left: 700px;
+    margin-top: -60px;
+    display: flex;
+    justify-content: center;
+  }
+  .filter-btn button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin: 5px;
+    background-color: rgb(185, 199, 255);
+    font-family: "Montserrat", sans-serif;
+  }
+  .btn-item-drop {
+    padding: 10px 20px 10px 20px;
+  }
+  .btn-item-drop button {
+    padding: 10px;
+    width: 220px;
+    border-radius: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: Medium;
+    font-size: 15px;
+  }
+  .product-item-list {
+    border: solid 1px;
+    border-radius: 10px;
+    margin: 8px;
+    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.25));
+  }
+  .sidebar {
+    overflow-y: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+    width: 500px;
+    padding-right: 20px;
+    margin-left: 135px;
+  }
+  .page-btn {
+    margin-top: -10px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: -1310px;
+  }
+  .page-btn button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin: 5px;
+    background-color: rgb(136, 160, 255);
+    font-family: "Montserrat", sans-serif;
+  }
+  .btn-next-to {
+    position: absolute;
+    border-radius: 50%;
+    border: none;
+    width: 40px;
+    height: 40px;
+    background-color: #fffcf2;
+    margin-top: 525px;
+    margin-left: -1180px;
+  }
+  .next-to-button {
+    width: 80px;
+    margin-left: -20px;
+    margin-top: -45px;
+    transition: opacity 0.1s ease-in-out;
+  }
+  .previous-button {
+    width: 80px;
+    margin-left: -15px;
+    transition: opacity 0.1s ease-in-out;
+    margin-top: -10px;
+  }
+  .btn-previous {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    margin-top: 490px;
+    margin-left: -1350px;
+  }
+  .product-list {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 80px;
+  }
 
-
-.product-list > li {
-  flex-basis: 20%;
-  margin-bottom: 20px;
-  list-style-type: none;
-  background: #F0F0F0;
-  border: 0.5px solid #FFD1A7;
-  border-radius: 10px;
-  height: 250px;
-}
+  .product-list > li {
+    flex-basis: 20%;
+    margin-bottom: 20px;
+    list-style-type: none;
+    background: #f0f0f0;
+    border: 0.5px solid #ffd1a7;
+    border-radius: 10px;
+    height: 250px;
+  }
 }
 
 .sidebar ul {
@@ -326,24 +331,26 @@
   margin-bottom: 10px;
 }
 
-
-
-
-
-
-
 .button-list-wrapper {
-  height: 100%; 
+  height: 100%;
+}
+.my-dialog .modal-dialog {
+  max-width: 900px;
+  width: 100%;
 }
 
+.my-dialog .modal-content {
+  width: 100%;
+}
 
-.arrange-fiter{
+.arrange-fiter {
   display: flex;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
 }
-.filter-icon{
+
+.filter-icon {
   margin-right: 5px;
 }
 
@@ -448,20 +455,20 @@
   margin-top: 15px;
   border-radius: 8px;
 }
-.span-price{
+.span-price {
   font-family: "Montserrat", sans-serif;
-font-weight: 500;
-margin-top: 5px;
-color: red;
+  font-weight: 500;
+  margin-top: 5px;
+  color: red;
 }
-.p-cate-name{
+.p-cate-name {
   font-family: "Montserrat", sans-serif;
-font-weight: 500;
-color: #4d5ee8;
+  font-weight: 500;
+  color: #4d5ee8;
 }
-.p-cate-des{
+.p-cate-des {
   font-family: "Montserrat", sans-serif;
-font-weight: 400;
+  font-weight: 400;
 }
 
 @media (max-width: 500px) {

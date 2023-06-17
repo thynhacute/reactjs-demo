@@ -12,10 +12,22 @@ import Colors from "../Product/Colors";
 import DetailsThumb from "../Product/DetailsThumb";
 import ModalClose from "@mui/joy/ModalClose";
 import Modal from "@mui/joy/Modal";
-import { styled } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ImFilter } from "react-icons/im";
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import Slider from "@mui/material/Slider";
+import axios from "axios";
+
+
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -25,6 +37,39 @@ const StyledModal = styled(Modal)({
 
 ProductList.propTypes = {
   productList: PropTypes.array.isRequired,
+};
+
+function valuetext(value) {
+  return `${value.toLocaleString()} VNĐ`;
+}
+
+function BootstrapDialogTitle(props) {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500]
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+}
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired
 };
 
 function ProductList({ productList }) {
@@ -45,7 +90,6 @@ function ProductList({ productList }) {
   const { category, products } = UserAuth();
   console.log(products);
   const [filterCategory, setFilterCategory] = useState([]);
-  const [allProduct, setAllProduct] = useState([]);
   const handleNextClick = () => {
     const nextIndex = (startIndex + 1) % products.length;
     setStartIndex(nextIndex);
@@ -123,6 +167,20 @@ function ProductList({ productList }) {
   const [index, setIndex] = useState(0);
   const myRef = useRef(null);
 
+  const [openPrice, setOpenPrice] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpenPrice(true);
+  };
+  const handleClosePrice = () => {
+    setOpenPrice(false);
+  };
+  const [value, setValue] = React.useState([0, 15000000]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const handleTab = (index) => {
     setIndex(index);
     const images = myRef.current.children;
@@ -138,22 +196,122 @@ function ProductList({ productList }) {
     }
   }, [index]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // call api get city
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get(
+          "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
+        );
+        const data = response.data;
+        setCities(data);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    };
+
+    fetchCities();
+  }, []);
+  const handleCityChange = (event) => {
+    const cityId = event.target.value;
+    const selectedCity = cities.find((city) => city.Id === cityId);
+    setSelectedCity(selectedCity.Name);
+  };
+
+
+
+
   return (
     <div className="product-list-wrapper">
       <div>
         <div className="filter-btn">
-          <button className="arrange-fiter">
+          <button className="arrange-fiter" onClick={handleClickOpen}>
             <div className="filter-icon">
               <TbZoomMoney />
             </div>
             Giá
           </button>
-          <button className="arrange-fiter">
+          <Dialog
+            fullWidth
+            maxWidth="md"
+            onClose={handleClosePrice}
+            aria-labelledby="customized-dialog-title"
+            open={openPrice}
+
+          >
+            <BootstrapDialogTitle
+              id="customized-dialog-title"
+              onClose={handleClosePrice}
+              style={{ backgroundColor: '#EEEEEE' }}
+            >
+              Giá
+            </BootstrapDialogTitle>
+
+            <DialogContent dividers>
+              &ensp;
+              <Typography gutterBottom >Giá từ {value[0].toLocaleString('vi-VN')}đ đến {value[1].toLocaleString('vi-VN')}đ</Typography>
+              <Typography gutterBottom>
+                <Box sx={{ width: 850 }}>
+                  <Slider
+                    getAriaLabel={() => "Price range"}
+                    value={value}
+                    onChange={handleChange}
+                    valueLabelDisplay="auto"
+                    getAriaValueText={valuetext}
+                    min={0}
+                    max={15000000}
+                  />
+                </Box>
+              </Typography>
+            </DialogContent>
+            <DialogActions
+              className="d-flex justify-content-center"
+              style={{ backgroundColor: '#EEEEEE' }}
+            >
+              <Button autoFocus onClick={handleClosePrice}>
+                Áp dụng
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+
+          {/* <button className="arrange-fiter">
             <div className="filter-icon">
               <ImLocation2 />
             </div>
             Vị trí
-          </button>
+          </button> */}
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth >
+              <InputLabel id="district-select-label">
+                Vị trí
+              </InputLabel>
+              <Select
+                className="form-select form-select-sm mb-3"
+                id="city"
+                aria-label=".form-select-sm"
+                onChange={handleCityChange}
+                value={selectedCity.Id}
+                labelId="city-select-label"
+                label="Chọn tỉnh thành"
+              >
+                <MenuItem value="" disabled>
+                  Chọn tỉnh thành
+                </MenuItem>
+                {cities.map((city) => (
+                  <MenuItem value={city.Id} key={city.Id}>
+                    {city.Name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+
           <button className="arrange-fiter" onClick={handleButtonAll}>
             <div className="filter-icon">
               <ImFilter />
