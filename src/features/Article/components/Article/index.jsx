@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./styles.scss";
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 Article.propTypes = {
   article: PropTypes.object.isRequired,
@@ -9,16 +9,18 @@ Article.propTypes = {
 
 function Article({ article }) {
   // console.log(article)
+  const elementProduct = article?.imageUrl?.split(",");
+  const firstElementProduct = elementProduct[0];
   return (
     <div className="article">
       <div className="article__thumbnail">
-        <img src={article.imageUrl} alt={article.name} />
-        <HighlightOffIcon
-          className="delete-icon"
-        // onClick={() => handleDelete(index)}
-        />
+        <img src={firstElementProduct} alt={article?.name} />
+        <HighlightOffIcon className="delete-icon" />
       </div>
-      <p className="article__name">{article.name}</p>
+      <div className="spct-name-price">
+        <p className="article__name">{article.name}</p>
+        <p className="article__price">{article.price} VND</p>
+      </div>
     </div>
   );
 }

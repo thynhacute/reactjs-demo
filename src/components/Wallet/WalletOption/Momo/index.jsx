@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import "./styles.scss";
 import imgQrMomo from "../../../../assets/images/qr-momo.png";
+import { NavLink } from "react-router-dom";
 
 const MomoFeature = () => {
   const form = useRef();
@@ -34,6 +35,11 @@ const MomoFeature = () => {
             <div className="contact-momo">
               Nếu sau 1 tiếng vẫn chưa thấy tài khoản Nạp Xu,
               <br /> hãy liên hệ với Admin qua trang Liên hệ
+            </div>
+            <div className="btn-send-noti-dps">
+              <NavLink to="/send-transaction" activeClassName="active">
+                Chuyển đến trang Send Transaction
+              </NavLink>
             </div>
           </div>
         </li>

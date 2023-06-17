@@ -1,21 +1,104 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./styles.scss";
 import Article from "../Article";
+import { GrPrevious, GrNext } from "react-icons/gr";
 
 ArticleList.propTypes = {
   articleList: PropTypes.array.isRequired,
 };
 
 function ArticleList({ articleList }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedArticle, setSelectedArticle] = useState(null);
+  const articlesPerPage = 8;
+
+  const indexOfLastArticle = currentPage * articlesPerPage;
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+  const currentArticles = articleList.slice(
+    indexOfFirstArticle,
+    indexOfLastArticle
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    const totalPages = Math.ceil(articleList.length / articlesPerPage);
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handleArticleClick = (article) => {
+    setSelectedArticle(article);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedArticle(null);
+  };
+
   return (
-    <ul className="article-list">
-      {articleList.map((article) => (
-        <li key={article.id}>
-          <Article article={article} />
-        </li>
+    <div className="article-list">
+      {currentArticles.map((article, index) => (
+        <Article
+          key={article.id}
+          article={article}
+          onClick={() => handleArticleClick(article)}
+        />
       ))}
-    </ul>
+
+      {selectedArticle && (
+        <div className="modal">
+          <div className="modal-content">
+            <button className="close-btn" onClick={handleCloseModal}>
+              X
+            </button>
+            <h2>{selectedArticle.title}</h2>
+            <p>{selectedArticle.content}</p>
+          </div>
+        </div>
+      )}
+
+      <div className="pagination">
+        <button
+          className="btn-grprevious"
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          <GrPrevious />
+        </button>
+        {Array.from({
+          length: Math.ceil(articleList.length / articlesPerPage),
+        }).map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`${
+              currentPage === index + 1 ? "active" : ""
+            } paging-spct`}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button
+          className="btn-grnext"
+          onClick={handleNextPage}
+          disabled={
+            currentPage === Math.ceil(articleList.length / articlesPerPage)
+          }
+        >
+          <GrNext />
+        </button>
+      </div>
+    </div>
   );
 }
 

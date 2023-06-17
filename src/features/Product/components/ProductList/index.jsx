@@ -15,7 +15,7 @@ import Modal from "@mui/joy/Modal";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ImFilter } from "react-icons/im";
-import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -267,10 +267,11 @@ function ProductList({ productList }) {
                       <h2>{selectedProduct?.name}</h2>
                     </div>
                     <span className="span-price">
-                      {selectedProduct?.price.toLocaleString('vi-VN')} VND
+                      {selectedProduct?.price.toLocaleString("vi-VN")} VND
                     </span>
                     {/* <Colors colors={selectedProduct?.colors} /> */}
-                    <p className="p-cate-name"><CategoryOutlinedIcon className="icon-product-form" />
+                    <p className="p-cate-name">
+                      <CategoryOutlinedIcon className="icon-product-form" />
                       Loại sản phẩm: {selectedProduct?.category?.name}
                     </p>
                     <p className="p-cate-des">{selectedProduct?.description}</p>

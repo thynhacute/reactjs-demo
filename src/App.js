@@ -31,6 +31,7 @@ import ZaloPayFeature from "./components/Wallet/WalletOption/ZaloPay";
 import BankingFeature from "./components/Wallet/WalletOption/Banking";
 import LoginSuccess from "./components/Login/LoginSuccess";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import SendTransaction from "./components/SendTransaction";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -59,6 +60,7 @@ function App() {
             <Route path="/members" element={<MemberTeam />} />
             <Route path="/account" element={<Account />} />
             <Route path="/contacts" element={<Contact />} />
+            <Route path="/send-transaction" element={<SendTransaction />} />
             <Route path="/" element={<HomeDetail />} />
             <Route path="/login" element={<LoginFeature />} />
             <Route path="/signup" element={<SignUpFeature />} />
@@ -77,8 +79,14 @@ function App() {
                 </Protected>
               }
             />
-            <Route path="/my-product" element={<PrivateRoute Component={ArticleFeature} />} />
-            <Route path="/add-product" element={<PrivateRoute Component={ProductArticle} />} />
+            <Route
+              path="/my-product"
+              element={<PrivateRoute Component={ArticleFeature} />}
+            />
+            <Route
+              path="/add-product"
+              element={<PrivateRoute Component={ProductArticle} />}
+            />
           </Routes>
           <Footer />
         </div>
