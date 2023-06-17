@@ -12,7 +12,7 @@ import Colors from "../Product/Colors";
 import DetailsThumb from "../Product/DetailsThumb";
 import ModalClose from "@mui/joy/ModalClose";
 import Modal from "@mui/joy/Modal";
-import { FormControl, InputLabel, MenuItem, Select, styled } from "@mui/material";
+import { FormControl, FormLabel, InputLabel, MenuItem, Select, styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ImFilter } from "react-icons/im";
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
@@ -27,9 +27,9 @@ import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
-
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 
 
 const StyledModal = styled(Modal)({
@@ -278,10 +278,17 @@ function ProductList({ productList }) {
               </Typography>
 
               <Typography gutterBottom>
-                <FormGroup>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Tin mới nhất" />
-                  <FormControlLabel control={<Checkbox />} label="Giá thấp nhất" />
-                </FormGroup>
+                <FormControl>
+                  {/* <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel> */}
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="createAt"
+                    name="radio-buttons-group"
+                  >
+                    <FormControlLabel value="createAt" control={<Radio />} label="Tin mới nhất" />
+                    <FormControlLabel value="ASC" control={<Radio />} label="Giá tăng dần" />
+                  </RadioGroup>
+                </FormControl>
 
               </Typography>
             </DialogContent>
@@ -294,8 +301,6 @@ function ProductList({ productList }) {
               </Button>
             </DialogActions>
           </Dialog>
-
-
           <div style={{ minWidth: 120, marginRight: '10px' }} >
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth >
