@@ -15,6 +15,8 @@ import Modal from "@mui/joy/Modal";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ImFilter } from "react-icons/im";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+
 const StyledModal = styled(Modal)({
   display: "flex",
   alignItems: "center",
@@ -41,7 +43,7 @@ function ProductList({ productList }) {
   ]);
 
   const { category, products } = UserAuth();
-  console.log(products)
+  console.log(products);
   const [filterCategory, setFilterCategory] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
   const handleNextClick = () => {
@@ -70,11 +72,12 @@ function ProductList({ productList }) {
 
   const [dividedLengthPage, setDividedLengthPage] = useState([]);
 
-  const sourceData = filterCategoryId !== "" && filterCategoryId !== "all"
-    ? [...filterCategory]
-    : [...products];
+  const sourceData =
+    filterCategoryId !== "" && filterCategoryId !== "all"
+      ? [...filterCategory]
+      : [...products];
 
-  const dividedLength = Math.ceil(sourceData?.length /8 );
+  const dividedLength = Math.ceil(sourceData?.length / 8);
   useEffect(() => {
     if (dividedLength >= 1) {
       const pageNumbers = [];
@@ -86,8 +89,6 @@ function ProductList({ productList }) {
       setDividedLengthPage([]);
     }
   }, [dividedLength]);
-
-
 
   const handleButtonClick = (id) => {
     setFilterCategoryId(id); // Lưu ID của bộ lọc vào state filterCategoryId
@@ -266,11 +267,12 @@ function ProductList({ productList }) {
                       <h2>{selectedProduct?.name}</h2>
                     </div>
                     <span className="span-price">
-                      {selectedProduct?.price} VND
+                      {selectedProduct?.price.toLocaleString("vi-VN")} VND
                     </span>
                     {/* <Colors colors={selectedProduct?.colors} /> */}
                     <p className="p-cate-name">
-                      {selectedProduct?.category?.name}
+                      <CategoryOutlinedIcon className="icon-product-form" />
+                      Loại sản phẩm: {selectedProduct?.category?.name}
                     </p>
                     <p className="p-cate-des">{selectedProduct?.description}</p>
                     <DetailsThumb
@@ -292,11 +294,11 @@ function ProductList({ productList }) {
             <img src={preImage} alt="Previous" className="previous-button" />
           </button>
         </div>
-        <div className="page-btn">
+        {/* <div className="page-btn">
           {dividedLengthPage?.map((page) => (
             <button>{page}</button>
           ))}
-        </div>
+        </div> */}
         <div className="button-container">
           <button className="btn-next-to" onClick={handleNextClick}>
             <img src={nextImage} alt="Next" className="next-to-button" />

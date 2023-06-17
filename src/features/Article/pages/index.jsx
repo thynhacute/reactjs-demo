@@ -5,73 +5,82 @@ import { NavLink } from "react-router-dom";
 import addProductIcon from "../../../assets/images/add-product.png";
 import { UserAuth } from "../../../context/AuthContext";
 import axios from "axios";
-
-ArticleFeature.propTypes = {};
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
 function ArticleFeature(props) {
-  const articleList = [
-    {
-      id: 1,
-      name: "NaaTy",
-      thumbnailUrl:
-        "https://alibu.com.vn/wp-content/uploads/2020/10/neu-co-dieu-kien-ve-kinh-te-cac-ban-nen-mua-hang-chinh-hang-1.jpg",
-    },
-    {
-      id: 2,
-      name: "Min",
-      thumbnailUrl:
-        "https://s1.storage.5giay.vn/image/2017/12/20171229_7b7022c89f7c85a18be6c83e58810669_1514513104.JPG",
-    },
-    {
-      id: 3,
-      name: "Min",
-      thumbnailUrl:
-        "https://s1.storage.5giay.vn/image/2017/12/20171229_7b7022c89f7c85a18be6c83e58810669_1514513104.JPG",
-    },
-    {
-      id: 4,
-      name: "Amee",
-      thumbnailUrl:
-        "https://down-vn.img.susercontent.com/file/c7db377b177fc8e2ff75a769022dcc23",
-    },
-    {
-      id: 5,
-      name: "NaaTy",
-      thumbnailUrl:
-        "https://alibu.com.vn/wp-content/uploads/2020/10/neu-co-dieu-kien-ve-kinh-te-cac-ban-nen-mua-hang-chinh-hang-1.jpg",
-    },
-  ];
   const { category, setCategory, setIsPendingUpdated } = UserAuth();
-  const [productMe, setProductMe] = useState([])
-  console.log(productMe)
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const accessToken = JSON.parse(localStorage.getItem("access_token"));
-        if (accessToken) {
-          const responseProductMe = await axios.get(
-            "https://2hand.monoinfinity.net/api/v1.0/product/me",
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken?.token}`,
-              },
-            }
-          );
-              setProductMe(responseProductMe?.data?.data)
-        } else {
-          console.log("Access token not found");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  const [productMe, setProductMe] = useState([]);
+  const [activeTab, setActiveTab] = useState("POST");
 
-    fetchData();
-  }, []);
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+
+  const getProductMe = async (status) => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem("access_token"));
+      if (accessToken) {
+        const responseProductMe = await axios.get(
+          "https://2hand.monoinfinity.net/api/v1.0/product/me",
+          {
+            params: {
+              pageSize: 100,
+              status,
+            },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken?.token}`,
+            },
+          }
+        );
+        setProductMe(responseProductMe?.data?.data);
+      } else {
+        console.log("Access token not found");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleDelete = async (article) => {
+    try {
+      if (article.status === "POST") {
+        const accessToken = JSON.parse(localStorage.getItem("access_token"));
+        await axios.delete(
+          `https://2hand.monoinfinity.net/api/v1.0/product/post/${article.productId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken?.token}`,
+            },
+          }
+        );
+        await getProductMe(activeTab);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductMe(activeTab);
+  }, [activeTab]);
+
   return (
     <div>
-      <h2>Article List</h2>
+      <h2>Sản phẩm của tôi</h2>
+      <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          aria-label="Product status tabs"
+        >
+          <Tab label="Đang hiển thị" value="POST" className="item-displaying" />
+          <Tab label="Đã bán" value="ACTIVE" className="item-paid" />
+        </Tabs>
+      </Box>
       <div>
         <button className="deposit-btn" type="submit">
           <NavLink to="/add-product" activeClassName="active-wallet">
@@ -83,7 +92,7 @@ function ArticleFeature(props) {
           </NavLink>
         </button>
       </div>
-      <ArticleList articleList={productMe} />
+      <ArticleList articleList={productMe} onDelete={handleDelete} />
     </div>
   );
 }

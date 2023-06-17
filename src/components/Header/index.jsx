@@ -7,7 +7,7 @@ import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { HiPencilSquare } from "react-icons/hi2";
-import { HiMenu } from "react-icons/hi";
+import { BsCoin } from "react-icons/bs";
 Header.propTypes = {};
 
 function Header() {
@@ -32,6 +32,7 @@ function Header() {
     { label: "Chỉnh sửa hồ sơ", path: "/account" },
     { label: "Nạp xu", path: "/wallet" },
     { label: "Sản phẩm của tôi", path: "/my-product" },
+    { label: "Đăng xuất", path: "/home", onClick: handleSignOut },
   ];
 
   const handleToggleMenu = () => {
@@ -74,7 +75,7 @@ function Header() {
               <Link className="no-underline">
                 <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
                   <li className="username">
-                    <p>{userProfile?.name}</p>
+                    <p><BsCoin />{userPrice} {userProfile?.name}</p>
                     <IoMdArrowDropdown />
                   </li>
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
@@ -84,24 +85,23 @@ function Header() {
                           <li key={index} className="item-droplist">
                             {typeof item === "string" ? (
                               <Link
-                                to={`/${item
-                                  .toLowerCase()
-                                  .replace(/\s/g, "-")}`}
+                                to={`/${item.toLowerCase().replace(/\s/g, "-")}`}
                               >
                                 {item}
                               </Link>
+                            ) : item.label === "Đăng xuất" ? (
+                              <NavLink
+                                to={item.path}
+                                activeClassName="logout-user"
+                                onClick={handleSignOut}
+                              >
+                                {item.label}
+                              </NavLink>
                             ) : (
                               <Link to={item.path}>{item.label}</Link>
                             )}
                           </li>
                         ))}
-                        <li>
-                          <NavLink to="/home" activeClassName="logout-user">
-                            <button className="login" onClick={handleSignOut}>
-                              Đăng xuất
-                            </button>
-                          </NavLink>
-                        </li>
                       </ul>
                     )}
                   </li>
@@ -127,22 +127,18 @@ function Header() {
               </form>
             </div>
           </li>
-          {/* <li>
-            <NavLink to="/login" activeClassName="login-user">
+          <li>
+            <NavLink to="/add-product" >
               <div className="search-cart-wrapper">
-                <HiPencilSquare />
+                <HiPencilSquare /> <p>ĐĂNG TIN</p>
                 <p className="post-product"></p>
               </div>
             </NavLink>
           </li>
-          <li><spna>{userPrice}</spna></li> */}
-          {userPrice ? (
+          {/* {userPrice ? (
             <li>
               <Link className="no-underline">
-                <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
-                  <li className="username">
-                    <p>{userPrice}</p>
-                  </li>
+                <div className="menu-wrapper">
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
                     {isMenuOpen && (
                       <NavLink to="/login" activeClassName="login-user">
@@ -158,7 +154,7 @@ function Header() {
             </li>
           ) : (
             <li className="space-header">&nbsp;</li>
-          )}
+          )} */}
         </ul>
       </nav>
     </header>

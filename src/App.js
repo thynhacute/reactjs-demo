@@ -30,6 +30,8 @@ import VNPayFeature from "./components/Wallet/WalletOption/VNPay";
 import ZaloPayFeature from "./components/Wallet/WalletOption/ZaloPay";
 import BankingFeature from "./components/Wallet/WalletOption/Banking";
 import LoginSuccess from "./components/Login/LoginSuccess";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import SendTransaction from "./components/SendTransaction";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -50,7 +52,6 @@ function App() {
           <Routes>
             <Route path="/todo-list" element={<TodoFeature />} />
             <Route path="/products" element={<ProductFeature />} />
-            <Route path="/my-product" element={<ArticleFeature />} />
             <Route path="/wallet" element={<WalletFeature />} />
             <Route path="wallet/momo" element={<MomoFeature />} />
             <Route path="wallet/vnpay" element={<VNPayFeature />} />
@@ -59,6 +60,7 @@ function App() {
             <Route path="/members" element={<MemberTeam />} />
             <Route path="/account" element={<Account />} />
             <Route path="/contacts" element={<Contact />} />
+            <Route path="/send-transaction" element={<SendTransaction />} />
             <Route path="/" element={<HomeDetail />} />
             <Route path="/login" element={<LoginFeature />} />
             <Route path="/signup" element={<SignUpFeature />} />
@@ -66,7 +68,7 @@ function App() {
 
             {/* add login success */}
             <Route path="/login-success" element={<LoginSuccess />} />
-            
+
             <Route path="/post-list/:postId" element={<NavigateToPost />} />
             <Route path="*" element={NotFound} />
             <Route
@@ -77,7 +79,14 @@ function App() {
                 </Protected>
               }
             />
-            <Route path="/add-product" element={<ProductArticle />} />
+            <Route
+              path="/my-product"
+              element={<PrivateRoute Component={ArticleFeature} />}
+            />
+            <Route
+              path="/add-product"
+              element={<PrivateRoute Component={ProductArticle} />}
+            />
           </Routes>
           <Footer />
         </div>
