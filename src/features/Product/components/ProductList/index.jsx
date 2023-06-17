@@ -7,7 +7,7 @@ import nextImage from "../../../../assets/images/next.png";
 import preImage from "../../../../assets/images/previous.png";
 import { TbZoomMoney } from "react-icons/tb";
 import { ImLocation2 } from "react-icons/im";
-import { UserAuth } from "../../../../context/AuthContext";
+import { UserAuth, AuthContextProvider } from "../../../../context/AuthContext";
 import Colors from "../Product/Colors";
 import DetailsThumb from "../Product/DetailsThumb";
 import ModalClose from "@mui/joy/ModalClose";
@@ -26,6 +26,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
 
 
 
@@ -168,12 +171,21 @@ function ProductList({ productList }) {
   const myRef = useRef(null);
 
   const [openPrice, setOpenPrice] = useState(false);
+  const [openSort, setOpenSort] = useState(false);
+
 
   const handleClickOpen = () => {
     setOpenPrice(true);
   };
+
+  const handleClickOpenSort = () => {
+    setOpenSort(true);
+  };
   const handleClosePrice = () => {
     setOpenPrice(false);
+  };
+  const handleCloseSort = () => {
+    setOpenSort(false);
   };
   const [value, setValue] = React.useState([0, 15000000]);
 
@@ -200,6 +212,13 @@ function ProductList({ productList }) {
   // call api get city
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
+  // sort
+  const [sort, setSort] = useState('');
+
+  const handleChangeSort = (event) => {
+    setSort(event.target.value);
+  };
+
 
 
   useEffect(() => {
@@ -230,6 +249,98 @@ function ProductList({ productList }) {
     <div className="product-list-wrapper">
       <div>
         <div className="filter-btn">
+          <button className="arrange-fiter" onClick={handleClickOpenSort}>
+            <div className="filter-icon">
+              <ImFilter />
+            </div>
+            Lọc
+          </button>
+          <Dialog
+            fullWidth
+            maxWidth="xs"
+            onClose={handleCloseSort}
+            aria-labelledby="customized-dialog-title"
+            open={openSort}
+
+          >
+            <BootstrapDialogTitle
+              id="customized-dialog-title"
+              onClose={handleCloseSort}
+              style={{ backgroundColor: '#EEEEEE' }}
+            >
+              Lọc kết quả
+            </BootstrapDialogTitle>
+
+            <DialogContent dividers>
+              &ensp;
+              <Typography gutterBottom>
+                Sắp xếp theo:
+              </Typography>
+
+              <Typography gutterBottom>
+                <FormGroup>
+                  <FormControlLabel control={<Checkbox defaultChecked />} label="Tin mới nhất" />
+                  <FormControlLabel control={<Checkbox />} label="Giá thấp nhất" />
+                </FormGroup>
+
+              </Typography>
+            </DialogContent>
+            <DialogActions
+              className="d-flex justify-content-center"
+              style={{ backgroundColor: '#EEEEEE' }}
+            >
+              <Button autoFocus onClick={handleCloseSort}>
+                Áp dụng
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+
+          <div style={{ minWidth: 120, marginRight: '10px' }} >
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth >
+                <InputLabel id="district-select-label">
+                  Vị trí
+                </InputLabel>
+                <Select
+                  className="form-select form-select-sm mb-3"
+                  id="city"
+                  aria-label=".form-select-sm"
+                  onChange={handleCityChange}
+                  value={selectedCity.Id}
+                  labelId="city-select-label"
+                  label="Chọn tỉnh thành"
+                >
+                  <MenuItem value="" disabled>
+                    Chọn tỉnh thành
+                  </MenuItem>
+                  {cities.map((city) => (
+                    <MenuItem value={city.Id} key={city.Id}>
+                      {city.Name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          </div>
+
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth >
+              <Select
+                className="form-select form-select-sm mb-3"
+                aria-label=".form-select-sm"
+                onChange={handleChangeSort}
+                value={sort}
+                displayEmpty
+              >
+                <MenuItem value="" >
+                  <em>Tin mới nhất</em>
+                </MenuItem>
+                <MenuItem value="ASC">Giá thấp nhất</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          {/* <AuthContextProvider selectedCity={selectedCity} /> */}
           <button className="arrange-fiter" onClick={handleClickOpen}>
             <div className="filter-icon">
               <TbZoomMoney />
@@ -279,45 +390,6 @@ function ProductList({ productList }) {
             </DialogActions>
           </Dialog>
 
-
-          {/* <button className="arrange-fiter">
-            <div className="filter-icon">
-              <ImLocation2 />
-            </div>
-            Vị trí
-          </button> */}
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth >
-              <InputLabel id="district-select-label">
-                Vị trí
-              </InputLabel>
-              <Select
-                className="form-select form-select-sm mb-3"
-                id="city"
-                aria-label=".form-select-sm"
-                onChange={handleCityChange}
-                value={selectedCity.Id}
-                labelId="city-select-label"
-                label="Chọn tỉnh thành"
-              >
-                <MenuItem value="" disabled>
-                  Chọn tỉnh thành
-                </MenuItem>
-                {cities.map((city) => (
-                  <MenuItem value={city.Id} key={city.Id}>
-                    {city.Name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-
-          <button className="arrange-fiter" onClick={handleButtonAll}>
-            <div className="filter-icon">
-              <ImFilter />
-            </div>
-            Tất cả
-          </button>
         </div>
       </div>
       <div className="sidebar">
