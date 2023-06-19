@@ -32,6 +32,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 
 
+
+
 const StyledModal = styled(Modal)({
   display: "flex",
   alignItems: "center",
@@ -70,6 +72,9 @@ function BootstrapDialogTitle(props) {
   );
 }
 
+
+
+
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired
@@ -91,7 +96,9 @@ function ProductList({ productList }) {
   ]);
 
   const { category, products } = UserAuth();
-  console.log(products);
+  // console.log("product:", products);
+
+
   const [filterCategory, setFilterCategory] = useState([]);
   const handleNextClick = () => {
     const nextIndex = (startIndex + 1) % products.length;
@@ -181,15 +188,20 @@ function ProductList({ productList }) {
   const handleClickOpenSort = () => {
     setOpenSort(true);
   };
+
+
+  const handleSubmitPrice = () => {
+    handleClosePrice();
+  }
   const handleClosePrice = () => {
     setOpenPrice(false);
   };
   const handleCloseSort = () => {
     setOpenSort(false);
   };
-  const [value, setValue] = React.useState([0, 15000000]);
+  const [value, setValue] = React.useState([0, 2000000]);
 
-  const handleChange = (event, newValue) => {
+  const handleChangePrice = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -212,12 +224,46 @@ function ProductList({ productList }) {
   // call api get city
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
+
+  // const [filteredProducts, setFilteredProducts] = useState([]);
+
+
+  const filteredProducts = visibleProducts.filter((product) =>
+    product.address.includes(selectedCity.toLowerCase())
+  );
+  // console.log("productfilter:", filteredProducts);
+  // console.log("productfilter:", filteredProducts);
   // sort
-  const [sort, setSort] = useState('');
+  // useEffect(() => {
+  //   const filteredProducts = products.filter((product) =>
+  //     product.address.includes(selectedCity.toLowerCase())
+  //   );
+  //   setFilteredProducts(filteredProducts);
+  // }, [selectedCity]);
+  const [sort, setSort] = useState('createAt');
 
   const handleChangeSort = (event) => {
     setSort(event.target.value);
   };
+  console.log("sort theo", sort);
+
+  const sortProducts = (filteredProducts, sort) => {
+    switch (sort) {
+      case "ASC":
+        return filteredProducts.slice().sort((a, b) => a.price - b.price);
+      case "createdAt":
+        return filteredProducts.slice().sort((a, b) => b.createdAt - a.createdAt);
+      // Thêm các trường hợp sắp xếp khác tùy theo nhu cầu của bạn
+      default:
+        return filteredProducts;
+    }
+  };
+  const sortedProducts = sortProducts(filteredProducts, sort);
+
+  const filteredPriceProducts = sortedProducts.filter((product) => {
+    const price = product.price;
+    return price >= value[0] && price <= value[1];
+  });
 
 
 
@@ -239,12 +285,12 @@ function ProductList({ productList }) {
   const handleCityChange = (event) => {
     const cityId = event.target.value;
     const selectedCity = cities.find((city) => city.Id === cityId);
-    setSelectedCity(selectedCity.Name);
+    setSelectedCity(selectedCity.Name.toLowerCase());
   };
 
 
 
-
+  // console.log(selectedCity)
   return (
     <div className="product-list-wrapper">
       <div>
@@ -279,13 +325,12 @@ function ProductList({ productList }) {
 
               <Typography gutterBottom>
                 <FormControl>
-                  {/* <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel> */}
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="createAt"
+                    defaultValue="createdAt"
                     name="radio-buttons-group"
                   >
-                    <FormControlLabel value="createAt" control={<Radio />} label="Tin mới nhất" />
+                    <FormControlLabel value="createdAt" control={<Radio />} label="Tin mới nhất" />
                     <FormControlLabel value="ASC" control={<Radio />} label="Giá tăng dần" />
                   </RadioGroup>
                 </FormControl>
@@ -317,7 +362,7 @@ function ProductList({ productList }) {
                   label="Chọn tỉnh thành"
                 >
                   <MenuItem value="" disabled>
-                    Chọn tỉnh thành
+                    Toàn quốc
                   </MenuItem>
                   {cities.map((city) => (
                     <MenuItem value={city.Id} key={city.Id}>
@@ -338,7 +383,7 @@ function ProductList({ productList }) {
                 value={sort}
                 displayEmpty
               >
-                <MenuItem value="" >
+                <MenuItem value="createAt" >
                   <em>Tin mới nhất</em>
                 </MenuItem>
                 <MenuItem value="ASC">Giá thấp nhất</MenuItem>
@@ -376,11 +421,12 @@ function ProductList({ productList }) {
                   <Slider
                     getAriaLabel={() => "Price range"}
                     value={value}
-                    onChange={handleChange}
+                    onChange={handleChangePrice}
                     valueLabelDisplay="auto"
                     getAriaValueText={valuetext}
                     min={0}
-                    max={15000000}
+                    max={2000000}
+                    step={20000}
                   />
                 </Box>
               </Typography>
@@ -389,7 +435,7 @@ function ProductList({ productList }) {
               className="d-flex justify-content-center"
               style={{ backgroundColor: '#EEEEEE' }}
             >
-              <Button autoFocus onClick={handleClosePrice}>
+              <Button autoFocus onClick={handleSubmitPrice}>
                 Áp dụng
               </Button>
             </DialogActions>
@@ -441,7 +487,7 @@ function ProductList({ productList }) {
       </div>
 
       <div className="product-list">
-        {visibleProducts.map((product) => (
+        {filteredPriceProducts.map((product) => (
           <li
             className="product-item-list"
             key={product.id}

@@ -66,8 +66,8 @@ export const AuthContextProvider = ({ children }) => {
               },
               params: {
                 // page: 0,
-                pageSize: 1000,
-                // orderBy: "createdAt",
+                // pageSize: 1000,
+                orderBy: "createdAt",
                 // order: "ASC",
                 // isShowInactive: "fasle",
                 // name: "",
@@ -78,7 +78,6 @@ export const AuthContextProvider = ({ children }) => {
               },
             }
           );
-
           const responseCate = await axios.get(
             "https://2hand.monoinfinity.net/api/v1.0/category/all",
             {
