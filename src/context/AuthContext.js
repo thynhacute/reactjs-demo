@@ -27,7 +27,7 @@ export const AuthContextProvider = ({ children }) => {
   const [productMe, setProductMe] = useState([]);
   const [isPendingUpdated, setIsPendingUpdated] = useState(null);
   const [userProfile, setUserProfile] = useState([]);
-  const [priceUser, setPriceUser] = useState([])
+  const [priceUser, setPriceUser] = useState([]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -66,7 +66,7 @@ export const AuthContextProvider = ({ children }) => {
               },
             }
           );
-  
+
           const responseCate = await axios.get(
             "https://2hand.monoinfinity.net/api/v1.0/category/all",
             {
@@ -76,10 +76,10 @@ export const AuthContextProvider = ({ children }) => {
               },
             }
           );
-  
+
           const data = response?.data?.data;
           const dataCate = responseCate?.data;
-  
+
           setProducts(data);
           setCategory(dataCate);
         } else {
@@ -114,7 +114,7 @@ export const AuthContextProvider = ({ children }) => {
         userProfile,
         setUserProfile,
         priceUser,
-        setPriceUser
+        setPriceUser,
       }}
     >
       {children}
