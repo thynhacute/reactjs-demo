@@ -24,16 +24,6 @@ function Footer() {
               uni2hand
             </a>
           </li>
-          {/* <li>
-            <IoLogoTiktok className="item-icon-footer tiktok-icon" />
-            <a
-              href="https://www.tiktok.com/@uni2handforu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              tiktok.vn
-            </a>
-          </li> */}
           <li>
             <FaInstagram className="item-icon-footer tiktok-icon" />
             <a
@@ -42,6 +32,16 @@ function Footer() {
               rel="noopener noreferrer"
             >
               uni2hand_story
+            </a>
+          </li>
+          <li>
+            <IoLogoTiktok className="item-icon-footer tiktok-icon" />
+            <a
+              href="https://www.tiktok.com/@uni2handforu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              tiktok.vn
             </a>
           </li>
           <li>
