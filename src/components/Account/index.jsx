@@ -3,6 +3,7 @@ import { UserAuth } from "../../context/AuthContext";
 import "./styles.scss";
 import { useState } from "react";
 import saveProfileIcon from "../../assets/images/save-profile.png";
+import axios from "axios";
 
 const Account = () => {
   const { logOut, user, userProfile } = UserAuth();
@@ -15,22 +16,50 @@ const Account = () => {
     }
   };
 
-  const [biographyValue, setBiographyValue] = useState("");
-  const [addressValue, setAddressValue] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(userProfile?.phone || "");
+  const [address, setAddress] = useState(userProfile?.address || "");
 
-  const handleBiographyChange = (e) => {
-    setBiographyValue(e.target.value);
+  const handlePhoneNumberChange = (event) => {
+    const inputValue = event.target.value;
+    const filteredValue = inputValue.replace(/[^0-9+]/g, "");
+    setPhoneNumber(filteredValue);
   };
 
-  const handleAddressChange = (e) => {
-    setAddressValue(e.target.value);
+  const handleAddressChange = (event) => {
+    const inputValue = event.target.value;
+    setAddress(inputValue);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Biography Value:", biographyValue);
-    console.log("Address Value:", addressValue);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const accessToken = JSON.parse(localStorage.getItem("access_token"));
+      const response = await axios.put(
+        "https://2hand.monoinfinity.net/api/v1.0/users",
+        {
+          name: userProfile?.name,
+          phone: phoneNumber,
+          address: address,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken?.token}`,
+          },
+        }
+      );
+
+      if (response && response.data) {
+        console.log("Response:", response.data);
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        console.log("Error:", error.response.data);
+      }
+    }
   };
+
   return (
     <header className="custom-account">
       <div>
@@ -49,39 +78,39 @@ const Account = () => {
           <div>
             <p className="shop-name">CỬA HÀNG CỦA: {userProfile?.name}</p>
           </div>
-          <div>
-            <div className="bio-title">Bio:</div>
-            <div onSubmit={handleSubmit}>
-              <div>
-                <textarea
-                  className="biography"
-                  id="inputFieldBio"
-                  value={biographyValue}
-                  placeholder="Tui là K18, vì đú trend nên dứt hết đống đồ về nhà, mà mặc mới 1 lần cái hok muốn mặc nữa pùn ghia"
-                  onChange={handleBiographyChange}
-                ></textarea>
-              </div>
-            </div>
+          <div className="phone">
+            <label htmlFor="inputPhone" className="bio-title">
+              Số điện thoại:
+            </label>
+            <input
+              className="biography"
+              type="tel"
+              id="inputPhone"
+              value={phoneNumber}
+              placeholder="Nhập số điện thoại"
+              onChange={handlePhoneNumberChange}
+            />
           </div>
-          <div>
-            <div className="address-title">Địa chỉ:</div>
-            <div onSubmit={handleSubmit}></div>
+          <div className="address-profile-nt">
+            <label htmlFor="inputAddress" className="address-title">
+              Địa chỉ:
+            </label>
             <div className="address-content">
               <textarea
                 className="address"
-                id="inputFieldAddress"
-                value={addressValue}
+                id="inputAddress"
+                value={address}
                 placeholder="S201. Vinhomes Grand Park. Nguyễn Xiển. Phường Long Thạnh Mỹ. Quận 9. Tp Hồ Chí Minh. Trường Đại Học FPT"
                 onChange={handleAddressChange}
               ></textarea>
             </div>
           </div>
         </div>
-        <div>
-          <button className="save-btn" type="submit">
+        <div className="save-btn-container">
+          <button className="save-btn" onClick={handleSubmit}>
             <img
               src={saveProfileIcon}
-              alt="SaveProfile"
+              alt="Save Profile"
               className="save-profile-icon"
             />
           </button>
