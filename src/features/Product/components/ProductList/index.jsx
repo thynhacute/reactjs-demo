@@ -138,6 +138,29 @@ function ProductList({ productList }) {
     }
   }, [index]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [address, setAddress] = useState("");
+  const { user } = UserAuth();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [showSellerInfo, setShowSellerInfo] = useState(false);
+  const handleContactSeller = () => {
+    const userPhoneNumber = selectedProduct.user?.phone;
+    const userAddress = selectedProduct?.address;
+    if (selectedProduct && userPhoneNumber !== null) {
+      setPhoneNumber(userPhoneNumber);
+      setAddress(userAddress);
+      setShowSellerInfo(true);
+    } else {
+      setPhoneNumber("");
+      setAddress("");
+      setShowSellerInfo(false);
+    }
+  };
+
+  const handleModalClose = () => {
+    setSelectedProduct(null);
+    setShowSellerInfo(false);
+  };
+
   return (
     <div className="product-list-wrapper">
       <div>
@@ -219,7 +242,7 @@ function ProductList({ productList }) {
         {selectedProduct && (
           <StyledModal
             open={!!selectedProduct}
-            onClose={() => setSelectedProduct(null)}
+            onClose={handleModalClose}
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -280,7 +303,19 @@ function ProductList({ productList }) {
                       tab={handleTab}
                       myRef={myRef}
                     />
-                    <button className="cart">Contact seller</button>
+                    <button className="cart" onClick={handleContactSeller}>
+                      Contact seller
+                    </button>
+                    {showSellerInfo && (
+                      <div className="seller-info">
+                        <div>
+                          <strong>Phone:</strong> {phoneNumber}
+                        </div>
+                        <div>
+                          <strong>Address:</strong> {address}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
