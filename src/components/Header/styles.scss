@@ -542,11 +542,14 @@
     margin-left: 0;
     margin-top: 55px;
   }
-
   .search-cart-wrapper {
     display: flex;
     align-items: center;
     margin-left: 30px;
+    color: #4f001e;
+  }
+  .search-cart-wrapper:hover {
+    color: #f7015fab;
   }
 
   .no-underline {

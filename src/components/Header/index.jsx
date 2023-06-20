@@ -75,7 +75,10 @@ function Header() {
               <Link className="no-underline">
                 <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
                   <li className="username">
-                    <p><BsCoin />{userPrice} {userProfile?.name}</p>
+                    <p>
+                      <BsCoin />
+                      {userPrice} {userProfile?.name}
+                    </p>
                     <IoMdArrowDropdown />
                   </li>
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
@@ -85,7 +88,9 @@ function Header() {
                           <li key={index} className="item-droplist">
                             {typeof item === "string" ? (
                               <Link
-                                to={`/${item.toLowerCase().replace(/\s/g, "-")}`}
+                                to={`/${item
+                                  .toLowerCase()
+                                  .replace(/\s/g, "-")}`}
                               >
                                 {item}
                               </Link>
@@ -128,13 +133,19 @@ function Header() {
             </div>
           </li>
           <li>
-            <NavLink to="/add-product" >
+            <NavLink to="/add-product">
               <div className="search-cart-wrapper">
-                <HiPencilSquare /> <p>ĐĂNG TIN</p>
-                <p className="post-product"></p>
+                <HiPencilSquare
+                  style={{ marginRight: "5px", marginLeft: "10px" }}
+                />
+                <p>ĐĂNG TIN</p>
               </div>
             </NavLink>
           </li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
           {/* {userPrice ? (
             <li>
               <Link className="no-underline">
