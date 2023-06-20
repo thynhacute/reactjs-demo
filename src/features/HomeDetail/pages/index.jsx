@@ -8,16 +8,19 @@ import nextImage from "../../../assets/images/next.png";
 import preImage from "../../../assets/images/previous.png";
 import "./styles.scss";
 import "../../../App.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { UserAuth } from "../../../context/AuthContext";
 import axios from "axios";
-import token from "../../../../src/components/Login/token.json"
+import token from "../../../../src/components/Login/token.json";
+import dkItemImage from "../../../assets/images/dieukhoan-item.png";
+import dkContentImage from "../../../assets/images/lotay-dk.png";
+import dieukhoanIcon from "../../../assets/images/dieukhoan-icon.png";
+import { BsLaptop } from "react-icons/bs";
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 
 HomeDetail.propTypes = {};
 
 function HomeDetail(props) {
-
-
   const hotProductList = [
     {
       id: 1,
@@ -117,6 +120,82 @@ function HomeDetail(props) {
           </div>
         </div>
       </div>
+      <div className="bd-dk">
+        <div className="card-dk">
+          <div className="imgBox-dk">
+            <img
+              src={dkContentImage}
+              alt="DKContentImage"
+              className="dk-content-img"
+            />
+            <img src={dkItemImage} alt="DKItemImage" className="dk-item-img" />
+          </div>
+          <div className="details-dk">
+            <div className="content-dk">
+              <img
+                src={logoWelcome}
+                alt="LogoWelcomeDK"
+                className="logo-welcome-dk"
+              />
+              <h2>
+                Cùng nhau tìm hiểu quy định bán hàng của nhà Uni2Hand nhé!
+              </h2>
+              <NavLink to="/policy" className="policy-dk">
+                <img
+                  src={dieukhoanIcon}
+                  alt="DKIconSM"
+                  className="dk-icon-sm"
+                />
+              </NavLink>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bd-water">
+        <div className="liquid-wt">
+          <h2>Uni2Hand</h2>
+          <h2>Uni2Hand</h2>
+          <h2>Uni2Hand</h2>
+          <h2>Uni2Hand</h2>
+        </div>
+      </div>
+      <div className="bd-infor-hp">
+        <ul>
+          <li style={{ "--i": -2, "--clr": "#1877f2" }} data-test="Facebook">
+            <a href="https://www.facebook.com/uni2hand.story">
+              <span>
+                <FaFacebookF />
+              </span>
+              Facebook
+            </a>
+          </li>
+          <li style={{ "--i": -1, "--clr": "#7221f3" }} data-test="Instagram">
+            <a href="https://www.instagram.com/uni2hand_story/">
+              <span>
+                <FaInstagram />
+              </span>
+              Instagram
+            </a>
+          </li>
+          <li style={{ "--i": 0, "--clr": "#ff0000" }} data-test="Tiktok">
+            <a href="https://www.tiktok.com/@uni2hand_story">
+              <span>
+                <FaTiktok />
+              </span>
+              Tiktok
+            </a>
+          </li>
+          <li style={{ "--i": 1, "--clr": "#c32aa3" }} data-test="Website">
+            <a href="https://uni2hand.vercel.app/">
+              <span>
+                <BsLaptop />
+              </span>
+              Website
+            </a>
+          </li>
+        </ul>
+      </div>
+
       {/* <p className="caring-product">CÓ THỂ BẠN QUAN TÂM</p>
       <div
         className="hot-products-container"
