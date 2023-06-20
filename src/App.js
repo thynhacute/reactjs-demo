@@ -32,6 +32,7 @@ import BankingFeature from "./components/Wallet/WalletOption/Banking";
 import LoginSuccess from "./components/Login/LoginSuccess";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SendTransaction from "./components/SendTransaction";
+import PolicyFeature from "./components/Policy";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -63,6 +64,7 @@ function App() {
             <Route path="/send-transaction" element={<SendTransaction />} />
             <Route path="/" element={<HomeDetail />} />
             <Route path="/login" element={<LoginFeature />} />
+            <Route path="/policy" element={<PolicyFeature />} />
             <Route path="/signup" element={<SignUpFeature />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
 

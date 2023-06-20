@@ -1,0 +1,17 @@
+@font-face {
+  font-family: Montserrat;
+  src: url(../../assets/fonts/Montserrat-SemiBold.ttf);
+  src: url(../../assets/fonts/Montserrat-Regular.ttf);
+  src: url(../../assets/fonts/Montserrat-Medium.ttf);
+}
+header {
+  background-color: #FFFCF2;
+}
+
+.custom-policy {
+  background-image: url(../../assets/images/account-page.png);
+  background-size: cover; /* Sử dụng cover để đảm bảo ảnh nền tràn đầy */
+  background-position: center; /* Căn giữa ảnh nền */
+  background-repeat: no-repeat;
+}
+
