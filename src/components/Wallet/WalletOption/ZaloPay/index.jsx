@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import "./styles.scss";
 import imgQrZaloPay from "../../../../assets/images/qr-zalopay.png";
+import { NavLink } from "react-router-dom";
 
 const ZaloPayFeature = () => {
   const form = useRef();
@@ -38,6 +39,11 @@ const ZaloPayFeature = () => {
             <div className="contact-zalopay">
               Nếu sau 1 tiếng vẫn chưa thấy tài khoản Nạp Xu,
               <br /> hãy liên hệ với Admin qua trang Liên hệ
+            </div>
+            <div className="btn-send-noti-dps">
+              <NavLink to="/send-transaction" activeClassName="active">
+                <button className="sm-zalopay-page-dps">Xác nhận</button>
+              </NavLink>
             </div>
           </div>
         </li>

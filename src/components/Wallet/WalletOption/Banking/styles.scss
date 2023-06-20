@@ -13,90 +13,101 @@
   background-repeat: no-repeat;
 }
 @media (max-width: 1024px) {
-    .custom-banking-page .detail-banking li{
-        list-style-type: none;
-        margin-top: 50px;
-      }
-      .title-banking-page{
-        font-family: "Montserrat", sans-serif;
-        font-weight: 600;
-        margin-top: 20px;
-        font-size: 40px;
-        color: #4d5ee8;
-      }
-      .content-banking-page{
-        font-family: "Montserrat", sans-serif;
-        font-weight: 500;
-      }
-      .qrbanking-img{
-        width: 300px;
-        margin-right: 20px;
-        margin-bottom: 20px;
-      }
-      .info-stk-banking{
-          width: 300px;
-      }
-      .content-banking-qr{
-        font-family: "Montserrat", sans-serif;
-        font-weight: 600;
-      }
-      .ex-content-banking {
-        font-style: italic;
-        font-family: "Montserrat", sans-serif;
-        font-weight: 400;
-        margin-top: 5px;
-      }
-      .contact-banking{
-        font-family: "Montserrat", sans-serif;
-        font-weight: 500;
-        margin-top: 10px;
-        margin-bottom: 50px;
-      }
+  .custom-banking-page .detail-banking li {
+    list-style-type: none;
+    margin-top: 50px;
+  }
+  .title-banking-page {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    margin-top: 20px;
+    font-size: 40px;
+    color: #4d5ee8;
+  }
+  .content-banking-page {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+  .qrbanking-img {
+    width: 300px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  .info-stk-banking {
+    width: 300px;
+  }
+  .content-banking-qr {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+  }
+  .ex-content-banking {
+    font-style: italic;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin-top: 5px;
+  }
+  .contact-banking {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 50px;
+  }
 }
 @media (min-width: 1025px) {
-.custom-banking-page .detail-banking li{
-  list-style-type: none;
-  margin-top: 50px;
-  text-align: start;
-}
-.title-banking-page{
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  margin-top: 20px;
-  font-size: 40px;
-  color: #4d5ee8;
-}
-.content-banking-page{
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-}
-.qrbanking-img{
-  width: 300px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-}
-.info-stk-banking{
+  .custom-banking-page .detail-banking li {
+    list-style-type: none;
+    margin-top: 50px;
+    text-align: start;
+  }
+  .title-banking-page {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    margin-top: 20px;
+    font-size: 40px;
+    color: #4d5ee8;
+  }
+  .content-banking-page {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+  .qrbanking-img {
     width: 300px;
-}
-.content-banking-qr{
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-}
-.ex-content-banking {
-  font-style: italic;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  margin-top: 5px;
-}
-.contact-banking{
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  margin-top: 10px;
-  
-}
-.detail-banking {
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  .info-stk-banking {
+    width: 300px;
+  }
+  .content-banking-qr {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+  }
+  .ex-content-banking {
+    font-style: italic;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin-top: 5px;
+  }
+  .contact-banking {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  .detail-banking {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
   }
+}
+.sm-banking-page-dps {
+  font-family: "Montserrat", sans-serif;
+  font-weight: Bold;
+  padding: 10px 20px 10px 20px;
+  border-radius: 10px;
+  margin: 60px 60px 60px 150px;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+  background: linear-gradient(90deg, #dcfb7b -6.81%, #7bfad6 100%);
+  border-radius: 41px;
+  font-size: 20px;
 }

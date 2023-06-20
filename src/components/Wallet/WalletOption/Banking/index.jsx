@@ -3,6 +3,7 @@ import emailjs from "@emailjs/browser";
 import "./styles.scss";
 import imgQrBanking from "../../../../assets/images/qr-banking.png";
 import imgInfoBanking from "../../../../assets/images/info-stk-banking.png";
+import { NavLink } from "react-router-dom";
 
 const BankingFeature = () => {
   const form = useRef();
@@ -46,6 +47,11 @@ const BankingFeature = () => {
             <div className="contact-banking">
               Nếu sau 1 tiếng vẫn chưa thấy tài khoản Nạp Xu,
               <br /> hãy liên hệ với Admin qua trang Liên hệ
+            </div>
+            <div className="btn-send-noti-dps">
+              <NavLink to="/send-transaction" activeClassName="active">
+                <button className="sm-banking-page-dps">Xác nhận</button>
+              </NavLink>
             </div>
           </div>
         </li>

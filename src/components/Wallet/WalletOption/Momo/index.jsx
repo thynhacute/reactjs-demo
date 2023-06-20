@@ -38,7 +38,7 @@ const MomoFeature = () => {
             </div>
             <div className="btn-send-noti-dps">
               <NavLink to="/send-transaction" activeClassName="active">
-                Chuyển đến trang Send Transaction
+                <button className="sm-momo-page-dps">Xác nhận</button>
               </NavLink>
             </div>
           </div>
