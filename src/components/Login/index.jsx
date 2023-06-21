@@ -17,20 +17,17 @@ function LoginFeature() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const { setIsPendingUpdated } = UserAuth()
+  const { setIsPendingUpdated } = UserAuth();
 
   const signIn = (event) => {
     // signInWithEmailAndPassword(auth, email, password)
     event.preventDefault();
     const payload = {
-      "email": email,
-      "password": password
+      email: email,
+      password: password,
     };
     axios
-      .post(
-        "https://2hand.monoinfinity.net/api/v1.0/auth/login",
-        payload,
-      )
+      .post("https://2hand.monoinfinity.net/api/v1.0/auth/login", payload)
       .then((userCredential) => {
         if ((userCredential.status = 201)) {
           localStorage.setItem(
@@ -38,9 +35,9 @@ function LoginFeature() {
             JSON.stringify(userCredential.data)
           );
           setIsPendingUpdated((prev) => !prev);
-          navigate("/")
+          navigate("/home");
         } else {
-          alert("login fail")
+          alert("login fail");
         }
       })
       .catch((error) => {
@@ -52,32 +49,32 @@ function LoginFeature() {
   const auth = getAuth();
   const { googleSignIn, user } = UserAuth();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (user != null) {
-      navigate("/home");
-    }
-  }, [user]);
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // useEffect(() => {
+  //   if (user != null) {
+  //     navigate("/home");
+  //   }
+  // }, [user]);
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await googleSignIn();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const signInWithFacebook = () => {
-    const provider = new FacebookAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((re) => {
-        console.log(re);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
+  // const signInWithFacebook = () => {
+  //   const provider = new FacebookAuthProvider();
+  //   signInWithPopup(auth, provider)
+  //     .then((re) => {
+  //       console.log(re);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // };
   if (localStorage.getItem("access_token")) {
     // Chuyển hướng đến trang "/login-success"
-    navigate('/login-success');
+    navigate("/login-success");
   }
   return (
     <header className="custom-login">
@@ -105,7 +102,7 @@ function LoginFeature() {
             </div>
           </div>
         </form>
-        <div>
+        {/* <div>
           <img src={orIcon} alt="OrDetail" className="or-detail-icon" />
         </div>
         <nav>
@@ -127,7 +124,7 @@ function LoginFeature() {
               </button>
             </div>
           </div>
-        </nav>
+        </nav> */}
       </div>
     </header>
   );
