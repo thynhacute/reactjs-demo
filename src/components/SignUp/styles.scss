@@ -239,12 +239,21 @@ header {
   .message-match-pass{
       font-family: "Montserrat", sans-serif;
       font-weight: 300;
-      position: absolute;
+      font-size: 14px;
+      text-align: left;
   }
+  .message-valid-pass{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    text-align: left;
+}
   .btn-signup-submit{
       border: none;
       background: white;
-      margin-top: 70px;
+      margin-top: 30px;
+      position: absolute;
+      margin-left: 130px;
   }
   .signup-icon{
       width: 200px;

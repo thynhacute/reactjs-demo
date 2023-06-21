@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth } from "../../firebase";
@@ -12,12 +12,12 @@ SignUpFeature.propTypes = {};
 
 function SignUpFeature(props) {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
   const navigate = useNavigate();
-  const {setIsPendingUpdated} = UserAuth()
+  const { setIsPendingUpdated } = UserAuth();
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
@@ -33,27 +33,24 @@ function SignUpFeature(props) {
   const signUp = (event) => {
     event.preventDefault();
     const payload = {
-      "email": email,
-      "name": name,
-      "password": password,
-      "confirmPassword": confirmPassword
+      email: email,
+      name: name,
+      password: password,
+      confirmPassword: confirmPassword,
     };
     axios
-      .post(
-        "https://2hand.monoinfinity.net/api/v1.0/auth/register",
-        payload,
-      )
+      .post("https://2hand.monoinfinity.net/api/v1.0/auth/register", payload)
       .then((userCredential) => {
-        console.log(userCredential)
+        console.log(userCredential);
         if ((userCredential.status = 201)) {
           localStorage.setItem(
             "access_token",
             JSON.stringify(userCredential.data)
           );
           setIsPendingUpdated((prev) => !prev);
-          navigate("/login")
+          navigate("/login");
         } else {
-          alert("Signup fail")
+          alert("Signup fail");
         }
       })
       .catch((error) => {
@@ -61,6 +58,13 @@ function SignUpFeature(props) {
         alert(errorCode);
       });
   };
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
+  useEffect(() => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    setPasswordIsValid(
+      passwordRegex.test(password) && password === confirmPassword
+    );
+  }, [password, confirmPassword]);
 
   return (
     <div>
@@ -95,7 +99,7 @@ function SignUpFeature(props) {
                   className="name-mail-pass input-signup-name"
                   placeholder="Enter your Name"
                   style={{ paddingLeft: "10px" }}
-                  onChange={(e) =>setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="label-input-signup">
@@ -135,9 +139,22 @@ function SignUpFeature(props) {
                   className="message-match-pass"
                   style={{ color: "red", marginLeft: "10px" }}
                 >
-                  Passwords do not match!
+                  Passwords không trùng nhau!
                 </p>
               )}
+              {passwordIsValid ? (
+                <p></p>
+              ) : (
+                password.length > 0 && (
+                  <p
+                    className="message-valid-pass"
+                    style={{ color: "red", marginLeft: "10px" }}
+                  >
+                    Passwords phải bao gồm chữ hoa, chữ thường và số.
+                  </p>
+                )
+              )}
+
               <button type="submit" className="btn-signup-submit">
                 <img src={signUpIcon} alt="SignupBtn" className="signup-icon" />
               </button>
