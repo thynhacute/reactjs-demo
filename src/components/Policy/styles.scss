@@ -9,9 +9,81 @@ header {
 }
 
 .custom-policy {
-  background-image: url(../../assets/images/account-page.png);
-  background-size: cover; /* Sử dụng cover để đảm bảo ảnh nền tràn đầy */
-  background-position: center; /* Căn giữa ảnh nền */
-  background-repeat: no-repeat;
+  // background-image: url(../../assets/images/account-page.png);
+  // background-size: cover; /* Sử dụng cover để đảm bảo ảnh nền tràn đầy */
+  // background-position: center; /* Căn giữa ảnh nền */
+  // background-repeat: no-repeat;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+.policy-section section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+.policy-section section::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to top, #FFFCF2, transparent);
+  z-index: 10000;
+}
+
+.policy-section section img#bg_policy,
+.policy-section section img#clouds_1,
+.policy-section section img#clouds_2,
+.policy-section section img#mountain_left,
+.policy-section section img#mountain_right{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.policy-section section img#man {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+#text-policy {
+  position: relative;
+  color: rgb(10, 33, 26);
+  font-size: 10vw;
+}
+
+.sec-policy{
+  position: relative;
+  padding: 100px;
+  text-align: left;
+  color: #1b12a0;
+}
+.sec-policy h2{
+  font-size: 3.5em;
+  margin-bottom: 10px;
+}
+.sec-policy p{
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+.sec-policy ul li{
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
 
