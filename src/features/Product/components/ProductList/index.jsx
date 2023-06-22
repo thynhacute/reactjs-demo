@@ -8,7 +8,6 @@ import preImage from "../../../../assets/images/previous.png";
 import { TbZoomMoney } from "react-icons/tb";
 import { ImLocation2 } from "react-icons/im";
 import { UserAuth, AuthContextProvider } from "../../../../context/AuthContext";
-// import { UserAuth } from "../../../../context/AuthContext";
 import Colors from "../Product/Colors";
 import DetailsThumb from "../Product/DetailsThumb";
 import ModalClose from "@mui/joy/ModalClose";
@@ -21,7 +20,6 @@ import {
   Select,
   styled,
 } from "@mui/material";
-// import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ImFilter } from "react-icons/im";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
@@ -99,9 +97,9 @@ function ProductList({ productList }) {
   ]);
 
   const { category, products } = UserAuth();
-  console.log(products);
+  // console.log("product:", products);
+
   const [filterCategory, setFilterCategory] = useState([]);
-  const [allProduct, setAllProduct] = useState([]);
   const handleNextClick = () => {
     const nextIndex = (startIndex + 1) % products.length;
     setStartIndex(nextIndex);
@@ -310,26 +308,6 @@ function ProductList({ productList }) {
   return (
     <div className="product-list-wrapper">
       <div>
-        {/* <div className="filter-btn">
-          <button className="arrange-fiter">
-            <div className="filter-icon">
-              <TbZoomMoney />
-            </div>
-            Giá
-          </button>
-          <button className="arrange-fiter">
-            <div className="filter-icon">
-              <ImLocation2 />
-            </div>
-            Vị trí
-          </button>
-          <button className="arrange-fiter" onClick={handleButtonAll}>
-            <div className="filter-icon">
-              <ImFilter />
-            </div>
-            Tất cả
-          </button>
-        </div> */}
         <div className="filter-btn">
           <button className="arrange-fiter" onClick={handleClickOpenSort}>
             <div className="filter-icon">
@@ -479,12 +457,6 @@ function ProductList({ productList }) {
               </Button>
             </DialogActions>
           </Dialog>
-          <button className="arrange-fiter" onClick={handleButtonAll}>
-            <div className="filter-icon">
-              <ImFilter />
-            </div>
-            Tất cả
-          </button>
         </div>
       </div>
       <div className="sidebar">
@@ -531,7 +503,7 @@ function ProductList({ productList }) {
       </div>
 
       <div className="product-list">
-        {visibleProducts.map((product) => (
+        {filteredPriceProducts.map((product) => (
           <li
             className="product-item-list"
             key={product.id}
