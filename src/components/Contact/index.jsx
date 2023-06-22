@@ -21,6 +21,7 @@ const Contact = () => {
         (result) => {
           console.log(result.text);
           console.log("message sent");
+          window.location.reload();
         },
         (error) => {
           console.log(error.text);
