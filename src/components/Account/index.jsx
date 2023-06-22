@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import "./styles.scss";
 import { useState } from "react";
@@ -7,17 +7,22 @@ import axios from "axios";
 
 const Account = () => {
   const { logOut, user, userProfile } = UserAuth();
-  console.log(userProfile);
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
 
-  const [phoneNumber, setPhoneNumber] = useState(userProfile?.phone || "");
-  const [address, setAddress] = useState(userProfile?.address || "");
+  useEffect(() => {
+    if (userProfile) {
+      setName(userProfile.name || "");
+      setPhoneNumber(userProfile.phone || "");
+      setAddress(userProfile.address || "");
+    }
+  }, [userProfile]);
+
+  const handleNameChange = (event) => {
+    const inputName = event.target.value;
+    setName(inputName);
+  };
 
   const handlePhoneNumberChange = (event) => {
     const inputValue = event.target.value;
@@ -38,7 +43,7 @@ const Account = () => {
       const response = await axios.put(
         "https://2hand.monoinfinity.net/api/v1.0/users",
         {
-          name: userProfile?.name,
+          name: name,
           phone: phoneNumber,
           address: address,
         },
@@ -52,6 +57,7 @@ const Account = () => {
 
       if (response && response.data) {
         console.log("Response:", response.data);
+        window.location.reload();
       }
     } catch (error) {
       if (error.response && error.response.data) {
@@ -75,9 +81,18 @@ const Account = () => {
               alt="Avatar"
             />
           </div>
-          <div>
-            <p className="shop-name">CỬA HÀNG CỦA: {userProfile?.name}</p>
+          <div className="shop-info">
+            <p className="shop-name">CỬA HÀNG CỦA:</p>
+            <input
+              className="name-pf"
+              type="name"
+              id="inputName"
+              value={name.toUpperCase()}
+              placeholder="Nhập số điện thoại"
+              onChange={handleNameChange}
+            />
           </div>
+
           <div className="phone">
             <label htmlFor="inputPhone" className="bio-title">
               Số điện thoại:
