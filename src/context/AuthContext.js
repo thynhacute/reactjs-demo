@@ -56,13 +56,35 @@ export const AuthContextProvider = ({ children }) => {
               },
             }
           );
+          // setPriceUser(responsePriceUser?.data);
+          // const response = await axios.get(
+          //   "https://2hand.monoinfinity.net/api/v1.0/admin/product",
+          //   {
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //       Authorization: `Bearer ${accessToken?.token}`,
+          //     },
+          //   }
+          // );
           setPriceUser(responsePriceUser?.data);
           const response = await axios.get(
-            "https://2hand.monoinfinity.net/api/v1.0/admin/product",
+            "https://2hand.monoinfinity.net/api/v1.0/product/post",
             {
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken?.token}`,
+              },
+              params: {
+                // page: 0,
+                // pageSize: 1000,
+                orderBy: "createdAt",
+                // order: "ASC",
+                // isShowInactive: "fasle",
+                // name: "",
+                // minPrice: 0,
+                // maxPrice: 0,
+                city: "",
+                status: "POST",
               },
             }
           );
