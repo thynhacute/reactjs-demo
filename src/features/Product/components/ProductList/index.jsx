@@ -461,6 +461,12 @@ function ProductList({ productList }) {
       </div>
       <div className="sidebar">
         <div className="button-list-wrapper">
+          <button className="arrange-fiter" onClick={handleButtonAll}>
+            <div className="filter-icon">
+              <ImFilter />
+            </div>
+            Tất cả
+          </button>
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="buttons">
               {(provided) => (
