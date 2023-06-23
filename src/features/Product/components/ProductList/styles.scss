@@ -233,9 +233,9 @@
     background-color: rgb(185, 199, 255);
     font-family: "Montserrat", sans-serif;
   }
-  .btn-item-drop {
-    padding: 10px 20px 10px 20px;
-  }
+  // .btn-item-drop {
+  //   padding: 10px 20px 10px 20px;
+  // }
   .btn-item-drop button {
     padding: 10px;
     width: 220px;
@@ -254,7 +254,6 @@
     overflow-y: auto;
     max-height: 400px;
     overflow-x: hidden;
-    width: 500px;
     padding-right: 20px;
     margin-left: 135px;
   }
@@ -349,6 +348,17 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
 }
+.arrange-all-fiter{
+    padding: 10px;
+    width: 220px;
+    border-radius: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: Medium;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    margin-right: 0;
+  }
 
 .filter-icon {
   margin-right: 5px;

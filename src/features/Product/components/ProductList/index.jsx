@@ -309,7 +309,7 @@ function ProductList({ productList }) {
     <div className="product-list-wrapper">
       <div>
         <div className="filter-btn">
-          <button className="arrange-fiter" onClick={handleClickOpenSort}>
+          {/* <button className="arrange-fiter" onClick={handleClickOpenSort}>
             <div className="filter-icon">
               <ImFilter />
             </div>
@@ -362,7 +362,7 @@ function ProductList({ productList }) {
                 Áp dụng
               </Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
           <div style={{ minWidth: 120, marginRight: "10px" }}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
@@ -461,50 +461,25 @@ function ProductList({ productList }) {
       </div>
       <div className="sidebar">
         <div className="button-list-wrapper">
-          <button className="arrange-fiter" onClick={handleButtonAll}>
-            <div className="filter-icon">
-              <ImFilter />
-            </div>
-            Tất cả
-          </button>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="buttons">
-              {(provided) => (
-                <ul
-                  className="button-list"
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {category.map((buttonName, index) => (
-                    <Draggable
-                      key={buttonName}
-                      draggableId={buttonName}
-                      index={index}
-                    >
-                      {(provided, snapshot) => (
-                        <li
-                          className="category-product-item"
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <div className="btn-item-drop">
-                            <button
-                              className={snapshot.isDragging ? "dragging" : ""}
-                              onClick={() => handleButtonClick(buttonName?.id)}
-                            >
-                              {buttonName?.name}
-                            </button>
-                          </div>
-                        </li>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <ul className="button-list">
+            <li>
+              <button className="arrange-all-fiter" onClick={handleButtonAll}>
+                <div className="filter-icon">
+                  <ImFilter />
+                </div>
+                Tất cả
+              </button>
+            </li>
+            {category.map((buttonName) => (
+              <li key={buttonName} className="category-product-item">
+                <div className="btn-item-drop">
+                  <button onClick={() => handleButtonClick(buttonName?.id)}>
+                    {buttonName?.name}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
