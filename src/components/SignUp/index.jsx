@@ -154,7 +154,6 @@ function SignUpFeature(props) {
                   </p>
                 )
               )}
-
               <button type="submit" className="btn-signup-submit">
                 <img src={signUpIcon} alt="SignupBtn" className="signup-icon" />
               </button>

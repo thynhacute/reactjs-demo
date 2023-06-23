@@ -252,10 +252,12 @@ header {
       border: none;
       background: white;
       margin-top: 30px;
-      position: absolute;
-      margin-left: 130px;
+      border-radius: 20px;
   }
   .signup-icon{
       width: 200px;
   }
+  .signup-icon:hover{
+    filter: brightness(0.94);
+}
 }
