@@ -76,7 +76,7 @@ export const AuthContextProvider = ({ children }) => {
               },
               params: {
                 // page: 0,
-                pageSize: 1000,
+                // pageSize: 1000,
                 orderBy: "createdAt",
                 // order: "ASC",
                 // isShowInactive: "fasle",

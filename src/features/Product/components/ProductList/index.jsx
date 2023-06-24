@@ -122,7 +122,7 @@ function ProductList({ productList }) {
       ? filterCategory
       : products
     ).slice(0, startIndex),
-  ].slice(0, 8);
+  ].slice(0, 10);
 
   const [dividedLengthPage, setDividedLengthPage] = useState([]);
 
