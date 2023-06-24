@@ -16,6 +16,11 @@ function Header() {
   if (userPrice !== 0) {
     userPrice = parseInt(userPrice?.toString().slice(0, -3));
   }
+  if (isNaN(userPrice)) {
+    userPrice = 0;
+  } else {
+    userPrice = parseInt(userPrice?.toString().slice(0));
+  }
 
   const navigate = useNavigate();
   const handleSignOut = async () => {
@@ -42,6 +47,12 @@ function Header() {
   const handleMenuWrapperClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  function capitalizeWords(str) {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
 
   return (
     <header className="custom-header">
@@ -75,9 +86,14 @@ function Header() {
               <Link className="no-underline">
                 <div className="menu-wrapper" onClick={handleMenuWrapperClick}>
                   <li className="username">
+                    <p style={{ marginRight: "5px", color: "#BF0452" }}>
+                      <BsCoin
+                        style={{ marginRight: "3px", marginBottom: "-2px" }}
+                      />
+                      {userPrice}
+                    </p>
                     <p>
-                      <BsCoin />
-                      {userPrice} {userProfile?.name}
+                      {userProfile?.name && capitalizeWords(userProfile.name)}
                     </p>
                     <IoMdArrowDropdown />
                   </li>

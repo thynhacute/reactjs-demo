@@ -105,6 +105,42 @@ export const AuthContextProvider = ({ children }) => {
           setCategory(dataCate);
         } else {
           console.log("Access token not found");
+          const response = await axios.get(
+            "https://2hand.monoinfinity.net/api/v1.0/product/post",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken?.token}`,
+              },
+              params: {
+                // page: 0,
+                // pageSize: 1000,
+                orderBy: "createdAt",
+                // order: "ASC",
+                // isShowInactive: "fasle",
+                // name: "",
+                // minPrice: 0,
+                // maxPrice: 0,
+                city: "",
+                status: "POST",
+              },
+            }
+          );
+          const responseCate = await axios.get(
+            "https://2hand.monoinfinity.net/api/v1.0/category/all",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken?.token}`,
+              },
+            }
+          );
+
+          const data = response?.data?.data;
+          const dataCate = responseCate?.data;
+
+          setProducts(data);
+          setCategory(dataCate);
         }
       } catch (error) {
         console.error("Error fetching data:", error);

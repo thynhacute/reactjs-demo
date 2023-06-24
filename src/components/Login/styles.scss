@@ -182,6 +182,9 @@ header {
 .signin-icon{
   width: 200px;
 }
+.signin-icon:hover{
+    filter: brightness(0.94);
+}
 
 .label-font-login {
   font-family: "Montserrat", sans-serif;
