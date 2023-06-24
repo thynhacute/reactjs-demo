@@ -84,7 +84,7 @@ const ProductArticle = () => {
   //adress
   const [open, setOpen] = React.useState(false);
   //add form post server
-  const { category, setCategory, setIsPendingUpdated } = UserAuth();
+  const { setIsPendingUpdated } = UserAuth();
   const navigate = useNavigate();
   //post form
   const [nameProduct, setNameProduct] = useState([]);
@@ -96,6 +96,8 @@ const ProductArticle = () => {
   const [dataImgProduct, setDataImgProduct] = useState([]);
   const [dataProductBack, setDataProductBack] = useState([]);
   const token = JSON.parse(localStorage.getItem("access_token"));
+
+
 
   //
   const handleClickOpen = () => {
@@ -111,6 +113,24 @@ const ProductArticle = () => {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedWard, setSelectedWard] = useState("");
   const [specificAddress, setSpecificAddress] = useState("");
+  const [categoryParents, setCategoryParents] = useState([]);
+  const [categoryChilds, setCategoryChilds] = useState([]);
+  const [selectedCategoryParent, setSelectedCategoryParent] = useState("");
+  const [selectedCategoryChild, setSelectedCategoryChild] = useState("");
+
+
+
+  const getCategory = async () => {
+    try {
+      const response = await axios.get(
+        "https://2hand.monoinfinity.net/api/v1.0/category/all-parent"
+      );
+      const data = response.data;
+      setCategoryParents(data);
+    } catch (error) {
+      console.error("", error);
+    }
+  };
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -126,7 +146,10 @@ const ProductArticle = () => {
     };
 
     fetchCities();
+    getCategory();
   }, []);
+
+
   const handleCityChange = (event) => {
     const cityId = event.target.value;
     const selectedCity = cities.find((city) => city.Id === cityId);
@@ -136,7 +159,15 @@ const ProductArticle = () => {
     setSelectedDistrict("");
     setSelectedWard("");
   };
-
+  const handleCategoryParentChange = (event) => {
+    const categoryId = event.target.value;
+    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === categoryId);
+    setCategoryChilds(selectedCategoryParent.children);
+    setSelectedCategoryParent(selectedCategoryParent.name);
+    setSelectedCategoryChild("");
+  };
+  console.log("selectCategory:", selectedCategoryParent);
+  console.log("CategoryChild:", categoryChilds);
   const handleDistrictChange = (event) => {
     const districtId = event.target.value;
     const selectedDistrict = districts.find(
@@ -391,6 +422,35 @@ const ProductArticle = () => {
             </div>
             <div className="right">
               <div>
+                <div className="text-left-btn text-left-btn-right"><CategoryOutlinedIcon className="icon-product-form" /> Danh mục:</div>
+                <FormControl
+                  sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                  size="small"
+                >
+                  <Select
+                    id="Danhmuc"
+                    value={selectedCategoryParent.id}
+                    onChange={handleCategoryParentChange}
+                    displayEmpty
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem value="">
+                      <em></em>
+                    </MenuItem>
+                    {categoryParents.map(
+                      (
+                        categorys,
+                        index // Thêm tham số index vào hàm map
+                      ) => (
+                        <MenuItem key={index} value={categorys?.id}>
+                          {categorys?.name}
+                        </MenuItem>
+                      )
+                    )}
+                  </Select>
+                </FormControl>
+              </div>
+              <div>
                 <div className="text-left-btn text-left-btn-right"><CategoryOutlinedIcon className="icon-product-form" /> Loại sản phẩm:</div>
                 <FormControl
                   sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
@@ -405,7 +465,7 @@ const ProductArticle = () => {
                     <MenuItem value="">
                       <em></em>
                     </MenuItem>
-                    {category.map(
+                    {categoryChilds.map(
                       (
                         categorys,
                         index // Thêm tham số index vào hàm map
