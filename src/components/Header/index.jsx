@@ -16,6 +16,11 @@ function Header() {
   if (userPrice !== 0) {
     userPrice = parseInt(userPrice?.toString().slice(0, -3));
   }
+  if (isNaN(userPrice)) {
+    userPrice = 0;
+  } else {
+    userPrice = parseInt(userPrice?.toString().slice(0));
+  }
 
   const navigate = useNavigate();
   const handleSignOut = async () => {
