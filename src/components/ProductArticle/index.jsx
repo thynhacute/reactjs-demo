@@ -83,6 +83,8 @@ BootstrapDialogTitle.propTypes = {
 const ProductArticle = () => {
   //adress
   const [open, setOpen] = React.useState(false);
+  const [openCategory, setOpenCategory] = React.useState(false);
+
   //add form post server
   const { setIsPendingUpdated } = UserAuth();
   const navigate = useNavigate();
@@ -92,10 +94,11 @@ const ProductArticle = () => {
   const [descriptionProduct, setDescriptonProduct] = useState([]);
   const [addressProduct, setAddressProduct] = useState([]);
   const [quantityProduct, setQuantityProduct] = useState([]);
-  const [categoryForm, setCategoryForm] = useState([]);
+  const [categoryForm, setCategoryForm] = useState("");
   const [dataImgProduct, setDataImgProduct] = useState([]);
   const [dataProductBack, setDataProductBack] = useState([]);
   const token = JSON.parse(localStorage.getItem("access_token"));
+  const [categoryProduct, setCategoryProduct] = useState([]);
 
 
 
@@ -103,8 +106,14 @@ const ProductArticle = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const handleClickOpenCategory = () => {
+    setOpenCategory(true);
+  };
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleCloseCategory = () => {
+    setOpenCategory(false);
   };
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -160,14 +169,18 @@ const ProductArticle = () => {
     setSelectedWard("");
   };
   const handleCategoryParentChange = (event) => {
-    const categoryId = event.target.value;
-    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === categoryId);
+    const categoryChildId = event.target.value;
+    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === categoryChildId);
     setCategoryChilds(selectedCategoryParent.children);
-    setSelectedCategoryParent(selectedCategoryParent.name);
+    setSelectedCategoryParent(selectedCategoryParent?.name);
     setSelectedCategoryChild("");
   };
-  console.log("selectCategory:", selectedCategoryParent);
-  console.log("CategoryChild:", categoryChilds);
+  const handleCategoryChildChange = (event) => {
+    const categoryChildId = event.target.value;
+    const selectedCategoryChild = categoryChilds.find((categoryChilds) => categoryChilds.id === categoryChildId);
+    setSelectedCategoryChild(selectedCategoryChild?.name);
+    setCategoryForm(selectedCategoryChild?.id)
+  };
   const handleDistrictChange = (event) => {
     const districtId = event.target.value;
     const selectedDistrict = districts.find(
@@ -177,7 +190,6 @@ const ProductArticle = () => {
     setSelectedDistrict(selectedDistrict.Name);
     setSelectedWard("");
   };
-
   const handleWardChange = (event) => {
     const wardId = event.target.value;
     const selectedWard = wards.find((wards) => wards.Id === wardId);
@@ -186,13 +198,6 @@ const ProductArticle = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Do something with the selected values (cities, districts, wards)
-    console.log("Selected City:", selectedCity);
-    console.log("Selected District:", selectedDistrict);
-    console.log("Selected Ward:", selectedWard);
-    console.log("Địa chỉ cụ thể:", specificAddress);
-
     const newResult = `${specificAddress}, ${selectedWard}, ${selectedDistrict}, ${selectedCity}`;
     setAddressProduct(newResult);
 
@@ -204,6 +209,12 @@ const ProductArticle = () => {
     setSpecificAddress(address);
   };
   //upoload image
+  const handleSubmitCategory = (event) => {
+    event.preventDefault();
+    const newResult = `${selectedCategoryParent} - ${selectedCategoryChild}`;
+    setCategoryProduct(newResult);
+    handleCloseCategory();
+  };
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
@@ -421,7 +432,121 @@ const ProductArticle = () => {
               </div>
             </div>
             <div className="right">
-              <div>
+              <BootstrapDialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+              >
+                <BootstrapDialogTitle
+                  id="customized-dialog-title"
+                  onClose={handleClose}
+                >
+                  Địa chỉ
+                </BootstrapDialogTitle>
+                <DialogContent dividers>
+                  <Typography gutterBottom>
+                    <FormControl
+                      sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                      size="small"
+                    >
+                      <InputLabel id="district-select-label">
+                        Chọn tỉnh thành
+                      </InputLabel>
+                      <Select
+                        className="form-select form-select-sm mb-3"
+                        id="city"
+                        aria-label=".form-select-sm"
+                        onChange={handleCityChange}
+                        value={selectedCity.Id}
+                        labelId="city-select-label"
+                        label="Chọn tỉnh thành"
+                      >
+                        <MenuItem value="" disabled>
+                          Chọn tỉnh thành
+                        </MenuItem>
+                        {cities.map((city) => (
+                          <MenuItem value={city.Id} key={city.Id}>
+                            {city.Name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Typography>
+                  <Typography gutterBottom>
+                    <FormControl
+                      sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                      size="small"
+                    >
+                      <InputLabel id="district-select-label">
+                        Chọn quận huyện
+                      </InputLabel>
+                      <Select
+                        className="form-select form-select-sm mb-3"
+                        id="district"
+                        aria-label=".form-select-sm"
+                        onChange={handleDistrictChange}
+                        value={selectedDistrict?.Id}
+                        labelId="district-select-label"
+                        label="Chọn quận huyện"
+                      >
+                        <MenuItem value="" disabled>
+                          Chọn quận huyện
+                        </MenuItem>
+                        {districts.map((district) => (
+                          <MenuItem value={district.Id} key={district.Id}>
+                            {district.Name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Typography>
+                  <Typography gutterBottom>
+                    <FormControl
+                      sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                      size="small"
+                    >
+                      <InputLabel id="ward-select-label">
+                        Chọn phường xã
+                      </InputLabel>
+                      <Select
+                        className="form-select form-select-sm"
+                        aria-label=".form-select-sm"
+                        onChange={handleWardChange}
+                        value={selectedWard?.Id}
+                        labelId="ward-select-label"
+                        label="Chọn phường xã"
+                      >
+                        <MenuItem value="" disabled>
+                          Chọn phường xã
+                        </MenuItem>
+                        {wards.map((ward) => (
+                          <MenuItem value={ward.Id} key={ward.Id}>
+                            {ward.Name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Typography>
+                  <Typography>
+                    <Box className="customBox" noValidate autoComplete="off">
+                      <TextField
+                        fullWidth
+                        id="specific-address"
+                        label="Địa chỉ cụ thể"
+                        variant="outlined"
+                        value={specificAddress}
+                        onChange={handleSpecificAddressChange}
+                      />
+                    </Box>
+                  </Typography>
+                </DialogContent>
+                <DialogActions className="d-flex justify-content-center">
+                  <Button autoFocus onClick={handleSubmit}>
+                    Save changes
+                  </Button>
+                </DialogActions>
+              </BootstrapDialog>
+              {/* <div>
                 <div className="text-left-btn text-left-btn-right"><CategoryOutlinedIcon className="icon-product-form" /> Danh mục:</div>
                 <FormControl
                   sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
@@ -477,6 +602,89 @@ const ProductArticle = () => {
                     )}
                   </Select>
                 </FormControl>
+              </div> */}
+              <div>
+                <div className="text-left-btn text-left-btn-right"><CategoryOutlinedIcon className="icon-product-form" />Danh mục tin đăng:</div>
+                <Box
+                  onClick={handleClickOpenCategory}
+                  sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                >
+                  <TextField
+                    fullWidth
+                    size="small"
+                    id="address"
+                    className="customTextField"
+                    value={categoryProduct}
+                  />
+                </Box>
+                <BootstrapDialog
+                  onClose={handleCloseCategory}
+                  aria-labelledby="customized-dialog-title"
+                  open={openCategory}
+                >
+                  <BootstrapDialogTitle
+                    id="customized-dialog-title"
+                    onClose={handleCloseCategory}
+                  >
+                    Đăng tin
+                  </BootstrapDialogTitle>
+                  <DialogContent dividers>
+                    <InputLabel id="district-select-label">
+                      Danh mục
+                    </InputLabel>
+                    <Typography gutterBottom>
+                      <FormControl
+                        sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                        size="small"
+                      >
+                        <Select
+                          id="danhmuc1"
+                          value={selectedCategoryParent?.id}
+                          onChange={handleCategoryParentChange}
+                          displayEmpty
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          <MenuItem value="">
+                            <em></em>
+                          </MenuItem>
+                          {categoryParents.map((category) => (
+                            <MenuItem value={category.id} key={category.id}>
+                              {category.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      <InputLabel id="district-select-label">
+                        Loại sản phẩm
+                      </InputLabel>
+                      <FormControl
+                        sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
+                        size="small"
+                      >
+                        <Select
+                          value={selectedCategoryChild?.id}
+                          onChange={handleCategoryChildChange}
+                          displayEmpty
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          <MenuItem value="">
+                            <em></em>
+                          </MenuItem>
+                          {categoryChilds.map((category) => (
+                            <MenuItem value={category.id} key={category.id}>
+                              {category.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Typography>
+                  </DialogContent>
+                  <DialogActions className="d-flex justify-content-center">
+                    <Button autoFocus onClick={handleSubmitCategory}>
+                      Save changes
+                    </Button>
+                  </DialogActions>
+                </BootstrapDialog>
               </div>
               <div>
                 <div className="text-left-btn text-left-btn-right"><MonetizationOnOutlinedIcon className="icon-product-form" /> Giá bán:</div>
@@ -634,6 +842,7 @@ const ProductArticle = () => {
                   </DialogActions>
                 </BootstrapDialog>
               </div>
+
             </div>
           </div>
         </div>
