@@ -3,7 +3,7 @@ import { UserAuth } from "../../context/AuthContext";
 import "./styles.scss";
 import { useState, useRef, useEffect } from "react";
 import titleAddProductIcon from "../../assets/images/title-add-product.png";
-import { BsCamera } from "react-icons/bs";
+import { BiArrowBack } from "react-icons/bi";
 import saveProductIcon from "../../assets/images/save-product.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
@@ -34,6 +34,12 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+
 const Item = styled(Sheet)(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === 'dark' ? theme.palette.background.level1 : '#fff',
@@ -99,6 +105,7 @@ const ProductArticle = () => {
   const [dataProductBack, setDataProductBack] = useState([]);
   const token = JSON.parse(localStorage.getItem("access_token"));
   const [categoryProduct, setCategoryProduct] = useState([]);
+  const [showCategoryChildren, setShowCategoryChildren] = useState(false);
 
 
 
@@ -126,8 +133,7 @@ const ProductArticle = () => {
   const [categoryChilds, setCategoryChilds] = useState([]);
   const [selectedCategoryParent, setSelectedCategoryParent] = useState("");
   const [selectedCategoryChild, setSelectedCategoryChild] = useState("");
-
-
+  const [showBackButton, setShowBackButton] = useState(false);
 
   const getCategory = async () => {
     try {
@@ -169,12 +175,29 @@ const ProductArticle = () => {
     setSelectedWard("");
   };
   const handleCategoryParentChange = (event) => {
-    const categoryChildId = event.target.value;
-    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === categoryChildId);
+    const categoryParentId = event.target.value;
+    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === categoryParentId);
     setCategoryChilds(selectedCategoryParent.children);
     setSelectedCategoryParent(selectedCategoryParent?.name);
     setSelectedCategoryChild("");
   };
+
+  const handleCategoryParent = (category) => {
+    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === category);
+    setCategoryChilds(selectedCategoryParent.children);
+    setShowCategoryChildren(true);
+    setShowBackButton(true);
+    setSelectedCategoryParent(selectedCategoryParent.name);
+  }
+  const handleCategoryChild = (category) => {
+    const selectedCategoryChild = categoryChilds.find((categoryChilds) => categoryChilds.id === category);
+    setSelectedCategoryChild(selectedCategoryChild?.name);
+    setCategoryForm(selectedCategoryChild?.id)
+    const newResult = `${selectedCategoryParent} - ${selectedCategoryChild.name}`;
+    setCategoryProduct(newResult);
+    handleCloseCategory();
+  }
+
   const handleCategoryChildChange = (event) => {
     const categoryChildId = event.target.value;
     const selectedCategoryChild = categoryChilds.find((categoryChilds) => categoryChilds.id === categoryChildId);
@@ -215,7 +238,10 @@ const ProductArticle = () => {
     setCategoryProduct(newResult);
     handleCloseCategory();
   };
-
+  const handleGoBack = () => {
+    setShowCategoryChildren(false);
+    setShowBackButton(false);
+  };
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
   const handleFileChange = (files) => {
@@ -245,12 +271,14 @@ const ProductArticle = () => {
       return;
     }
 
+
     const uploadImages = async () => {
       console.log(selectedFiles)
       const formData = new FormData();
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append("files", selectedFiles[i]);
       }
+
 
       try {
         const response = await axios.post(
@@ -618,72 +646,65 @@ const ProductArticle = () => {
                   />
                 </Box>
                 <BootstrapDialog
+                  fullWidth
+                  maxWidth="xs"
                   onClose={handleCloseCategory}
-                  aria-labelledby="customized-dialog-title"
+                  aria-labelledby="customized-dialog-title-category"
                   open={openCategory}
                 >
                   <BootstrapDialogTitle
-                    id="customized-dialog-title"
+                    id="customized-dialog-title-category"
                     onClose={handleCloseCategory}
+                    style={{ backgroundColor: "#EEEEEE" }}
+
                   >
-                    Đăng tin
+                    <div className="dialog-title">
+                      <div className="back-icon" onClick={handleGoBack}>
+                        {showBackButton && <BiArrowBack />}
+                      </div>
+                      <div className="title-text">Đăng tin</div>
+                    </div>
                   </BootstrapDialogTitle>
+
                   <DialogContent dividers>
-                    <InputLabel id="district-select-label">
-                      Danh mục
-                    </InputLabel>
+
                     <Typography gutterBottom>
-                      <FormControl
-                        sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
-                        size="small"
-                      >
-                        <Select
-                          id="danhmuc1"
-                          value={selectedCategoryParent?.id}
-                          onChange={handleCategoryParentChange}
-                          displayEmpty
-                          inputProps={{ "aria-label": "Without label" }}
-                        >
-                          <MenuItem value="">
-                            <em></em>
-                          </MenuItem>
-                          {categoryParents.map((category) => (
-                            <MenuItem value={category.id} key={category.id}>
-                              {category.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                      <InputLabel id="district-select-label">
-                        Loại sản phẩm
-                      </InputLabel>
-                      <FormControl
-                        sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
-                        size="small"
-                      >
-                        <Select
-                          value={selectedCategoryChild?.id}
-                          onChange={handleCategoryChildChange}
-                          displayEmpty
-                          inputProps={{ "aria-label": "Without label" }}
-                        >
-                          <MenuItem value="">
-                            <em></em>
-                          </MenuItem>
-                          {categoryChilds.map((category) => (
-                            <MenuItem value={category.id} key={category.id}>
-                              {category.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
+                      {!showCategoryChildren ? (
+                        <div>
+                          <InputLabel id="district-select-label">
+                            Danh mục
+                          </InputLabel>
+                          {/* {categoryParents.map((category) => (
+                              <li >
+                                <Button key={category.id} color="inherit" onClick={() => handleCategoryParent(category.id)}>{category.name}</Button>
+                              </li>
+                            ))} */}
+                          <List>
+                            {categoryParents.map((category) => (
+                              <ListItem key={category.id}>
+                                <ListItemButton fullWidth onClick={() => handleCategoryParent(category.id)}>
+                                  {category.name}
+                                </ListItemButton>
+                              </ListItem>
+                            ))}
+                          </List>
+                        </div>
+                      ) : (
+                        <div>
+                          <InputLabel id="district-select-label">
+                            Loại sản phẩm
+                          </InputLabel>
+                          <List>
+                            {categoryChilds.map((category) => (
+                              <ListItem key={category.id}>
+                                <ListItemButton color="inherit" onClick={() => handleCategoryChild(category.id)}>{category.name}</ListItemButton>
+                              </ListItem>
+                            ))}
+                          </List>
+                        </div>
+                      )}
                     </Typography>
                   </DialogContent>
-                  <DialogActions className="d-flex justify-content-center">
-                    <Button autoFocus onClick={handleSubmitCategory}>
-                      Save changes
-                    </Button>
-                  </DialogActions>
                 </BootstrapDialog>
               </div>
               <div>

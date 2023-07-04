@@ -380,8 +380,8 @@ button.save-product-btn {
 }
 #customized-dialog-title {
   display: flex;
-  justify-content: center; /* Căn giữa dọc */
-  align-items: center; /* Căn giữa dọc */
+  justify-content: center;
+  align-items: center;
 }
 .d-flex.justify-content-center {
   justify-content: center; /* Căn giữa ngang */
@@ -430,4 +430,17 @@ button.save-product-btn {
 }
 .icon-product-form{
   margin-bottom: -3px;
+}
+
+.dialog-title {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-icon {
+  margin-right: 10px;
+}
+.title-text {
+  text-align: center;
+  font-weight: bold;
 }
