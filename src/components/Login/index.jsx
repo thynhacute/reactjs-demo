@@ -44,37 +44,71 @@ function LoginFeature() {
         const errorCode = error.code;
         alert(errorCode);
       });
+
+
   };
+
+
 
   const auth = getAuth();
   const { googleSignIn, user } = UserAuth();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (user != null) {
-  //     navigate("/home");
+  useEffect(() => {
+    const url = window.location.href;
+
+    // Tìm vị trí của 'token=' trong URL
+    const tokenIndex = url.indexOf('token=');
+
+    if (tokenIndex !== -1) {
+      // Lấy đoạn phía sau 'token='
+      // Tạo một đối tượng chứa thuộc tính 'token'
+      const tokenJson = url.slice(tokenIndex + 6); //
+
+      const tokenObject = { token: tokenJson };
+
+      // Chuyển đổi đối tượng thành chuỗi JSON
+      const tokenJsonString = JSON.stringify(tokenObject);
+
+      // Lưu chuỗi JSON vào local storage
+      localStorage.setItem('access_token', tokenJsonString);
+    }
+  }, []);
+  const handleGoogleSignIn = () => {
+    window.location.href = 'https://2hand.monoinfinity.net/api/v1.0/auth/google';
+    // handleAccountSelection();
+  };
+
+  // const handleAccountSelection = () => {
+  //   // Lấy đường dẫn URL hiện tại
+  //   // const url = "http://localhost:3000/login?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY2OGM4YzM0LTI4YjMtNGM5OC1hZTNkLTVjOWQyOWY0OWFkMyIsImlhdCI6MTY4ODcwNDY0M30.TJwBrHMhBJpC-pi9nX5LdeDyhAf9GyxgVFVywiKYh54";
+  //   const url = window.location.href;
+
+  //   // Tìm vị trí của 'token=' trong URL
+  //   const tokenIndex = url.indexOf('token=');
+
+  //   if (tokenIndex !== -1) {
+  //     // Lấy đoạn phía sau 'token='
+  //     // Tạo một đối tượng chứa thuộc tính 'token'
+  //     const tokenJson = url.slice(tokenIndex + 6); //
+
+  //     const tokenObject = { token: tokenJson };
+
+  //     // Chuyển đổi đối tượng thành chuỗi JSON
+  //     const tokenJsonString = JSON.stringify(tokenObject);
+
+  //     // Lưu chuỗi JSON vào local storage
+  //     localStorage.setItem('access_token', tokenJsonString);
   //   }
-  // }, [user]);
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     await googleSignIn();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
+
+  //   // Chuyển hướng đến trang web https://uni2hand.vercel.app/
+  //   // window.location.href = 'http://localhost:3000/';
+
+
   // };
 
-  // const signInWithFacebook = () => {
-  //   const provider = new FacebookAuthProvider();
-  //   signInWithPopup(auth, provider)
-  //     .then((re) => {
-  //       console.log(re);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // };
   if (localStorage.getItem("access_token")) {
     // Chuyển hướng đến trang "/login-success"
-    navigate("/login-success");
+    navigate("/");
   }
   return (
     <header className="custom-login">
@@ -102,18 +136,18 @@ function LoginFeature() {
             </div>
           </div>
         </form>
-        {/* <div>
+        <div>
           <img src={orIcon} alt="OrDetail" className="or-detail-icon" />
         </div>
         <nav>
           <div className="detail-login">
             <div className="google-login">
-              <button onClick={handleGoogleSignIn} className="login-google">
+              <button className="login-google" onClick={handleGoogleSignIn}>
                 <img src={googleIcon} alt="Google" className="google-icon" />
                 Google
               </button>
             </div>
-            <div className="facebook-login">
+            {/* <div className="facebook-login">
               <button onClick={signInWithFacebook} className="login-facebook">
                 <img
                   src={facebookIcon}
@@ -122,9 +156,9 @@ function LoginFeature() {
                 />
                 Facebook
               </button>
-            </div>
+            </div> */}
           </div>
-        </nav> */}
+        </nav>
       </div>
     </header>
   );
