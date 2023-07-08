@@ -122,7 +122,7 @@ function ProductList({ productList }) {
       ? filterCategory
       : products
     ).slice(0, startIndex),
-  ].slice(0, 10);
+  ].slice(0, 8);
 
   const [dividedLengthPage, setDividedLengthPage] = useState([]);
 
@@ -537,9 +537,19 @@ function ProductList({ productList }) {
               <div className="app-product">
                 <div className="details-product" key={selectedProduct?.id}>
                   <div className="big-img">
-                    <img src={selectedProduct?.imageUrls[index]} alt="" />
-                    {/* <img  src={selectedProduct?.imageUrl}/> */}
+                    {selectedProduct?.imageUrls[index].endsWith(".mp4") ? (
+                      <video width="100%" height="100%" controls autoPlay loop>
+                        <source
+                          src={selectedProduct?.imageUrls[index]}
+                          type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <img src={selectedProduct?.imageUrls[index]} alt="" />
+                    )}
                   </div>
+
                   <div className="box-product">
                     <div className="row-product">
                       <h2>{selectedProduct?.name}</h2>

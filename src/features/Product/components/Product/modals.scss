@@ -1,0 +1,12 @@
+.thumb {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.thumb img,
+.thumb video {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 5px;
+}
