@@ -14,6 +14,13 @@
       object-fit: cover;
       margin-top: 5px;
     }
+    &>video {
+      border-radius: 0.5rem;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      margin-top: 5px;
+    }
   }
 
   &__name {

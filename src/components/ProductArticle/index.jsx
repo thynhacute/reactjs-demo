@@ -4,6 +4,7 @@ import "./styles.scss";
 import { useState, useRef, useEffect } from "react";
 import titleAddProductIcon from "../../assets/images/title-add-product.png";
 import { BiArrowBack } from "react-icons/bi";
+
 import saveProductIcon from "../../assets/images/save-product.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
@@ -39,7 +40,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import { Laptop } from "@mui/icons-material";
+import CommentIcon from '@mui/icons-material/Comment';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 const Item = styled(Sheet)(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === 'dark' ? theme.palette.background.level1 : '#fff',
@@ -163,6 +168,11 @@ const ProductArticle = () => {
     fetchCities();
     getCategory();
   }, []);
+  const categoryIcons = {
+    'a5ee9979-bd6e-4172-9da9-2b08f310fffa': CheckroomIcon,
+    '41ad1a31-ef26-423c-99a0-6b2e58641773': SportsEsportsIcon,
+    '1ca6e316-b251-40ba-bbd5-132478ee7250': Laptop,
+  };
 
 
   const handleCityChange = (event) => {
@@ -672,27 +682,40 @@ const ProductArticle = () => {
                       {!showCategoryChildren ? (
                         <div>
                           <InputLabel id="district-select-label">
-                            Danh mục
+                            <div className="category-text">Danh mục</div>
                           </InputLabel>
-                          {/* {categoryParents.map((category) => (
-                              <li >
-                                <Button key={category.id} color="inherit" onClick={() => handleCategoryParent(category.id)}>{category.name}</Button>
-                              </li>
-                            ))} */}
                           <List>
-                            {categoryParents.map((category) => (
-                              <ListItem key={category.id}>
-                                <ListItemButton fullWidth onClick={() => handleCategoryParent(category.id)}>
-                                  {category.name}
-                                </ListItemButton>
-                              </ListItem>
-                            ))}
+                            {categoryParents.map((category) => {
+                              const IconComponent = categoryIcons[category.id];
+                              const categoryName = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+
+                              return (
+                                <ListItem key={category.id}
+                                  secondaryAction={
+                                    <IconButton onClick={() => handleCategoryParent(category.id)} edge="end" aria-label="comments">
+                                      <NavigateNextIcon />
+                                    </IconButton>
+                                  }
+                                  disablePadding
+                                >
+                                  <ListItemButton fullWidth onClick={() => handleCategoryParent(category.id)}>
+                                    {IconComponent && (
+                                      <ListItemIcon>
+                                        <IconComponent fontSize="large" />
+                                      </ListItemIcon>
+
+                                    )}
+                                    {categoryName}
+                                  </ListItemButton>
+                                </ListItem>
+                              );
+                            })}
                           </List>
                         </div>
                       ) : (
                         <div>
                           <InputLabel id="district-select-label">
-                            Loại sản phẩm
+                            <div className="category-text">Loại sản phẩm</div>
                           </InputLabel>
                           <List>
                             {categoryChilds.map((category) => (
