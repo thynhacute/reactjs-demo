@@ -162,9 +162,8 @@ function ArticleList({ articleList }) {
           <button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            className={`${
-              currentPage === index + 1 ? "active" : ""
-            } paging-spct`}
+            className={`${currentPage === index + 1 ? "active" : ""
+              } paging-spct`}
           >
             {index + 1}
           </button>

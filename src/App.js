@@ -33,6 +33,7 @@ import LoginSuccess from "./components/Login/LoginSuccess";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SendTransaction from "./components/SendTransaction";
 import PolicyFeature from "./components/Policy";
+import PushArticle from "./components/PushArticle";
 
 function NavigateToPost() {
   const { postId } = useParams();
@@ -84,6 +85,10 @@ function App() {
             <Route
               path="/my-product"
               element={<PrivateRoute Component={ArticleFeature} />}
+            />
+            <Route
+              path="/push-article/:productId"
+              element={<PrivateRoute Component={PushArticle} />}
             />
             <Route
               path="/add-product"
