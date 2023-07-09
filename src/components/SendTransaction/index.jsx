@@ -34,8 +34,8 @@ const SendTransaction = () => {
           },
         }
       );
-
       console.log("Response:", response.data);
+      window.location.reload();
     } catch (error) {
       if (error.response && error.response.data) {
         console.log("Error:", error.response.data);
@@ -45,7 +45,12 @@ const SendTransaction = () => {
 
   return (
     <header className="custom-request-page">
-      <div className="title-request-page">Request Form</div>
+      <div
+        className="title-request-page"
+        style={{ paddingTop: "20px", marginTop: "0px" }}
+      >
+        Request Form
+      </div>
       <div className="content-request-page">
         Nhập số tiền bạn đã Nạp <br /> Admin sẽ check và nạp tiền cho bạn trong
         thời gian sớm nhất
