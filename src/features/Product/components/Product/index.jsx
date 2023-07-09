@@ -33,7 +33,7 @@ function Product({ product }) {
         </div>
         <p className="product__name">{product.name}</p>
         {/* <p className="product__des">{product.des}</p> */}
-        <p className="product__price">{product.price} VND</p>
+        <p className="product__price">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</p>
       </div>
     </div>
   );

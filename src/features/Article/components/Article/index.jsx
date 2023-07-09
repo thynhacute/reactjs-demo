@@ -58,7 +58,8 @@ function Article({ article }) {
       </div>
       <div className="spct-name-price">
         <p className="article__name">{article.name}</p>
-        <p className="article__price">{article.price} VND</p>
+        <p className="article__price">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(article.price)}
+        </p>
       </div>
     </div>
   );

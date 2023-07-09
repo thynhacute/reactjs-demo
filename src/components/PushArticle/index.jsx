@@ -15,10 +15,27 @@ import { MDBRipple } from 'mdb-react-ui-kit';
 import { Stack } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
+import { useEffect } from 'react';
 
 const PushArticle = () => {
+    const [product, setProduct] = useState('');
     const [selectedCard, setSelectedCard] = useState('');
     const [selectedCoin, setSelectedCoin] = useState('');
+    const { productId } = useParams();
+
+    const accessToken = JSON.parse(localStorage.getItem("access_token"));
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await axios.get(`https://2hand.monoinfinity.net/api/v1.0/product/${productId}`);
+                const productData = response.data;
+                setProduct(productData);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchProduct();
+    }, [productId]);
 
     const handleCardSelection = (card) => {
         setSelectedCard(card);
@@ -29,7 +46,6 @@ const PushArticle = () => {
     const handleGoBack = () => {
         negative('/my-product');
     };
-    const { productId } = useParams();
 
     const handleCardSelect = (cardValue) => {
         setSelectedCard(cardValue);
@@ -48,7 +64,6 @@ const PushArticle = () => {
             priority: parseInt(selectedCard)
         };
         try {
-            const accessToken = JSON.parse(localStorage.getItem("access_token"));
             if (accessToken) {
                 const boostRank = await axios.post(
                     `https://2hand.monoinfinity.net/api/v1.0/product/boost-rank/${productId}`,
@@ -70,17 +85,20 @@ const PushArticle = () => {
             console.error("Error fetching data:", error);
         }
     };
+    const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
+
     // --
     console.log("card:", selectedCard)
     return (
         <div className="container-article">
             <div className="product-card">
                 <div className="image-container">
-                    <img src="https://hanoicomputercdn.com/media/product/68795_chuot_game_khong_day_logitech_g705_rgb_off_white_910_006369_1.jpg" alt="Product" className="product-image" />
+                    <img src={product?.imageUrl} alt="Product" className="product-image" />
                 </div>
                 <div className="details-container">
-                    <h3 className="product-name">Chuột g102</h3>
-                    <p className="product-price">300.000</p>
+                    <h3 className="product-name">{product.name && product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h3>
+                    <p className="product-price">
+                        {formattedPrice}</p>
                 </div>
             </div>
             <div className='push-article'>

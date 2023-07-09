@@ -555,7 +555,7 @@ function ProductList({ productList }) {
                       <h2>{selectedProduct?.name}</h2>
                     </div>
                     <span className="span-price">
-                      {selectedProduct?.price.toLocaleString("vi-VN")} VND
+                      {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(selectedProduct.price)}
                     </span>
                     {/* <Colors colors={selectedProduct?.colors} /> */}
                     <p className="p-cate-name">
