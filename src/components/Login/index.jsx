@@ -44,11 +44,7 @@ function LoginFeature() {
         const errorCode = error.code;
         alert(errorCode);
       });
-
-
   };
-
-
 
   const auth = getAuth();
   const { googleSignIn, user } = UserAuth();
@@ -57,7 +53,7 @@ function LoginFeature() {
     const url = window.location.href;
 
     // Tìm vị trí của 'token=' trong URL
-    const tokenIndex = url.indexOf('token=');
+    const tokenIndex = url.indexOf("token=");
 
     if (tokenIndex !== -1) {
       // Lấy đoạn phía sau 'token='
@@ -70,11 +66,12 @@ function LoginFeature() {
       const tokenJsonString = JSON.stringify(tokenObject);
 
       // Lưu chuỗi JSON vào local storage
-      localStorage.setItem('access_token', tokenJsonString);
+      localStorage.setItem("access_token", tokenJsonString);
     }
   }, []);
   const handleGoogleSignIn = () => {
-    window.location.href = 'https://2hand.monoinfinity.net/api/v1.0/auth/google';
+    window.location.href =
+      "https://2hand.monoinfinity.net/api/v1.0/auth/google";
     // handleAccountSelection();
   };
 
@@ -103,7 +100,6 @@ function LoginFeature() {
   //   // Chuyển hướng đến trang web https://uni2hand.vercel.app/
   //   // window.location.href = 'http://localhost:3000/';
 
-
   // };
 
   if (localStorage.getItem("access_token")) {
@@ -111,7 +107,10 @@ function LoginFeature() {
     navigate("/");
   }
   return (
-    <header className="custom-login">
+    <header
+      className="custom-login"
+      style={{ paddingTop: "20px", marginTop: "0px" }}
+    >
       <div className="hehe">
         <form action="" className="form-login" onSubmit={signIn}>
           <div className="login-mail-pass">

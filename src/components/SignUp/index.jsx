@@ -68,7 +68,10 @@ function SignUpFeature(props) {
 
   return (
     <div>
-      <header className="custom-signup">
+      <header
+        className="custom-signup"
+        style={{ paddingTop: "20px", marginTop: "0px" }}
+      >
         <form className="form-signup" onSubmit={signUp}>
           <div className="signup-mail-pass">
             <div className="signup-app">
