@@ -18,7 +18,7 @@ function MemberTeam(props) {
       <div className="mkt-member-team">
         <div className="wrapper-card">
           <div
-            className="card"
+            className="card-mb"
             style={{ marginLeft: "20px", marginRight: "20px" }}
           >
             <div className="lines"></div>
@@ -43,7 +43,7 @@ function MemberTeam(props) {
                     <span>Sale, Marketing website và fanpage</span>
                   </h3>
                 </div>
-                <div className="actionBtn">
+                <div className="actionBtn" style={{ marginBottom: "20px" }}>
                   <button>
                     <a
                       href="https://www.facebook.com/anhnguyet060797"
@@ -59,7 +59,7 @@ function MemberTeam(props) {
             </div>
           </div>
           <div
-            className="card"
+            className="card-mb"
             style={{ marginLeft: "20px", marginRight: "20px" }}
           >
             <div className="lines"></div>
@@ -68,19 +68,19 @@ function MemberTeam(props) {
             </div>
             <div className="content">
               <div className="details">
-                <h2 style={{ marginBottom: "-10px" }}>
+                <h2 style={{}}>
                   Đoàn Hoà Nhã
                   <br />
                   <span>Marketing</span>
                 </h2>
-                <div className="data" style={{ marginBottom: "10px" }}>
+                <div className="data">
                   <h3>
                     Truyền thông đa phương tiện
                     <br />
                     <span>Sản xuất, Biên tập tại Công ty Điền Quân</span>
                   </h3>
                 </div>
-                <div className="actionBtn">
+                <div className="actionBtn" style={{ marginBottom: "20px" }}>
                   <button>
                     <a
                       href="https://www.facebook.com/profile.php?id=100007973823355"
@@ -96,7 +96,7 @@ function MemberTeam(props) {
             </div>
           </div>
           <div
-            className="card"
+            className="card-mb"
             style={{ marginLeft: "20px", marginRight: "20px" }}
           >
             <div className="lines"></div>
@@ -117,7 +117,7 @@ function MemberTeam(props) {
                     <span>Content Digital (Facebook, Youtube, Tiktok)</span>
                   </h3>
                 </div>
-                <div className="actionBtn">
+                <div className="actionBtn" style={{ marginBottom: "20px" }}>
                   <button>
                     <a
                       href="https://www.facebook.com/hongchauduong1503"
@@ -137,7 +137,7 @@ function MemberTeam(props) {
       <div className="se-member-team">
         <div className="wrapper-card">
           <div
-            className="card"
+            className="card-mb"
             style={{ marginLeft: "10px", marginRight: "10px" }}
           >
             <div className="lines"></div>
@@ -165,7 +165,7 @@ function MemberTeam(props) {
                     </span>
                   </h3>
                 </div>
-                <div className="actionBtn">
+                <div className="actionBtn" style={{ marginBottom: "20px" }}>
                   <button>
                     <a
                       href="https://www.facebook.com/OrieSocuteee/"
@@ -181,7 +181,7 @@ function MemberTeam(props) {
             </div>
           </div>
           <div
-            className="card"
+            className="card-mb"
             style={{ marginLeft: "10px", marginRight: "10px" }}
           >
             <div className="lines"></div>
@@ -202,7 +202,7 @@ function MemberTeam(props) {
                     <span>Thiết kế 2D</span>
                   </h3>
                 </div>
-                <div className="actionBtn">
+                <div className="actionBtn" style={{ marginBottom: "20px" }}>
                   <button>
                     <a
                       href="https://www.facebook.com/solielminn"
@@ -218,7 +218,7 @@ function MemberTeam(props) {
             </div>
           </div>
           <div
-            className="card"
+            className="card-mb"
             style={{ marginLeft: "10px", marginRight: "10px" }}
           >
             <div className="lines"></div>
@@ -243,7 +243,7 @@ function MemberTeam(props) {
                     <span>Backend Dev tại FPT Software</span>
                   </h3>
                 </div>
-                <div className="actionBtn">
+                <div className="actionBtn" style={{ marginBottom: "20px" }}>
                   <button>
                     <a
                       href="https://www.facebook.com/tpt0610"
@@ -259,7 +259,7 @@ function MemberTeam(props) {
             </div>
           </div>
           <div
-            className="card"
+            className="card-mb"
             style={{ marginLeft: "10px", marginRight: "10px" }}
           >
             <div className="lines"></div>
@@ -284,7 +284,7 @@ function MemberTeam(props) {
                     <span>Frontend Dev tại FPT Software</span>
                   </h3>
                 </div>
-                <div className="actionBtn">
+                <div className="actionBtn" style={{ marginBottom: "20px" }}>
                   <button>
                     <a
                       href="https://www.facebook.com/anhnguyet060797"
