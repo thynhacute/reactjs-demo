@@ -15,7 +15,10 @@ function Footer() {
       <div className="footer-li list-container">
         <ul className="horizontal-list">
           <li className="fb-info">
-            <RiFacebookFill className="item-icon-footer" />
+            <RiFacebookFill
+              style={{ marginTop: "-10px" }}
+              className="item-icon-footer"
+            />
             <a
               href="https://www.facebook.com/profile.php?id=100092877995770"
               target="_blank"
@@ -25,7 +28,10 @@ function Footer() {
             </a>
           </li>
           <li>
-            <FaInstagram className="item-icon-footer tiktok-icon" />
+            <FaInstagram
+              style={{ marginTop: "-10px" }}
+              className="item-icon-footer tiktok-icon"
+            />
             <a
               href="https://www.instagram.com/uni2hand_story/"
               target="_blank"
@@ -35,7 +41,10 @@ function Footer() {
             </a>
           </li>
           <li>
-            <IoLogoTiktok className="item-icon-footer tiktok-icon" />
+            <IoLogoTiktok
+              style={{ marginTop: "-10px" }}
+              className="item-icon-footer tiktok-icon"
+            />
             <a
               href="https://www.tiktok.com/@uni2handforu"
               target="_blank"
@@ -45,7 +54,10 @@ function Footer() {
             </a>
           </li>
           <li>
-            <TbMail className="item-icon-footer" />
+            <TbMail
+              style={{ marginTop: "-10px" }}
+              className="item-icon-footer"
+            />
             <a
               href="mailto:uni2hand@gmail.com"
               target="_blank"
