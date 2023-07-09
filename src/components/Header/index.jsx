@@ -95,7 +95,7 @@ function Header() {
                     <p>
                       {userProfile?.name && capitalizeWords(userProfile.name)}
                     </p>
-                    <IoMdArrowDropdown />
+                    <IoMdArrowDropdown className="drop-ic-hd" />
                   </li>
                   <li className={`drop-menu ${isMenuOpen ? "clicked" : ""}`}>
                     {isMenuOpen && (
@@ -154,7 +154,7 @@ function Header() {
                 <HiPencilSquare
                   style={{ marginRight: "5px", marginLeft: "10px" }}
                 />
-                <p>ĐĂNG TIN</p>
+                <p style={{ marginTop: "15px" }}>ĐĂNG TIN</p>
               </div>
             </NavLink>
           </li>
