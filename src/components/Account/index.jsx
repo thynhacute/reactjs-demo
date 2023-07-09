@@ -67,7 +67,10 @@ const Account = () => {
   };
 
   return (
-    <header className="custom-account">
+    <header
+      className="custom-account"
+      style={{ paddingTop: "20px", marginTop: "0px" }}
+    >
       <div>
         <div className="profile-detail">
           <p className="space-account">&nbsp;</p>
