@@ -29,7 +29,7 @@ function WalletFeature() {
                     <img src={momoImg} alt="MomoImage" className="momo-img" />
                   </li>
                   <li>
-                    <p>Momo</p>
+                    <p style={{ paddingTop: "20px" }}>Momo</p>
                   </li>
                 </ul>
               </NavLink>
@@ -49,7 +49,7 @@ function WalletFeature() {
                     />
                   </li>
                   <li>
-                    <p>VNPay</p>
+                    <p style={{ paddingTop: "20px" }}>VNPay</p>
                   </li>
                 </ul>
               </NavLink>
@@ -69,7 +69,7 @@ function WalletFeature() {
                     />
                   </li>
                   <li>
-                    <p>ZaloPay</p>
+                    <p style={{ paddingTop: "20px" }}>ZaloPay</p>
                   </li>
                 </ul>
               </NavLink>
@@ -85,7 +85,7 @@ function WalletFeature() {
                     <img src={bankImg} alt="BankImage" className="bank-img" />
                   </li>
                   <li>
-                    <p>Chuyển khoản</p>
+                    <p style={{ paddingTop: "20px" }}>Chuyển khoản</p>
                   </li>
                 </ul>
               </NavLink>

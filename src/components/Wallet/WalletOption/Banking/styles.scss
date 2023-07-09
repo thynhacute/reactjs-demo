@@ -62,7 +62,7 @@
   .title-banking-page {
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
-    margin-top: 20px;
+    padding-top: 20px;
     font-size: 40px;
     color: #4d5ee8;
   }
@@ -97,6 +97,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 0px;
   }
 }
 .sm-banking-page-dps {
