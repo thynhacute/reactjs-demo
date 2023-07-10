@@ -401,7 +401,11 @@ function ProductList({ productList }) {
             </FormControl>
           </Box>
           {/* <AuthContextProvider selectedCity={selectedCity} /> */}
-          <button className="arrange-fiter" onClick={handleClickOpen}>
+          <button
+            className="arrange-fiter"
+            onClick={handleClickOpen}
+            style={{ marginBottom: "25px", marginTop: "10px" }}
+          >
             <div className="filter-icon">
               <TbZoomMoney />
             </div>
