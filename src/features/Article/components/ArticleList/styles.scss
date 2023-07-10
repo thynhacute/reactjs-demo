@@ -8,18 +8,21 @@
   list-style-type: none;
   padding: 0;
   margin: 0 -20px;
-  display: flex;
-  flex-box: row nowrap;
-  display: flex;
+  // display: flex;
+  // flex-box: row nowrap;
+  // display: flex;
   justify-content: center;
   flex-wrap: wrap;
 
   & > li {
     padding: 0 20px;
   }
+  &_product{
+    display: flex;
+  }
 }
 .article-list {
-  display: flex;
+  // display: flex;
   flex-wrap: wrap;
   margin: 0px 320px 0px 320px;
 }
@@ -47,4 +50,6 @@
   border: 0.5px solid #00042e;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
 }
-
+.pagination{
+  display: inline-block !important;
+}

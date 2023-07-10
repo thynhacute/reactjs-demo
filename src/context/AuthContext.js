@@ -68,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
           // );
           setPriceUser(responsePriceUser?.data);
           const response = await axios.get(
-            "https://2hand.monoinfinity.net/api/v1.0/product/post",
+            "https://2hand.monoinfinity.net/api/v1.0/product/post?pageSize=100",
             {
               headers: {
                 "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export const AuthContextProvider = ({ children }) => {
         } else {
           console.log("Access token not found");
           const response = await axios.get(
-            "https://2hand.monoinfinity.net/api/v1.0/product/post",
+            "https://2hand.monoinfinity.net/api/v1.0/product/post?pageSize=100",
             {
               headers: {
                 "Content-Type": "application/json",

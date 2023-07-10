@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./styles.scss";
 import Product from "../Product";
 import nextImage from "../../../../assets/images/next.png";
 import preImage from "../../../../assets/images/previous.png";
 import { TbZoomMoney } from "react-icons/tb";
-import { ImLocation2 } from "react-icons/im";
 import { UserAuth, AuthContextProvider } from "../../../../context/AuthContext";
 import Colors from "../Product/Colors";
 import DetailsThumb from "../Product/DetailsThumb";
@@ -33,10 +31,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -197,7 +191,7 @@ function ProductList({ productList }) {
   const handleCloseSort = () => {
     setOpenSort(false);
   };
-  const [value, setValue] = React.useState([0, 2000000]);
+  const [value, setValue] = React.useState([0, 20000000]);
 
   const handleChangePrice = (event, newValue) => {
     setValue(newValue);
@@ -240,7 +234,6 @@ function ProductList({ productList }) {
   const handleChangeSort = (event) => {
     setSort(event.target.value);
   };
-  console.log("sort theo", sort);
 
   const sortProducts = (filteredProducts, sort) => {
     switch (sort) {
@@ -276,10 +269,11 @@ function ProductList({ productList }) {
 
     fetchCities();
   }, []);
+
   const handleCityChange = (event) => {
     const cityId = event.target.value;
     const selectedCity = cities.find((city) => city.Id === cityId);
-    setSelectedCity(selectedCity.Name.toLowerCase());
+    setSelectedCity(selectedCity?.Name?.toLowerCase() || "");
   };
 
   const [address, setAddress] = useState("");
@@ -304,7 +298,9 @@ function ProductList({ productList }) {
     setSelectedProduct(null);
     setShowSellerInfo(false);
   };
-
+  const handleChange = (value) => {
+    console.log("Selected value:", value);
+  };
   return (
     <div className="product-list-wrapper">
       <div>
@@ -363,6 +359,7 @@ function ProductList({ productList }) {
               </Button>
             </DialogActions>
           </Dialog> */}
+
           <div style={{ minWidth: 120, marginRight: "10px" }}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
@@ -372,13 +369,11 @@ function ProductList({ productList }) {
                   id="city"
                   aria-label=".form-select-sm"
                   onChange={handleCityChange}
-                  value={selectedCity.Id}
+                  value={selectedCity}
                   labelId="city-select-label"
                   label="Chọn tỉnh thành"
                 >
-                  <MenuItem value="" disabled>
-                    Toàn quốc
-                  </MenuItem>
+                  <MenuItem value="all">Toàn quốc</MenuItem>
                   {cities.map((city) => (
                     <MenuItem value={city.Id} key={city.Id}>
                       {city.Name}
@@ -442,7 +437,7 @@ function ProductList({ productList }) {
                     valueLabelDisplay="auto"
                     getAriaValueText={valuetext}
                     min={0}
-                    max={2000000}
+                    max={20000000}
                     step={20000}
                   />
                 </Box>
@@ -555,7 +550,10 @@ function ProductList({ productList }) {
                       <h2>{selectedProduct?.name}</h2>
                     </div>
                     <span className="span-price">
-                      {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(selectedProduct.price)}
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(selectedProduct.price)}
                     </span>
                     {/* <Colors colors={selectedProduct?.colors} /> */}
                     <p className="p-cate-name">
