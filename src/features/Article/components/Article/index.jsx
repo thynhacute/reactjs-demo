@@ -160,7 +160,9 @@ function Article({ article }) {
                     tab={handleTab}
                     myRef={myRef}
                   />
-                  <button className="cart">Contact seller</button>
+                  <button className="cart" onClick={handleDelete}>
+                    Detele Product
+                  </button>
                 </div>
               </div>
             </div>
