@@ -23,7 +23,7 @@ function Product({ product }) {
       <div>
         <div className="product__thumbnail">
           {isVideo ? (
-            <video width="100%" height="100%" controls autoPlay loop>
+            <video width="100%" height="100%" controls loop>
               <source src={firstElementProduct} type="video/mp4" />
               Your browser does not support the video tag.
             </video>

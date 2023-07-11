@@ -7,7 +7,9 @@ import Box from "@mui/material/Box";
 import DetailsThumb from "../Article/DetailsThumb";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Modal from "@mui/joy/Modal";
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
+import { Link } from "react-router-dom";
+
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -17,6 +19,7 @@ const StyledModal = styled(Modal)({
 Article.propTypes = {
   article: PropTypes.object.isRequired,
 };
+
 
 function Article({ article }) {
   const elementProduct = article?.imageUrl?.split(",");
@@ -77,6 +80,12 @@ function Article({ article }) {
   const handleArticleClick = (article) => {
     setSelectedArticle(article);
   };
+  // const timestamp = 1689328226488; // Giá trị timestamp Unix
+  // const date = new Date(timestamp); // Tạo đối tượng Date từ timestamp
+
+  // console.log(date);
+  const expirationDate = new Date(Number(selectedArticle?.higherRank));
+  console.log("date hết hạn:", expirationDate.toLocaleString())
 
   return (
     // <div className="article">
@@ -137,6 +146,22 @@ function Article({ article }) {
                 }}
               /> */}
             <div className="app-product">
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>
+                  {selectedArticle?.higherRank !== null && selectedArticle?.higherRank !== "0" && (
+                    <div>
+                      Thời gian đẩy bài viết còn tới: {expirationDate.toLocaleString()}
+                    </div>
+                  )}
+                </div>
+                <div className="button-push">
+                  <Link to={`/push-article/${selectedArticle?.id}`}>
+                    <Button variant="contained">
+                      Đẩy bài viết
+                    </Button>
+                  </Link>
+                </div>
+              </div>
               <div className="details-product" key={selectedArticle?.id}>
                 <div className="big-img">
                   <img src={selectedArticle?.imageUrls[index]} alt="" />
@@ -161,7 +186,7 @@ function Article({ article }) {
                     myRef={myRef}
                   />
                   <button className="cart" onClick={handleDelete}>
-                    Detele Product
+                    Delete Product
                   </button>
                 </div>
               </div>

@@ -13,7 +13,7 @@ function DetailsThumb({ images, tab, myRef }) {
               alt=""
               onClick={() => tab(images.indexOf(img))}
               controls
-              autoPlay
+              // autoPlay
               loop
             />
           );

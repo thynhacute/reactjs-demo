@@ -28,7 +28,7 @@ const PushArticle = () => {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`https://2hand.monoinfinity.net/api/v1.0/product/${productId}`);
-                const productData = response.data;
+                const productData = response?.data;
                 setProduct(productData);
             } catch (error) {
                 console.error(error);
@@ -86,14 +86,18 @@ const PushArticle = () => {
         }
     };
     const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
+    const timestamp = 1689328226488; // Giá trị timestamp Unix
+    const date = new Date(timestamp); // Tạo đối tượng Date từ timestamp
 
-    // --
+    console.log(date);
     console.log("card:", selectedCard)
     return (
         <div className="container-article">
             <div className="product-card">
                 <div className="image-container">
-                    <img src={product?.imageUrl} alt="Product" className="product-image" />
+                    {product?.imageUrl && product.imageUrl.length > 0 && (
+                        <img src={product.imageUrls[0]} alt="Product" className="product-image" />
+                    )}
                 </div>
                 <div className="details-container">
                     <h3 className="product-name">{product.name && product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h3>
