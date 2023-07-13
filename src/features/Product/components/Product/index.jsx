@@ -10,6 +10,8 @@ import Colors from "./Colors";
 import DetailsThumb from "./DetailsThumb";
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
+import { BsFire } from "react-icons/bs";
+
 Product.propTypes = {
   product: PropTypes.object.isRequired,
 };
@@ -32,8 +34,15 @@ function Product({ product }) {
           )}
         </div>
         <p className="product__name">{product.name}</p>
-        {/* <p className="product__des">{product.des}</p> */}
-        <p className="product__price">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</p>
+        <p className="product__name">
+          {product.higherRank > 0 ? <BsFire /> : <p> </p>}
+        </p>
+        <p className="product__price">
+          {new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(product.price)}
+        </p>
       </div>
     </div>
   );

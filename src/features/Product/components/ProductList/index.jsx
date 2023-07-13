@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ImFilter } from "react-icons/im";
+import { BsFire } from "react-icons/bs";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -570,6 +571,13 @@ function ProductList({ productList }) {
                       tab={handleTab}
                       myRef={myRef}
                     />
+                    Loại sản phẩm: {selectedProduct.higherRank}
+                    <p
+                      className="product-higher-rank"
+                      style={{ color: "red", fontWeight: "bold" }}
+                    >
+                      {selectedProduct.higherRank > 0 && <BsFire />} Đang hot
+                    </p>
                     <button className="cart" onClick={handleContactSeller}>
                       Contact seller
                     </button>
