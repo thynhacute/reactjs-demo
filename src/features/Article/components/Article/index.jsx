@@ -180,14 +180,20 @@ function Article({ article }) {
                     Loại sản phẩm: {selectedArticle?.category?.name}
                   </p>
                   <p className="p-cate-des">{selectedArticle?.description}</p>
-                  <DetailsThumb
-                    images={selectedArticle?.imageUrls}
-                    tab={handleTab}
-                    myRef={myRef}
-                  />
-                  <button className="cart" onClick={handleDelete}>
-                    Delete Product
-                  </button>
+                  <div className="product-details">
+                    <div className="details-thumb">
+                      <DetailsThumb
+                        images={selectedArticle?.imageUrls}
+                        tab={handleTab}
+                        myRef={myRef}
+                      />
+                    </div>
+                    <div className="contact-seller">
+                      <button className="cart" onClick={handleDelete}>
+                        Delete Product
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
