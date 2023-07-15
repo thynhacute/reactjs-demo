@@ -86,10 +86,7 @@ const PushArticle = () => {
         }
     };
     const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
-    const timestamp = 1689328226488; // Giá trị timestamp Unix
-    const date = new Date(timestamp); // Tạo đối tượng Date từ timestamp
-
-    console.log(date);
+   
     console.log("card:", selectedCard)
     return (
         <div className="container-article">
