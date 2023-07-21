@@ -85,15 +85,14 @@ function Article({ article }) {
 
   // console.log(date);
   const expirationDate = new Date(Number(selectedArticle?.higherRank));
-  console.log("date hết hạn:", expirationDate.toLocaleString())
-
+  const currentTime = Date.now();
   return (
     // <div className="article">
     <React.Fragment>
       <div key={article.id} onClick={() => handleArticleClick(article)}>
         <div className="article__thumbnail">
           <img src={firstElementProduct} alt={article?.name} />
-          <HighlightOffIcon className="delete-icon" onClick={handleDelete} />
+          {/* <HighlightOffIcon className="delete-icon" onClick={handleDelete} /> */}
         </div>
         <div className="spct-name-price">
           <p className="article__name">{article.name}</p>
@@ -148,7 +147,7 @@ function Article({ article }) {
             <div className="app-product">
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
-                  {selectedArticle?.higherRank !== null && selectedArticle?.higherRank !== "0" && (
+                  {selectedArticle?.higherRank !== null && selectedArticle?.higherRank !== "0" && expirationDate >= currentTime && (
                     <div>
                       Thời gian đẩy bài viết còn tới: {expirationDate.toLocaleString()}
                     </div>
@@ -188,11 +187,13 @@ function Article({ article }) {
                         myRef={myRef}
                       />
                     </div>
-                    <div className="contact-seller">
-                      <button className="cart" onClick={handleDelete}>
-                        Delete Product
-                      </button>
-                    </div>
+                    {selectedArticle?.status === 'POST' && (
+                      <div className="contact-seller">
+                        <button className="cart" onClick={handleDelete}>
+                          Đã bán
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
