@@ -8,9 +8,9 @@
   list-style-type: none;
   padding: 0;
   margin: 0 -20px;
-  // display: flex;
+  /* // display: flex;
   // flex-box: row nowrap;
-  // display: flex;
+  // display: flex; */
   justify-content: center;
   flex-wrap: wrap;
 
@@ -22,7 +22,7 @@
   }
 }
 .article-list {
-  // display: flex;
+  /* // display: flex; */
   flex-wrap: wrap;
   margin: 0px 320px 0px 320px;
 }
@@ -52,4 +52,9 @@
 }
 .pagination{
   display: inline-block !important;
+}
+.article-list_product{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Hiển thị 3 card trên mỗi hàng */
+  gap: 1rem;
 }

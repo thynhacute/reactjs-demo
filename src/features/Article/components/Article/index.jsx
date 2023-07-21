@@ -9,6 +9,7 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Modal from "@mui/joy/Modal";
 import { Button, styled } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 
 const StyledModal = styled(Modal)({
@@ -90,19 +91,20 @@ function Article({ article }) {
     // <div className="article">
     <React.Fragment>
       <div key={article.id} onClick={() => handleArticleClick(article)}>
-        <div className="article__thumbnail">
-          <img src={firstElementProduct} alt={article?.name} />
-          {/* <HighlightOffIcon className="delete-icon" onClick={handleDelete} /> */}
-        </div>
-        <div className="spct-name-price">
-          <p className="article__name">{article.name}</p>
-          <p className="article__price">
-            {new Intl.NumberFormat("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            }).format(article.price)}
-          </p>
-        </div>
+
+        <Card style={{ width: '18rem' }}>
+          <Card.Img className="product-image-card " variant="top" src={firstElementProduct} />
+          <Card.Body>
+            <Card.Title className="card-title">{article.name.charAt(0).toUpperCase() + article.name.slice(1)}
+            </Card.Title>
+            <Card.Text class="text-primary">
+              {new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(article.price)}
+            </Card.Text >
+          </Card.Body>
+        </Card>
       </div>
       {selectedArticle && (
         <StyledModal
