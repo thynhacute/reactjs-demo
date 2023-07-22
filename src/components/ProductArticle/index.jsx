@@ -24,33 +24,33 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import Dropzone from "react-dropzone";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
-import { styled } from '@mui/joy/styles';
-import Sheet from '@mui/joy/Sheet';
-import Grid from '@mui/joy/Grid';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import SubtitlesOutlinedIcon from '@mui/icons-material/SubtitlesOutlined';
-import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
-import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import CheckroomIcon from '@mui/icons-material/Checkroom';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import { styled } from "@mui/joy/styles";
+import Sheet from "@mui/joy/Sheet";
+import Grid from "@mui/joy/Grid";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import SubtitlesOutlinedIcon from "@mui/icons-material/SubtitlesOutlined";
+import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import CheckroomIcon from "@mui/icons-material/Checkroom";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { Laptop } from "@mui/icons-material";
-import CommentIcon from '@mui/icons-material/Comment';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import CommentIcon from "@mui/icons-material/Comment";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 const Item = styled(Sheet)(({ theme }) => ({
   backgroundColor:
-    theme.palette.mode === 'dark' ? theme.palette.background.level1 : '#fff',
+    theme.palette.mode === "dark" ? theme.palette.background.level1 : "#fff",
   ...theme.typography.body2,
   // padding: theme.spacing(1),
-  textAlign: 'center',
+  textAlign: "center",
   borderRadius: 4,
   color: theme.vars.palette.text.secondary,
 }));
@@ -112,8 +112,6 @@ const ProductArticle = () => {
   const [categoryProduct, setCategoryProduct] = useState([]);
   const [showCategoryChildren, setShowCategoryChildren] = useState(false);
 
-
-
   //
   const handleClickOpen = () => {
     setOpen(true);
@@ -169,11 +167,10 @@ const ProductArticle = () => {
     getCategory();
   }, []);
   const categoryIcons = {
-    'a5ee9979-bd6e-4172-9da9-2b08f310fffa': CheckroomIcon,
-    '41ad1a31-ef26-423c-99a0-6b2e58641773': SportsEsportsIcon,
-    '1ca6e316-b251-40ba-bbd5-132478ee7250': Laptop,
+    "a5ee9979-bd6e-4172-9da9-2b08f310fffa": CheckroomIcon,
+    "41ad1a31-ef26-423c-99a0-6b2e58641773": SportsEsportsIcon,
+    "1ca6e316-b251-40ba-bbd5-132478ee7250": Laptop,
   };
-
 
   const handleCityChange = (event) => {
     const cityId = event.target.value;
@@ -186,33 +183,41 @@ const ProductArticle = () => {
   };
   const handleCategoryParentChange = (event) => {
     const categoryParentId = event.target.value;
-    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === categoryParentId);
+    const selectedCategoryParent = categoryParents.find(
+      (categoryParent) => categoryParent.id === categoryParentId
+    );
     setCategoryChilds(selectedCategoryParent.children);
     setSelectedCategoryParent(selectedCategoryParent?.name);
     setSelectedCategoryChild("");
   };
 
   const handleCategoryParent = (category) => {
-    const selectedCategoryParent = categoryParents.find((categoryParent) => categoryParent.id === category);
+    const selectedCategoryParent = categoryParents.find(
+      (categoryParent) => categoryParent.id === category
+    );
     setCategoryChilds(selectedCategoryParent.children);
     setShowCategoryChildren(true);
     setShowBackButton(true);
     setSelectedCategoryParent(selectedCategoryParent.name);
-  }
+  };
   const handleCategoryChild = (category) => {
-    const selectedCategoryChild = categoryChilds.find((categoryChilds) => categoryChilds.id === category);
+    const selectedCategoryChild = categoryChilds.find(
+      (categoryChilds) => categoryChilds.id === category
+    );
     setSelectedCategoryChild(selectedCategoryChild?.name);
-    setCategoryForm(selectedCategoryChild?.id)
+    setCategoryForm(selectedCategoryChild?.id);
     const newResult = `${selectedCategoryParent} - ${selectedCategoryChild.name}`;
     setCategoryProduct(newResult);
     handleCloseCategory();
-  }
+  };
 
   const handleCategoryChildChange = (event) => {
     const categoryChildId = event.target.value;
-    const selectedCategoryChild = categoryChilds.find((categoryChilds) => categoryChilds.id === categoryChildId);
+    const selectedCategoryChild = categoryChilds.find(
+      (categoryChilds) => categoryChilds.id === categoryChildId
+    );
     setSelectedCategoryChild(selectedCategoryChild?.name);
-    setCategoryForm(selectedCategoryChild?.id)
+    setCategoryForm(selectedCategoryChild?.id);
   };
   const handleDistrictChange = (event) => {
     const districtId = event.target.value;
@@ -263,7 +268,6 @@ const ProductArticle = () => {
     setShowDeleteButtons(true);
   };
 
-
   const handleDelete = (index) => {
     const updatedFiles = [...selectedFiles];
     updatedFiles.splice(index, 1);
@@ -281,14 +285,12 @@ const ProductArticle = () => {
       return;
     }
 
-
     const uploadImages = async () => {
-      console.log(selectedFiles)
+      console.log(selectedFiles);
       const formData = new FormData();
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append("files", selectedFiles[i]);
       }
-
 
       try {
         const response = await axios.post(
@@ -368,7 +370,10 @@ const ProductArticle = () => {
     "background-color": "#FFFCF2",
   };
   return (
-    <header className="custom-add-product">
+    <header
+      className="custom-add-product"
+      style={{ paddingTop: 100, marginTop: -50 }}
+    >
       <form onSubmit={handleSubmitFormProduct} style={formUntil}>
         <div className="add-product-detail">
           <div className="title-add-product">
@@ -383,7 +388,10 @@ const ProductArticle = () => {
           <div className="container">
             <div className="left">
               <div>
-                <div className="text-left-btn "><SubtitlesOutlinedIcon className="icon-product-form" /> Tiêu đề tin đăng:</div>
+                <div className="text-left-btn ">
+                  <SubtitlesOutlinedIcon className="icon-product-form" /> Tiêu
+                  đề tin đăng:
+                </div>
                 <Box className="customBox">
                   <TextField
                     fullWidth
@@ -396,7 +404,11 @@ const ProductArticle = () => {
                 </Box>
               </div>
               <div className="descriptionContainer">
-                <div className="text-left-btn"> <SummarizeOutlinedIcon className="icon-product-form" /> Mô tả sản phẩm:</div>
+                <div className="text-left-btn">
+                  {" "}
+                  <SummarizeOutlinedIcon className="icon-product-form" /> Mô tả
+                  sản phẩm:
+                </div>
 
                 <textarea
                   className="text-area-btn"
@@ -416,18 +428,21 @@ const ProductArticle = () => {
               <div className="imageContainer">
                 <div className="container-post-img">
                   <div className="container-post-img__text">
-                    <div className="text-left-btn"><ImageOutlinedIcon className="icon-product-form" /> Thêm hình ảnh:</div>
+                    <div className="text-left-btn">
+                      <ImageOutlinedIcon className="icon-product-form" /> Thêm
+                      hình ảnh:
+                    </div>
                     <div className="minorText">Tối thiểu 1 ảnh:</div>
                   </div>
                   <Dropzone onDrop={handleFileChange} accept="image/*">
                     {({ getRootProps, getInputProps }) => (
                       <div {...getRootProps()}>
                         <input {...getInputProps()} />
-                        {selectedFiles.length > 0 && (<AddCircleOutlineIcon />)}
+                        {selectedFiles.length > 0 && <AddCircleOutlineIcon />}
                         {selectedFiles.length === 0 && (
                           <button
                             className="upload-product-ar-btn"
-                          // onClick={handleSubmitImgProduct}
+                            // onClick={handleSubmitImgProduct}
                           >
                             Click here to Submit Image
                           </button>
@@ -441,7 +456,7 @@ const ProductArticle = () => {
                     container
                     // rowSpacing={1}
                     columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                  // sx={{ width: '100%' }}
+                    // sx={{ width: '100%' }}
                   >
                     {selectedFiles.map((file, index) => (
                       <Grid xs={4}>
@@ -451,7 +466,12 @@ const ProductArticle = () => {
                               className="rounded-3 shadow"
                               src={URL.createObjectURL(file)}
                               alt="preview"
-                              style={{ width: 120, height: 100, objectFit: "cover", borderRadius: 8 }}
+                              style={{
+                                width: 120,
+                                height: 100,
+                                objectFit: "cover",
+                                borderRadius: 8,
+                              }}
                             />
                             {showDeleteButtons && (
                               <HighlightOffIcon
@@ -465,8 +485,6 @@ const ProductArticle = () => {
                     ))}
                   </Grid>
                 )}
-
-
               </div>
             </div>
             <div className="right">
@@ -642,7 +660,10 @@ const ProductArticle = () => {
                 </FormControl>
               </div> */}
               <div>
-                <div className="text-left-btn text-left-btn-right"><CategoryOutlinedIcon className="icon-product-form" />Danh mục tin đăng:</div>
+                <div className="text-left-btn text-left-btn-right">
+                  <CategoryOutlinedIcon className="icon-product-form" />
+                  Danh mục tin đăng:
+                </div>
                 <Box
                   onClick={handleClickOpenCategory}
                   sx={{ m: 1, minWidth: 400, backgroundColor: "#F5F5F5" }}
@@ -666,7 +687,6 @@ const ProductArticle = () => {
                     id="customized-dialog-title-category"
                     onClose={handleCloseCategory}
                     style={{ backgroundColor: "#EEEEEE" }}
-
                   >
                     <div className="dialog-title">
                       <div className="back-icon" onClick={handleGoBack}>
@@ -677,7 +697,6 @@ const ProductArticle = () => {
                   </BootstrapDialogTitle>
 
                   <DialogContent dividers>
-
                     <Typography gutterBottom>
                       {!showCategoryChildren ? (
                         <div>
@@ -687,23 +706,36 @@ const ProductArticle = () => {
                           <List>
                             {categoryParents.map((category) => {
                               const IconComponent = categoryIcons[category.id];
-                              const categoryName = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+                              const categoryName =
+                                category.name.charAt(0).toUpperCase() +
+                                category.name.slice(1);
 
                               return (
-                                <ListItem key={category.id}
+                                <ListItem
+                                  key={category.id}
                                   secondaryAction={
-                                    <IconButton onClick={() => handleCategoryParent(category.id)} edge="end" aria-label="comments">
+                                    <IconButton
+                                      onClick={() =>
+                                        handleCategoryParent(category.id)
+                                      }
+                                      edge="end"
+                                      aria-label="comments"
+                                    >
                                       <NavigateNextIcon />
                                     </IconButton>
                                   }
                                   disablePadding
                                 >
-                                  <ListItemButton fullWidth onClick={() => handleCategoryParent(category.id)}>
+                                  <ListItemButton
+                                    fullWidth
+                                    onClick={() =>
+                                      handleCategoryParent(category.id)
+                                    }
+                                  >
                                     {IconComponent && (
                                       <ListItemIcon>
                                         <IconComponent fontSize="large" />
                                       </ListItemIcon>
-
                                     )}
                                     {categoryName}
                                   </ListItemButton>
@@ -720,7 +752,14 @@ const ProductArticle = () => {
                           <List>
                             {categoryChilds.map((category) => (
                               <ListItem key={category.id}>
-                                <ListItemButton color="inherit" onClick={() => handleCategoryChild(category.id)}>{category.name}</ListItemButton>
+                                <ListItemButton
+                                  color="inherit"
+                                  onClick={() =>
+                                    handleCategoryChild(category.id)
+                                  }
+                                >
+                                  {category.name}
+                                </ListItemButton>
                               </ListItem>
                             ))}
                           </List>
@@ -731,7 +770,10 @@ const ProductArticle = () => {
                 </BootstrapDialog>
               </div>
               <div>
-                <div className="text-left-btn text-left-btn-right"><MonetizationOnOutlinedIcon className="icon-product-form" /> Giá bán:</div>
+                <div className="text-left-btn text-left-btn-right">
+                  <MonetizationOnOutlinedIcon className="icon-product-form" />{" "}
+                  Giá bán:
+                </div>
                 <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
                   <TextField
                     fullWidth
@@ -743,7 +785,10 @@ const ProductArticle = () => {
                 </Box>
               </div>
               <div>
-                <div className="text-left-btn text-left-btn-right"><ConfirmationNumberOutlinedIcon className="icon-product-form" /> Số lượng sản phẩm: </div>
+                <div className="text-left-btn text-left-btn-right">
+                  <ConfirmationNumberOutlinedIcon className="icon-product-form" />{" "}
+                  Số lượng sản phẩm:{" "}
+                </div>
                 <Box sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}>
                   <TextField
                     fullWidth
@@ -758,7 +803,9 @@ const ProductArticle = () => {
                 </Box>
               </div>
               <div>
-                <div className="text-left-btn text-left-btn-right"><HomeOutlinedIcon className="icon-product-form" /> Địa chỉ:</div>
+                <div className="text-left-btn text-left-btn-right">
+                  <HomeOutlinedIcon className="icon-product-form" /> Địa chỉ:
+                </div>
                 <Box
                   onClick={handleClickOpen}
                   sx={{ m: 1, minWidth: 300, backgroundColor: "#F5F5F5" }}
@@ -886,7 +933,6 @@ const ProductArticle = () => {
                   </DialogActions>
                 </BootstrapDialog>
               </div>
-
             </div>
           </div>
         </div>
