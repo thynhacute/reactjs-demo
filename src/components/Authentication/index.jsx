@@ -17,25 +17,27 @@ function Authentication() {
     }
   };
   return (
-    <header className="custom-authen">
+    <header>
       {userProfile?.name ? (
         <p></p>
       ) : (
-        <nav>
-          <p></p>
-          <ul className="menu-authen">
-            <li className="menu-signup">
-              <Link to="/signup" className="authen-item">
-                Đăng ký
-              </Link>
-            </li>
-            <li className="menu-login">
-              <Link to="/login" className="authen-item">
-                Đăng nhập
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        <div className="custom-authen">
+          <nav>
+            <p></p>
+            <ul className="menu-authen">
+              <li className="menu-signup">
+                <Link to="/signup" className="authen-item">
+                  Đăng ký
+                </Link>
+              </li>
+              <li className="menu-login">
+                <Link to="/login" className="authen-item">
+                  Đăng nhập
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
       )}
     </header>
   );
