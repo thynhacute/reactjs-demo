@@ -17,57 +17,32 @@ import dkContentImage from "../../../assets/images/lotay-dk.png";
 import dieukhoanIcon from "../../../assets/images/dieukhoan-icon.png";
 import { BsLaptop } from "react-icons/bs";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
+import { BsFire } from "react-icons/bs";
 
 HomeDetail.propTypes = {};
 
 function HomeDetail(props) {
-  const hotProductList = [
-    {
-      id: 1,
-      name: "Hoang",
-      thumbnailUrl:
-        "https://haycafe.vn/wp-content/uploads/2022/02/Hinh-meo-cute.jpg",
-    },
-    {
-      id: 2,
-      name: "Nha",
-      thumbnailUrl:
-        "https://c3kienthuyhp.edu.vn/wp-content/uploads/2023/01/1672719948_357_Anh-Meo-Cute-De-Thuong-Dang-Yeu-Den-Ngan-Ngo.jpg",
-    },
-    {
-      id: 3,
-      name: "Thy",
-      thumbnailUrl:
-        "https://img.meta.com.vn/Data/image/2021/09/22/anh-meo-cute-de-thuong-dang-yeu-41.jpg",
-    },
-    {
-      id: 4,
-      name: "Hana",
-      thumbnailUrl:
-        "https://chungkhoantaichinh.vn/wp-content/uploads/2022/12/avatar-meo-cute-de-thuong-05.jpg",
-    },
-    {
-      id: 5,
-      name: "Anya",
-      thumbnailUrl:
-        "https://news.meeycdn.net/uploads/images/2023/01/13/avatar-cute-meo-21-1673584297.jpg",
-    },
-    {
-      id: 6,
-      name: "Cheese",
-      thumbnailUrl:
-        "https://antimatter.vn/wp-content/uploads/2022/11/hinh-nen-meo-cute-de-thuong-nhat.jpeg",
-    },
-  ];
-
+  const [hotProductList, setHotProductList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentPreviousIndex, setCurrentPreviousIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://2hand.monoinfinity.net/api/v1.0/product/post?pageSize=1000"
+        );
+        const data = response.data.data;
+        setHotProductList(data);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % hotProductList.length);
-    setCurrentPreviousIndex(
-      (prevIndex) => (prevIndex + 1) % hotProductList.length
-    );
   };
 
   const handlePrevious = () => {
@@ -75,23 +50,33 @@ function HomeDetail(props) {
       (prevIndex) =>
         (prevIndex - 1 + hotProductList.length) % hotProductList.length
     );
-    setCurrentPreviousIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + hotProductList.length) % hotProductList.length
-    );
   };
 
+  const firstProduct = hotProductList[0];
+  const firstElementProduct = firstProduct?.imageUrl;
+  // const isVideo = firstElementProduct.endsWith(".mp4");
+  if (!hotProductList || hotProductList.length === 0) {
+    return <div>Đang tải...</div>;
+  }
   const getDisplayedHotProducts = () => {
-    const previousIndex =
-      (currentPreviousIndex - 1 + hotProductList.length) %
-      hotProductList.length;
+    const displayedHotProducts = [];
+    if (hotProductList) {
+      for (let i = 0; i < 3; i++) {
+        const index = (currentIndex + i) % hotProductList.length;
+        const product = hotProductList[index];
+        const elementProduct = product?.imageUrl?.split(",");
+        const firstElementProduct = elementProduct ? elementProduct[0] : null;
+        const isVideo =
+          typeof firstElementProduct === "string" &&
+          firstElementProduct?.endsWith(".mp4");
 
-    const displayedHotProducts = [
-      hotProductList[previousIndex],
-      hotProductList[currentIndex],
-      hotProductList[(currentIndex + 1) % hotProductList.length],
-    ];
-
+        displayedHotProducts.push({
+          ...product,
+          isVideo,
+          imageUrl: firstElementProduct,
+        });
+      }
+    }
     return displayedHotProducts;
   };
 
@@ -151,7 +136,105 @@ function HomeDetail(props) {
           </div>
         </div>
       </div>
-      <div className="bd-water">
+      <div style={{ backgroundColor: "#FFFCF2", paddingBottom: 50 }}>
+        <p className="caring-product" style={{ marginTop: 200 }}>
+          CÁC SẢN PHẨM ĐANG HOT
+        </p>
+        <div
+          className="hot-products-container"
+          style={{
+            justifyContent: "center",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          <button onClick={handlePrevious} className="btn-pre">
+            <img src={preImage} alt="Previous" className="pre-button" />
+          </button>
+          {getDisplayedHotProducts().map((product) => {
+            const firstImageUrl = Array.isArray(product.imageUrl)
+              ? product.imageUrl[0]
+              : product.imageUrl;
+            const isVideo = firstImageUrl?.endsWith(".mp4");
+            return (
+              <div
+                key={product.id}
+                style={{
+                  margin: "5px",
+                  textAlign: "center",
+                }}
+              >
+                {isVideo ? (
+                  <video
+                    width="300px"
+                    height="300px"
+                    style={{
+                      boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.5)",
+                    }}
+                    controls
+                    loop
+                  >
+                    <source src={firstImageUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img
+                    src={firstImageUrl}
+                    alt={product.name}
+                    style={{
+                      width: "300px",
+                      height: "300px",
+                      objectFit: "cover",
+                      borderRadius: 20,
+                      boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.5)",
+                    }}
+                  />
+                )}
+                <p
+                  className="product_name"
+                  style={{
+                    fontSize: 18,
+                    color: "#6600FF",
+                    marginTop: 10,
+                    marginBottom: 0,
+                    maxWidth: "200px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    fontWeight: "bold",
+                    marginLeft: 40,
+                  }}
+                >
+                  {product.name.toUpperCase() > 35
+                    ? product.name.slice(0, 35) + "..."
+                    : product.name.toUpperCase()}
+                </p>
+                <p
+                  style={{
+                    color: "red",
+                    fontSize: 20,
+                    position: "absolute",
+                    marginTop: -330,
+                    marginLeft: 10,
+                  }}
+                  className="product-rank"
+                >
+                  {product.higherRank > 0 ? (
+                    <BsFire style={{ fontSize: "1.7em" }} />
+                  ) : (
+                    <p></p>
+                  )}
+                </p>
+              </div>
+            );
+          })}
+          <button onClick={handleNext} className="btn-next">
+            <img src={nextImage} alt="Next" className="next-button" />
+          </button>
+        </div>
+      </div>
+
+      <div className="bd-water" style={{ paddingTop: 100 }}>
         <div className="liquid-wt">
           <h2>Uni2Hand</h2>
           <h2>Uni2Hand</h2>
@@ -195,20 +278,6 @@ function HomeDetail(props) {
           </li>
         </ul>
       </div>
-
-      {/* <p className="caring-product">CÓ THỂ BẠN QUAN TÂM</p>
-      <div
-        className="hot-products-container"
-        style={{ justifyContent: "center", display: "flex", flexWrap: "wrap" }}
-      >
-        <button onClick={handlePrevious} className="btn-pre">
-          <img src={preImage} alt="Previous" className="pre-button" />
-        </button>
-        <HotProductList hotProductList={getDisplayedHotProducts()} />
-        <button onClick={handleNext} className="btn-next">
-          <img src={nextImage} alt="Next" className="next-button" />
-        </button>
-      </div> */}
     </div>
   );
 }
