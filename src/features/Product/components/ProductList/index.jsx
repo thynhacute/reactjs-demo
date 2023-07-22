@@ -310,8 +310,9 @@ function ProductList({ productList }) {
     console.log("Selected value:", value);
   };
 
-  // ... (mã code hiện tại)
-
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div className="product-list-wrapper">
       <div>
@@ -495,7 +496,7 @@ function ProductList({ productList }) {
               >
                 <div className="btn-item-drop">
                   <button onClick={() => handleButtonClick(buttonName?.id)}>
-                    {buttonName?.name}
+                    {capitalizeFirstLetter(buttonName?.name)}
                   </button>
                 </div>
               </li>
