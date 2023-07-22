@@ -99,13 +99,10 @@ function ProductList({ productList }) {
     const nextIndex = (startIndex + 1) % products.length;
     setStartIndex(nextIndex);
   };
-
   const handlePreviousClick = () => {
-    const previousIndex =
-      (startIndex - 1 + [products].length) % products.length;
+    const previousIndex = (startIndex - 1) % products.length;
     setStartIndex(previousIndex);
   };
-
   const [filterCategoryId, setFilterCategoryId] = useState(""); // Thêm state filterCategoryId để lưu ID của bộ lọc
 
   const visibleProducts = [
@@ -152,8 +149,8 @@ function ProductList({ productList }) {
   };
 
   const handleButtonAll = () => {
-    setFilterCategoryId("all"); // Đặt ID của bộ lọc thành "all" để chỉ định hiển thị tất cả sản phẩm
-    setFilterCategory([]); // Đặt filterCategory thành mảng rỗng để hiển thị tất cả sản phẩm
+    setFilterCategoryId("all");
+    setFilterCategory([]);
   };
 
   const handleDragEnd = (result) => {
@@ -360,7 +357,16 @@ function ProductList({ productList }) {
               </Button>
             </DialogActions>
           </Dialog> */}
-
+          <button
+            style={{ marginTop: 20 }}
+            className="arrange-all-fiter"
+            onClick={handleButtonAll}
+          >
+            <div className="filter-icon">
+              <ImFilter />
+            </div>
+            Tất cả loại sản phẩm
+          </button>
           <div style={{ minWidth: 120, marginRight: "10px" }}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
@@ -405,7 +411,11 @@ function ProductList({ productList }) {
           <button
             className="arrange-fiter"
             onClick={handleClickOpen}
-            style={{ marginBottom: "25px", marginTop: "10px" }}
+            style={{
+              marginBottom: "25px",
+              marginTop: "10px",
+              marginLeft: "600px",
+            }}
           >
             <div className="filter-icon">
               <TbZoomMoney />
@@ -459,17 +469,10 @@ function ProductList({ productList }) {
           </Dialog>
         </div>
       </div>
-      <div className="sidebar">
+
+      <div style={{ marginTop: 20 }} className="sidebar">
         <div className="button-list-wrapper">
           <ul className="button-list">
-            <li>
-              <button className="arrange-all-fiter" onClick={handleButtonAll}>
-                <div className="filter-icon">
-                  <ImFilter />
-                </div>
-                Tất cả
-              </button>
-            </li>
             {category.map((buttonName) => (
               <li key={buttonName} className="category-product-item">
                 <div className="btn-item-drop">
