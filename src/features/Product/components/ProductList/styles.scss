@@ -301,6 +301,9 @@
     border: none;
     margin-left: -30px;
   }
+  .category-product-item.selected {
+    background-color: #4d5ee8;
+  }
   .product-list {
     flex-grow: 1;
     display: flex;

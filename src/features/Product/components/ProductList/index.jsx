@@ -144,9 +144,10 @@ function ProductList({ productList }) {
       setDividedLengthPage([]);
     }
   }, [dividedLength]);
-
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const handleButtonClick = (id) => {
-    setFilterCategoryId(id); // Lưu ID của bộ lọc vào state filterCategoryId
+    setFilterCategoryId(id);
+    setSelectedCategoryId(id);
     if (id === "") {
       setFilterCategory([]);
     } else {
@@ -308,6 +309,9 @@ function ProductList({ productList }) {
   const handleChange = (value) => {
     console.log("Selected value:", value);
   };
+
+  // ... (mã code hiện tại)
+
   return (
     <div className="product-list-wrapper">
       <div>
@@ -483,7 +487,12 @@ function ProductList({ productList }) {
         <div className="button-list-wrapper">
           <ul className="button-list">
             {category.map((buttonName) => (
-              <li key={buttonName} className="category-product-item">
+              <li
+                key={buttonName}
+                className={`category-product-item ${
+                  selectedCategoryId === buttonName.id ? "selected" : ""
+                }`}
+              >
                 <div className="btn-item-drop">
                   <button onClick={() => handleButtonClick(buttonName?.id)}>
                     {buttonName?.name}
