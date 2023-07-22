@@ -33,9 +33,15 @@ function Product({ product }) {
             <img src={firstElementProduct} alt={product?.name} />
           )}
         </div>
-        <p className="product__name">{product.name}</p>
-        <p className="product__name">
-          {product.higherRank > 0 ? <BsFire /> : <p> </p>}
+        <p className="product__name" style={{ fontSize: 15, color: "black" }}>
+          {product.name.toUpperCase()}
+        </p>
+        <p className="product__rank">
+          {product.higherRank > 0 ? (
+            <BsFire style={{ fontSize: "1.7em" }} />
+          ) : (
+            <p></p>
+          )}
         </p>
         <p className="product__price">
           {new Intl.NumberFormat("vi-VN", {
