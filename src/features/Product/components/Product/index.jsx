@@ -19,7 +19,9 @@ function Product({ product }) {
   const elementProduct = product?.imageUrl?.split(",");
   const firstElementProduct = elementProduct[0];
   const isVideo = firstElementProduct.endsWith(".mp4");
-
+  function truncateText(text, maxLength) {
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  }
   return (
     <div className="product">
       <div>
@@ -33,8 +35,16 @@ function Product({ product }) {
             <img src={firstElementProduct} alt={product?.name} />
           )}
         </div>
-        <p className="product__name" style={{ fontSize: 15, color: "black" }}>
-          {product.name.toUpperCase()}
+        <p
+          className="product__name"
+          style={{
+            fontSize: 15,
+            color: "black",
+            marginLeft: 5,
+            marginRight: 5,
+          }}
+        >
+          {truncateText(product.name.toUpperCase(), 33)}
         </p>
         <p className="product__rank">
           {product.higherRank > 0 ? (
