@@ -503,7 +503,7 @@
     right: 50px;
     bottom: -10px;
     height: 1px;
-    background-color: black;
+    background-color: #fffcf2;
     width: calc(100% - 270px);
     margin: 0 auto;
   }
@@ -512,6 +512,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -16px;
   }
 
   .list-menu-navbar {
