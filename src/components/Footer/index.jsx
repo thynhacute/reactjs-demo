@@ -4,6 +4,7 @@ import { RiFacebookFill } from "react-icons/ri";
 import { IoLogoTiktok } from "react-icons/io5";
 import { TbMail } from "react-icons/tb";
 import { FaInstagram } from "react-icons/fa";
+import { BsJournalBookmarkFill } from "react-icons/bs";
 Footer.propTypes = {};
 
 function Footer() {
@@ -14,6 +15,19 @@ function Footer() {
       </div>
       <div className="footer-li list-container">
         <ul className="horizontal-list">
+          <li className="policyy">
+            <BsJournalBookmarkFill
+              style={{ marginTop: "-10px" }}
+              className="item-icon-footer"
+            />
+            <a
+              href="https://uni2hand.vercel.app/policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Policy
+            </a>
+          </li>
           <li className="fb-info">
             <RiFacebookFill
               style={{ marginTop: "-10px" }}
