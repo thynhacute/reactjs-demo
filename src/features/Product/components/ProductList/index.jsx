@@ -624,7 +624,7 @@ function ProductList({ productList }) {
         style={{ position: "absolute", left: "10%", top: "90%" }}
         className="paging-pd-hana"
       >
-        <div className="pagination">
+        <div style={{ marginTop: 50 }} className="pagination">
           <button
             className="btn-previous"
             onClick={handlePreviousClick}
