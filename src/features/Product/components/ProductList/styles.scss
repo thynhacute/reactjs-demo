@@ -286,20 +286,20 @@
     margin-top: -44px;
     transition: opacity 0.1s ease-in-out;
     margin-left: 15px;
-    margin-top: 2px;
+    margin-top: -8px;
   }
   .previous-button {
     width: 80px;
     margin-left: -15px;
     transition: opacity 0.1s ease-in-out;
-    margin-left: -50px;
-    margin-top: 2px;
+    margin-top: -10px;
   }
   .btn-previous {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: none;
+    margin-left: -30px;
   }
   .product-list {
     flex-grow: 1;
@@ -500,4 +500,7 @@
 }
 .seller-info{
   margin-top: 20px;
+}
+.pagination{
+  margin-bottom: 100px;
 }

@@ -632,7 +632,7 @@ function ProductList({ productList }) {
           >
             <img src={preImage} alt="Previous" className="previous-button" />
           </button>
-          <span>
+          <span style={{ marginLeft: 30 }}>
             Page {currentPage} of {lastPage}
           </span>
           <button
