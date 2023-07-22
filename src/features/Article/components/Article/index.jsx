@@ -9,6 +9,7 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Modal from "@mui/joy/Modal";
 import { Button, styled } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 
 const StyledModal = styled(Modal)({
@@ -85,25 +86,25 @@ function Article({ article }) {
 
   // console.log(date);
   const expirationDate = new Date(Number(selectedArticle?.higherRank));
-  console.log("date hết hạn:", expirationDate.toLocaleString())
-
+  const currentTime = Date.now();
   return (
     // <div className="article">
     <React.Fragment>
       <div key={article.id} onClick={() => handleArticleClick(article)}>
-        <div className="article__thumbnail">
-          <img src={firstElementProduct} alt={article?.name} />
-          <HighlightOffIcon className="delete-icon" onClick={handleDelete} />
-        </div>
-        <div className="spct-name-price">
-          <p className="article__name">{article.name}</p>
-          <p className="article__price">
-            {new Intl.NumberFormat("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            }).format(article.price)}
-          </p>
-        </div>
+
+        <Card style={{ width: '18rem' }}>
+          <Card.Img className="product-image-card " variant="top" src={firstElementProduct} />
+          <Card.Body>
+            <Card.Title className="card-title">{article.name.charAt(0).toUpperCase() + article.name.slice(1)}
+            </Card.Title>
+            <Card.Text class="text-primary">
+              {new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(article.price)}
+            </Card.Text >
+          </Card.Body>
+        </Card>
       </div>
       {selectedArticle && (
         <StyledModal
@@ -148,7 +149,7 @@ function Article({ article }) {
             <div className="app-product">
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
-                  {selectedArticle?.higherRank !== null && selectedArticle?.higherRank !== "0" && (
+                  {selectedArticle?.higherRank !== null && selectedArticle?.higherRank !== "0" && expirationDate >= currentTime && (
                     <div>
                       Thời gian đẩy bài viết còn tới: {expirationDate.toLocaleString()}
                     </div>
@@ -180,14 +181,22 @@ function Article({ article }) {
                     Loại sản phẩm: {selectedArticle?.category?.name}
                   </p>
                   <p className="p-cate-des">{selectedArticle?.description}</p>
-                  <DetailsThumb
-                    images={selectedArticle?.imageUrls}
-                    tab={handleTab}
-                    myRef={myRef}
-                  />
-                  <button className="cart" onClick={handleDelete}>
-                    Delete Product
-                  </button>
+                  <div className="product-details">
+                    <div className="details-thumb">
+                      <DetailsThumb
+                        images={selectedArticle?.imageUrls}
+                        tab={handleTab}
+                        myRef={myRef}
+                      />
+                    </div>
+                    {selectedArticle?.status === 'POST' && (
+                      <div className="contact-seller">
+                        <button className="cart" onClick={handleDelete}>
+                          Đã bán
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

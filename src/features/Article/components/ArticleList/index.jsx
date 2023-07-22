@@ -45,7 +45,7 @@ function ArticleList({ articleList }) {
     <div className="article-list">
       <div className="article-list_product">
         {currentArticles.map((article, index) => (
-            <Article article={article} />
+          <Article article={article} />
         ))}
       </div>
       <br />
@@ -63,9 +63,8 @@ function ArticleList({ articleList }) {
           <button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            className={`${
-              currentPage === index + 1 ? "active" : ""
-            } paging-spct`}
+            className={`${currentPage === index + 1 ? "active" : ""
+              } paging-spct`}
           >
             {index + 1}
           </button>

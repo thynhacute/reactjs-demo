@@ -81,17 +81,19 @@ function ArticleFeature(props) {
           <Tab label="Đã bán" value="ACTIVE" className="item-paid" />
         </Tabs>
       </Box>
-      <div>
-        <button className="deposit-btn" type="submit">
-          <NavLink to="/add-product" activeClassName="active-wallet">
-            <img
-              src={addProductIcon}
-              alt="AddProduct"
-              className="add-product-icon"
-            />
-          </NavLink>
-        </button>
-      </div>
+      {!productMe && (
+        <div>
+          <button className="deposit-btn" type="submit">
+            <NavLink to="/add-product" activeClassName="active-wallet">
+              <img
+                src={addProductIcon}
+                alt="AddProduct"
+                className="add-product-icon"
+              />
+            </NavLink>
+          </button>
+        </div>
+      )}
       <ArticleList articleList={productMe} onDelete={handleDelete} />
     </div>
   );
