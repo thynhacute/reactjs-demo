@@ -274,35 +274,32 @@
     font-family: "Montserrat", sans-serif;
   }
   .btn-next-to {
-    position: absolute;
     border-radius: 50%;
     border: none;
     width: 40px;
     height: 40px;
     background-color: #fffcf2;
-    margin-top: 525px;
-    margin-left: -1200px;
   }
   .next-to-button {
     width: 80px;
     margin-left: -20px;
     margin-top: -44px;
     transition: opacity 0.1s ease-in-out;
+    margin-left: 15px;
+    margin-top: 2px;
   }
   .previous-button {
     width: 80px;
     margin-left: -15px;
     transition: opacity 0.1s ease-in-out;
-    margin-top: -10px;
+    margin-left: -50px;
+    margin-top: 2px;
   }
   .btn-previous {
-    position: absolute;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: none;
-    margin-top: 490px;
-    margin-left: -1400px;
   }
   .product-list {
     flex-grow: 1;
@@ -503,17 +500,4 @@
 }
 .seller-info{
   margin-top: 20px;
-}
-
-.details-thumb {
-  margin-bottom: 80px;
-}
-
-.contact-seller {
-  display: block;
-}
-
-.product-details {
-  display: flex;
-  flex-direction: column;
 }

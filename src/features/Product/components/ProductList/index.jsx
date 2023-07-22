@@ -90,31 +90,40 @@ function ProductList({ productList }) {
     "Xinh đẹp",
     "Nghệ thuật",
   ]);
-
+  const [filterCategoryId, setFilterCategoryId] = useState("");
   const { category, products } = UserAuth();
   // console.log("product:", products);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 8;
+  const paginateProducts = (products, currentPage, productsPerPage) => {
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    return products.slice(indexOfFirstProduct, indexOfLastProduct);
+  };
 
   const [filterCategory, setFilterCategory] = useState([]);
+  const visibleProducts = paginateProducts(
+    filterCategoryId !== "" && filterCategoryId !== "all"
+      ? filterCategory
+      : products,
+    currentPage,
+    productsPerPage
+  );
+  const lastPage = Math.ceil(
+    (filterCategoryId !== "" && filterCategoryId !== "all"
+      ? filterCategory
+      : products
+    ).length / productsPerPage
+  );
   const handleNextClick = () => {
-    const nextIndex = (startIndex + 1) % products.length;
-    setStartIndex(nextIndex);
+    setCurrentPage((prevPage) => (prevPage === lastPage ? 1 : prevPage + 1));
   };
-  const handlePreviousClick = () => {
-    const previousIndex = (startIndex - 1) % products.length;
-    setStartIndex(previousIndex);
-  };
-  const [filterCategoryId, setFilterCategoryId] = useState(""); // Thêm state filterCategoryId để lưu ID của bộ lọc
 
-  const visibleProducts = [
-    ...(filterCategoryId !== "" && filterCategoryId !== "all"
-      ? filterCategory
-      : products
-    ).slice(startIndex),
-    ...(filterCategoryId !== "" && filterCategoryId !== "all"
-      ? filterCategory
-      : products
-    ).slice(0, startIndex),
-  ].slice(0, 8);
+  const handlePreviousClick = () => {
+    setCurrentPage((prevPage) => (prevPage === 1 ? lastPage : prevPage - 1));
+  };
+
+  // Thêm state filterCategoryId để lưu ID của bộ lọc
 
   const [dividedLengthPage, setDividedLengthPage] = useState([]);
 
@@ -611,19 +620,26 @@ function ProductList({ productList }) {
           </StyledModal>
         )}
       </div>
-      <div className="custom-next-pre-btn">
-        <div className="button-container">
-          <button className="btn-previous" onClick={handlePreviousClick}>
+      <div
+        style={{ position: "absolute", left: "10%", top: "90%" }}
+        className="paging-pd-hana"
+      >
+        <div className="pagination">
+          <button
+            className="btn-previous"
+            onClick={handlePreviousClick}
+            disabled={currentPage === 1}
+          >
             <img src={preImage} alt="Previous" className="previous-button" />
           </button>
-        </div>
-        {/* <div className="page-btn">
-          {dividedLengthPage?.map((page) => (
-            <button>{page}</button>
-          ))}
-        </div> */}
-        <div className="button-container">
-          <button className="btn-next-to" onClick={handleNextClick}>
+          <span>
+            Page {currentPage} of {lastPage}
+          </span>
+          <button
+            className="btn-next-to"
+            onClick={handleNextClick}
+            disabled={currentPage === lastPage}
+          >
             <img src={nextImage} alt="Next" className="next-to-button" />
           </button>
         </div>
